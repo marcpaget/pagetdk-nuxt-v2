@@ -13,9 +13,11 @@
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.8.1",
     "@nuxt/ui": "^2.19.2",
+    "@nuxtjs/leaflet": "^1.2.4",
     "@nuxtjs/supabase": "^1.4.3",
     "mapbox-gl": "^3.8.0",
     "nuxt": "^3.14.159",
+    "nuxt-api-party": "^2.1.0",
     "nuxt-mapbox": "^1.6.1"
   }
 }
