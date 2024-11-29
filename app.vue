@@ -1,4 +1,5 @@
 <template>
-  <HorizontalNavBar />
+  <!-- <HorizontalNavBar /> -->
+   <ShadcnNavBar />
   <NuxtPage />
 </template>
