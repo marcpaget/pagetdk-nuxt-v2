@@ -1,7 +1,33 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import Aura from '@primevue/themes/aura';
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "nuxt-mapbox", "@nuxt/image", "@nuxtjs/supabase", 'nuxt-api-party', "@nuxtjs/leaflet"],
+  modules: [
+    "@nuxt/ui",
+    "nuxt-mapbox",
+    "@nuxt/image",
+    "@nuxtjs/supabase",
+    'nuxt-api-party',
+    "@nuxtjs/leaflet",
+    "@vueuse/nuxt",
+      '@primevue/nuxt-module',
+  ],
+  primevue: {
+  autoImport: true,
+    options: {
+        ripple: true,
+        inputVariant: 'filled',
+        theme: {
+            preset: Aura,
+            options: {
+                prefix: 'p',
+                darkModeSelector: 'system',
+                cssLayer: false
+            }
+        }
+    }
+},
 mapbox: {
   accessToken: process.env.MAPBOX_API_KEY,
 },
