@@ -1,13 +1,14 @@
 <template>
     <div class="flex flex-col mt-2">
       <div class="card w-96 bg-base-100 shadow-xl justify-center self-center">
-        <span class="text-2xl text-sky-600 text-center m-2">Guess the country</span>
         <section v-if="totalQuestions < 10">
+          <div class="mx-4">
           <progress
-            class="place-content-center progress progress-primary"
+            class="place-content-center progress progress-info"
             :value="totalQuestions"
             :max="10"
           />
+        </div>
           <div class="flex flex-col">
             <div class="basis-1/2 justify-center self-center text-center">
               <span class="text-4xl text-sky-600 justify-center self-center text-center mb-4">Score</span>

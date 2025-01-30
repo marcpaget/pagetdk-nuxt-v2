@@ -11,7 +11,9 @@ export default defineNuxtConfig({
     'nuxt-api-party',
     "@nuxtjs/leaflet",
     "@vueuse/nuxt",
-      '@primevue/nuxt-module',
+    '@primevue/nuxt-module',
+    '@nuxtjs/tailwindcss',
+    'nuxt-umami',
   ],
   primevue: {
   autoImport: true,
@@ -31,12 +33,26 @@ export default defineNuxtConfig({
 mapbox: {
   accessToken: process.env.MAPBOX_API_KEY,
 },
+umami: {
+  id: '59ee0d36-a864-4a50-8f52-bc8bef01b1cd',
+  host: 'https://pagetv2.netlify.app/',
+  autoTrack: true,
+  // proxy: 'cloak',
+  // useDirective: true,
+  // ignoreLocalhost: true,
+  // excludeQueryParams: false,
+  // domains: ['cool-site.app', 'my-space.site'],
+  // customEndpoint: '/my-custom-endpoint',
+  // enabled: false,
+  // logErrors: true,
+  // tag: 'website-variation-123',
+},
 supabase: {
   url: process.env.NUXT_PUBLIC_SUPABASE_URL,
   key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
   redirect: false,
   redirectOptions: {
-    login: '/login',
+    login: '/',
     callback: '/confirm',
     include: undefined,
     exclude: [],
@@ -45,7 +61,7 @@ supabase: {
 },
 image: {
   cloudinary: {
-    baseURL: 'https://res.cloudinary.com/selfhostingninja/image/upload/v1684195448/pagetdk-nuxt',
+    baseURL: 'https://res.cloudinary.com/selfhostingninja/image/upload/v1733716709/NyPagetDkNuxt',
   },
 },
 apiParty: {

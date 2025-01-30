@@ -1,9 +1,4 @@
 <template>
-    
-</template>
-
-<!-- 
-<template>
     <div class="card">
         <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5" :circular="true" containerStyle="max-width: 640px" :showItemNavigators="true" :showItemNavigatorsOnHover="true">
             <template #item="slotProps">
@@ -16,36 +11,7 @@
     </div>
 </template>
 
+
 <script setup>
-import { ref, onMounted } from "vue";
-import { PhotoService } from '@/service/PhotoService';
 
-onMounted(() => {
-    PhotoService.getImages().then((data) => (images.value = data));
-});
-
-cloudinary
-SriLanka
-
-const img = useImage()
-const photos = computed(() => {
-  const photourl = img('https://github.com/nuxt.png', { width: 100 })
-  return { photos: `url('${photourl}')` }
-})
-
-
-
-
-
-const images = ref();
-const responsiveOptions = ref([
-    {
-        breakpoint: '1300px',
-        numVisible: 4
-    },
-    {
-        breakpoint: '575px',
-        numVisible: 1
-    }
-]);
-</script> -->
+</script>
