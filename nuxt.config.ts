@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import Aura from '@primevue/themes/aura';
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -20,14 +19,6 @@ export default defineNuxtConfig({
     options: {
         ripple: true,
         inputVariant: 'filled',
-        theme: {
-            preset: Aura,
-            options: {
-                prefix: 'p',
-                darkModeSelector: 'system',
-                cssLayer: false
-            }
-        }
     }
 },
 mapbox: {

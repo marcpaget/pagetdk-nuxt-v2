@@ -17,12 +17,12 @@
     "@nuxtjs/supabase": "^1.4.6",
     "@nuxtjs/tailwindcss": "^6.13.1",
     "@primevue/nuxt-module": "^4.2.5",
-    "@vueuse/nuxt": "^12.4.0",
+    "@vueuse/nuxt": "^12.5.0",
     "daisyui": "^4.12.23",
-    "mapbox-gl": "^3.9.3",
-    "nuxt": "^3.15.2",
+    "mapbox-gl": "^3.9.4",
+    "nuxt": "^3.15.4",
     "nuxt-api-party": "^2.1.2",
-    "nuxt-mapbox": "^1.6.1",
+    "nuxt-mapbox": "^1.6.2",
     "nuxt-umami": "^3.1.1"
   },
   "dependencies": {

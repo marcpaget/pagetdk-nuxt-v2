@@ -82,7 +82,7 @@
     methods: {
       async fetchCountries() {
         try {
-          const res = await useRestCountriesApiData('v2/all/')
+          const res = await useRestCountriesApiData('v3.1/all/')
           this.countries = res.data
           this.getRandomFlag()
         }
@@ -129,6 +129,7 @@
   
         this.getRandomFlag()
       },
+      // Logic for hint button and provided hint (based on the country's capital and/or region)
     },
   }
   </script>
