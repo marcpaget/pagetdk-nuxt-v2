@@ -1,10 +1,11 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui", "nuxt-mapbox", "@nuxt/image", "@nuxtjs/supabase", 'nuxt-api-party', "@nuxtjs/leaflet"],
+  modules: ["@nuxt/ui", "nuxt-mapbox", "@nuxt/image", "@nuxtjs/supabase", 'nuxt-api-party', "@nuxtjs/leaflet",'@vueuse/nuxt','@primevue/nuxt-module'],
 mapbox: {
   accessToken: process.env.MAPBOX_API_KEY,
 },
+
 supabase: {
   url: process.env.NUXT_PUBLIC_SUPABASE_URL,
   key: process.env.NUXT_PUBLIC_SUPABASE_KEY,

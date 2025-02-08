@@ -15,9 +15,15 @@
     "@nuxt/ui": "^2.21.0",
     "@nuxtjs/leaflet": "^1.2.4",
     "@nuxtjs/supabase": "^1.4.3",
+    "@primevue/nuxt-module": "^4.2.5",
+    "@vueuse/nuxt": "^12.5.0",
     "mapbox-gl": "^3.8.0",
-    "nuxt": "^3.14.159",
+    "nuxt": "^3.15.4",
     "nuxt-api-party": "^2.1.0",
     "nuxt-mapbox": "^1.6.1"
+  },
+  "dependencies": {
+    "@primevue/themes": "^4.2.5",
+    "primevue": "^4.2.5"
   }
 }
