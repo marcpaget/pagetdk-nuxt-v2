@@ -12,20 +12,21 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.9.0",
+    "@nuxt/ui": "^2.21.0",
     "@nuxtjs/leaflet": "^1.2.6",
     "@nuxtjs/supabase": "^1.4.6",
     "@primevue/nuxt-module": "^4.2.5",
     "@vueuse/nuxt": "^12.5.0",
-    "daisyui": "^5.0.0-beta.7",
+    "daisyui": "^4.12.23",
     "mapbox-gl": "^3.9.4",
     "nuxt": "^3.15.4",
     "nuxt-api-party": "^2.1.2",
     "nuxt-mapbox": "^1.6.2",
-    "nuxt-umami": "^3.1.1"
+    "nuxt-umami": "^3.1.1",
+    "usemods-nuxt": "^1.9.2"
   },
   "dependencies": {
     "@primevue/themes": "^4.2.5",
-    "@tailwindcss/vite": "^4.0.4",
     "primeicons": "^7.0.0",
     "primevue": "^4.2.5"
   }

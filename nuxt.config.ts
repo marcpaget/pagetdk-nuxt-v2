@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -12,6 +11,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     '@primevue/nuxt-module',
     'nuxt-umami',
+    '@nuxt/ui'
   ],
   primevue: {
   autoImport: true,
@@ -20,10 +20,6 @@ export default defineNuxtConfig({
         inputVariant: 'filled',
     }
 },
-vite: {
-  plugins: [tailwindcss()],
-},
-css: ["~/assets/app.css"],
 mapbox: {
   accessToken: process.env.MAPBOX_API_KEY,
 },
