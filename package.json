@@ -12,7 +12,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.8.1",
-    "@nuxt/ui": "^2.19.2",
+    "@nuxt/ui": "^2.21.0",
     "@nuxtjs/leaflet": "^1.2.4",
     "@nuxtjs/supabase": "^1.4.3",
     "mapbox-gl": "^3.8.0",
