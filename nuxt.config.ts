@@ -1,9 +1,9 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    "@nuxt/ui",
     "nuxt-mapbox",
     "@nuxt/image",
     "@nuxtjs/supabase",
@@ -11,7 +11,6 @@ export default defineNuxtConfig({
     "@nuxtjs/leaflet",
     "@vueuse/nuxt",
     '@primevue/nuxt-module',
-    '@nuxtjs/tailwindcss',
     'nuxt-umami',
   ],
   primevue: {
@@ -21,6 +20,10 @@ export default defineNuxtConfig({
         inputVariant: 'filled',
     }
 },
+vite: {
+  plugins: [tailwindcss()],
+},
+css: ["~/assets/app.css"],
 mapbox: {
   accessToken: process.env.MAPBOX_API_KEY,
 },

@@ -2,7 +2,7 @@
   <NuxtLayout>
     <div>
       <NuxtLoadingIndicator />
-      <MenuBarPrimeVue />
+      <DaisyNavbar />
       <NuxtPage />
     </div>
   </NuxtLayout>
