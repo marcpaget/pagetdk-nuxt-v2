@@ -24,7 +24,7 @@ mapbox: {
   accessToken: process.env.MAPBOX_API_KEY,
 },
 umami: {
-  id: '59ee0d36-a864-4a50-8f52-bc8bef01b1cd',
+  id: process.env.UMAMI_ID,
   host: 'https://pagetv2.netlify.app/',
   autoTrack: true,
   // proxy: 'cloak',
