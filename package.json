@@ -16,6 +16,7 @@
     "@nuxtjs/leaflet": "^1.2.6",
     "@nuxtjs/supabase": "^1.4.6",
     "@primevue/nuxt-module": "^4.2.5",
+    "@tailwindcss/typography": "^0.5.16",
     "@vueuse/nuxt": "^12.5.0",
     "daisyui": "^4.12.23",
     "mapbox-gl": "^3.9.4",
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "@primevue/themes": "^4.2.5",
+    "nuxt-i18n-micro": "^1.74.0",
     "primeicons": "^7.0.0",
     "primevue": "^4.2.5",
     "vue": "latest",

@@ -1,7 +1,5 @@
 <template>
-  <div class="flex flex-col mt-2">
-    <div class="card w-96 bg-base-100 shadow-xl justify-center self-center">
-      <section v-if="totalQuestions < 10">
+
         <!-- <div class="mx-4">
           
           <progress
@@ -63,11 +61,90 @@
             </div>
           </div>
         </div>
-      </section>
-    </div>
-  </div>
+  
 </template>
 
+
+<script>
+export default {
+  data() {
+    return {
+      countries: [],
+      options: [],
+      currentFlag: '',
+      correctAnswer: '',
+      score: 0,
+      wrong: 0,
+      totalQuestions: 0,
+      isLoading: true,
+      isMounted: false
+    }
+  },
+  mounted() {
+    this.isMounted = true
+    this.fetchCountries()
+  },
+  methods: {
+    async fetchCountries() {
+      try {
+        const response = await fetch('https://restcountries.com/v3.1/all', {
+          mode: 'cors',
+          headers: {
+            'Accept': 'application/json'
+          }
+        })
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        const data = await response.json()
+        this.countries = data.filter(country => country.flags?.png || country.flags?.svg)
+        this.getRandomFlag()
+      } catch (error) {
+        console.error('Error fetching countries:', error)
+        this.isLoading = false
+      }
+    },
+    getRandomFlag() {
+      if (!this.countries || this.countries.length === 0) {
+        console.error('Countries array is empty or not defined')
+        return
+      }
+      const randomIndex = Math.floor(Math.random() * this.countries.length)
+      this.currentFlag = this.countries[randomIndex].flags?.png || this.countries[randomIndex].flags?.svg
+      this.correctAnswer = this.countries[randomIndex].name.common
+      this.options = this.getRandomOptions(this.correctAnswer)
+      this.isLoading = false
+    },
+    getRandomOptions(correctAnswer) {
+      const options = [correctAnswer]
+      while (options.length < 4) {
+        const randomIndex = Math.floor(Math.random() * this.countries.length)
+        const option = this.countries[randomIndex].name.common
+        if (!options.includes(option)) {
+          options.push(option)
+        }
+      }
+      return options.sort(() => Math.random() - 0.5)
+    },
+    checkAnswer(option) {
+      if (this.isLoading) return
+      
+      this.totalQuestions++
+      if (option === this.correctAnswer) {
+        this.score++
+      } else {
+        this.wrong++
+      }
+
+      this.getRandomFlag()
+    }
+  }
+}
+</script>
+
+<!-- 
 <script>
 // Script section remains unchanged
 export default {
@@ -201,4 +278,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->

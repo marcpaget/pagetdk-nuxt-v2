@@ -11,7 +11,8 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     '@primevue/nuxt-module',
     'nuxt-umami',
-    '@nuxt/ui'
+    '@nuxt/ui',
+    'nuxt-i18n-micro'
   ],
   primevue: {
   autoImport: true,
@@ -19,6 +20,16 @@ export default defineNuxtConfig({
         ripple: true,
         inputVariant: 'filled',
     }
+},
+i18n: {
+  locales: [
+    { code: 'en', iso: 'en-US', dir: 'ltr' },
+    { code: 'da', iso: 'da-DK', dir: 'ltr' },
+    
+  ],
+  defaultLocale: 'en',
+  translationDir: 'locales',
+  meta: true,
 },
 mapbox: {
   accessToken: process.env.MAPBOX_API_KEY,
