@@ -15,22 +15,22 @@
     "@nuxt/ui": "^2.21.0",
     "@nuxtjs/leaflet": "^1.2.6",
     "@nuxtjs/supabase": "^1.4.6",
-    "@primevue/nuxt-module": "^4.2.5",
+    "@primevue/nuxt-module": "^4.3.1",
     "@tailwindcss/typography": "^0.5.16",
-    "@vueuse/nuxt": "^12.5.0",
-    "daisyui": "^4.12.23",
-    "mapbox-gl": "^3.9.4",
+    "@vueuse/nuxt": "^12.7.0",
+    "daisyui": "^5.0.0",
+    "mapbox-gl": "^3.10.0",
     "nuxt": "^3.15.4",
     "nuxt-api-party": "^2.1.2",
     "nuxt-mapbox": "^1.6.2",
-    "nuxt-umami": "^3.1.1",
-    "usemods-nuxt": "^1.9.2"
+    "nuxt-umami": "^3.2.0",
+    "usemods-nuxt": "^1.11.0"
   },
   "dependencies": {
-    "@primevue/themes": "^4.2.5",
-    "nuxt-i18n-micro": "^1.74.0",
+    "@primevue/themes": "^4.3.1",
+    "nuxt-i18n-micro": "^1.77.0",
     "primeicons": "^7.0.0",
-    "primevue": "^4.2.5",
+    "primevue": "^4.3.1",
     "vue": "latest",
     "vue-router": "latest"
   }

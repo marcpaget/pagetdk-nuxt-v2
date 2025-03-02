@@ -1,4 +1,51 @@
+ <!-- Top <template> and <script> sections from Claude.ai -->
 <template>
+  <div>
+    <QuizStart v-if="quizState === 'not-started'" @start-quiz="startQuiz" />
+    <QuizLogic 
+      v-else-if="quizState === 'in-progress'" 
+      @quiz-completed="endQuiz" 
+      :number-of-questions="numberOfQuestions"
+    />
+    <QuizEnd 
+      v-else-if="quizState === 'ended'" 
+      :score="finalScore" 
+      :total-questions="numberOfQuestions"
+      :wrong="wrongAnswers"
+      @restart-quiz="resetQuiz"
+    />
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      quizState: 'not-started', // 'not-started', 'in-progress', 'ended'
+      finalScore: 0,
+      wrongAnswers: 0,
+      numberOfQuestions: 10
+    }
+  },
+  methods: {
+    startQuiz() {
+      this.quizState = 'in-progress'
+      this.finalScore = 0
+      this.wrongAnswers = 0
+    },
+    endQuiz(result) {
+      this.finalScore = result.score
+      this.wrongAnswers = result.wrong
+      this.quizState = 'ended'
+    },
+    resetQuiz() {
+      this.quizState = 'not-started'
+    }
+  }
+}
+</script>
+
+<!-- <template>
      <UContainer class="p-2 max-w-3xl">
       <UCard>
   <div class="col-span--2">
@@ -57,4 +104,4 @@ export default {
     }
   }
 }
-</script>
+</script> -->
