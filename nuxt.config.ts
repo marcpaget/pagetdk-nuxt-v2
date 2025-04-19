@@ -1,5 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
@@ -14,6 +15,16 @@ export default defineNuxtConfig({
     '@nuxt/ui',
     'nuxt-i18n-micro'
   ],
+  // Tilføj Prisma ORM eller Drizzle ORM
+  // Tilføj Supabase Auth fra Claude
+  runtimeConfig: {
+    public: {
+      supabase: {
+        url: process.env.NUXT_PUBLIC_SUPABASE_URL,
+        key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
+      }
+    }
+  },
   primevue: {
   autoImport: true,
     options: {
@@ -57,7 +68,7 @@ supabase: {
     callback: '/confirm',
     include: undefined,
     exclude: [],
-    cookieRedirect: true,
+    saveRedirectToCookie: true,
   },
 },
 image: {
@@ -69,6 +80,13 @@ apiParty: {
   endpoints: {
     restCountriesApi: {
       url: 'https://restcountries.com/',
+    },
+  },
+},
+vite: {
+  server: {
+    fs: {
+      strict: false, // Allow access to files outside the root directory
     },
   },
 },

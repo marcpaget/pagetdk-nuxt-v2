@@ -10,28 +10,32 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@nuxt/devtools": "latest",
-    "@nuxt/image": "^1.9.0",
-    "@nuxt/ui": "^2.21.0",
+    "@nuxt/image": "^1.10.0",
+    "@nuxt/ui": "^3.0.2",
     "@nuxtjs/leaflet": "^1.2.6",
-    "@nuxtjs/supabase": "^1.4.6",
-    "@primevue/nuxt-module": "^4.3.1",
+    "@nuxtjs/supabase": "^1.5.0",
+    "@primevue/nuxt-module": "^4.3.3",
     "@tailwindcss/typography": "^0.5.16",
-    "@vueuse/nuxt": "^12.7.0",
-    "daisyui": "^5.0.0",
-    "mapbox-gl": "^3.10.0",
-    "nuxt": "^3.15.4",
-    "nuxt-api-party": "^2.1.2",
-    "nuxt-mapbox": "^1.6.2",
+    "@vueuse/nuxt": "^13.1.0",
+    "daisyui": "^5.0.19",
+    "mapbox-gl": "^3.11.0",
+    "nuxt": "^3.16.2",
+    "nuxt-api-party": "^2.2.2",
+    "nuxt-mapbox": "^1.6.3",
     "nuxt-umami": "^3.2.0",
-    "usemods-nuxt": "^1.11.0"
+    "usemods-nuxt": "^1.12.0"
   },
   "dependencies": {
-    "@primevue/themes": "^4.3.1",
-    "nuxt-i18n-micro": "^1.77.0",
+    "@primevue/forms": "^4.3.3",
+    "@primevue/themes": "^4.3.3",
+    "@vue/compiler-sfc": "^3.5.13",
+    "nuxt-i18n-micro": "^1.83.1",
     "primeicons": "^7.0.0",
-    "primevue": "^4.3.1",
-    "vue": "latest",
+    "primevue": "^4.3.3",
+    "vite": "^6.3.2",
+    "vue": "^3.5.13",
     "vue-router": "latest"
   }
 }
