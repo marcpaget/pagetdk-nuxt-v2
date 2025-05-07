@@ -54,7 +54,39 @@
           </ul>
   </div>
   <div class="navbar-end">
-    <a class="btn">Button</a>
+    <div v-if="user" class="dropdown dropdown-end">
+      <div tabindex="0" role="button" class="btn btn-ghost">
+        <div class="avatar placeholder">
+          <div class="bg-neutral text-neutral-content w-8 rounded-full">
+            <span>{{ user?.email?.charAt(0).toUpperCase() }}</span>
+          </div>
+        </div>
+      </div>
+      <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+        <li>
+          <NuxtLink to="/profile">
+            Profile
+          </NuxtLink>
+        </li>
+        <li>
+          <a @click="signOut">Sign out</a>
+        </li>
+      </ul>
+    </div>
+    <NuxtLink v-else to="/login" class="btn btn-primary">
+      Sign in
+    </NuxtLink>
   </div>
 </div>
 </template>
+
+<script setup>
+const user = useSupabaseUser()
+const supabase = useSupabaseClient()
+const router = useRouter()
+
+const signOut = async () => {
+  await supabase.auth.signOut()
+  router.push('/login')
+}
+</script>

@@ -1,5 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -25,6 +25,10 @@ export default defineNuxtConfig({
       }
     }
   },
+  vite: {
+    plugins: [tailwindcss()],
+  },
+  css: ["~/assets/app.css"],
   primevue: {
   autoImport: true,
     options: {
@@ -83,12 +87,12 @@ apiParty: {
     },
   },
 },
-vite: {
-  server: {
-    fs: {
-      strict: false, // Allow access to files outside the root directory
-    },
-  },
-},
+// vite: {
+//   server: {
+//     fs: {
+//       strict: false, // Allow access to files outside the root directory
+//     },
+//   },
+// },
   compatibilityDate: "2024-11-19"
 })
