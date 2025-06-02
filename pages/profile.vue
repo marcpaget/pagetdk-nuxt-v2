@@ -29,7 +29,14 @@ const signOut = async () => {
           <div class="mb-6 text-center">
             <h3 class="text-xl font-semibold">{{ user?.email }}</h3>
             <p class="text-base-content/70">User ID: {{ user?.id }}</p>
-            <p class="text-base-content/70">Last sign in: {{ new Date(user?.last_sign_in_at).toLocaleString() }}</p>
+            <p class="text-base-content/70">
+              Last sign in:
+              {{
+                user?.last_sign_in_at
+                  ? new Date(user.last_sign_in_at).toLocaleString()
+                  : 'N/A'
+              }}
+            </p>
           </div>
         </div>
         

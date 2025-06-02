@@ -1,5 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import tailwindcss from "@tailwindcss/vite";
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -10,10 +9,12 @@ export default defineNuxtConfig({
     'nuxt-api-party',
     "@nuxtjs/leaflet",
     "@vueuse/nuxt",
-    '@primevue/nuxt-module',
     'nuxt-umami',
     '@nuxt/ui',
-    'nuxt-i18n-micro'
+    'nuxt-i18n-micro',
+    '@nuxtjs/mdc',
+    'nuxt-toc',
+    '@nuxt/content',
   ],
   // Tilføj Prisma ORM eller Drizzle ORM
   // Tilføj Supabase Auth fra Claude
@@ -25,21 +26,12 @@ export default defineNuxtConfig({
       }
     }
   },
-  vite: {
-    plugins: [tailwindcss()],
-  },
-  css: ["~/assets/app.css"],
-  primevue: {
-  autoImport: true,
-    options: {
-        ripple: true,
-        inputVariant: 'filled',
-    }
-},
+
+  css: ['~/assets/css/main.css'],
 i18n: {
   locales: [
     { code: 'en', iso: 'en-US', dir: 'ltr' },
-    { code: 'da', iso: 'da-DK', dir: 'ltr' },
+   // { code: 'da', iso: 'da-DK', dir: 'ltr' },
     
   ],
   defaultLocale: 'en',

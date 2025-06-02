@@ -1,14 +1,13 @@
+<script setup lang="ts">
+const { data: home } = await useAsyncData(() => queryCollection('content').path('/').first())
+
+useSeoMeta({
+  title: home.value?.title,
+  description: home.value?.description
+})
+</script>
+
 <template>
-    <UContainer>
-      <UCard class="mt-10">
-        <template #header>
-          <div class="flex justify-between">
-            <h1>Welcome to Nuxt UI Starter</h1>
-            <ColorScheme><USelect v-model="$colorMode.preference" :options="['system', 'light', 'dark']" /></ColorScheme>
-          </div>
-        </template>
-        <UButton icon="i-heroicons-book-open" to="https://ui.nuxt.com" target="_blank">Open Nuxt UI Documentation</UButton>
-      </UCard>
-    </UContainer>
-  </template>
-  
+  <ContentRenderer v-if="home" :value="home" />
+  <div v-else>Home not found</div>
+</template>

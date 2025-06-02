@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
    <NuxtLayout>
     <div>
      
@@ -7,5 +7,14 @@
       <NuxtPage />
       
     </div>
+  </NuxtLayout>
+</template> -->
+<template>
+  <NuxtLayout>
+    <NuxtLoadingIndicator />
+
+      <NuxtuiNavBar />
+      <NuxtPage />
+
   </NuxtLayout>
 </template>
