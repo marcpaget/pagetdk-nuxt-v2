@@ -1,114 +1,114 @@
 <script setup lang="ts">
 import type { NavigationMenuItem } from '@nuxt/ui'
 
-const items = ref<NavigationMenuItem[]>([
+const supabase = useSupabaseClient()
+const user = useSupabaseUser()
+const router = useRouter()
+
+// Logout function
+const handleLogout = async () => {
+  const { error } = await supabase.auth.signOut()
+  if (!error) {
+    await router.push('/login')
+  }
+}
+
+const items = ref<NavigationMenuItem[][]>([
+  [
   {
     label: 'Projects',
     icon: 'i-lucide-book-open',
     children: [
       {
         label: 'GeoInfo',
-        description: 'Fully styled and customizable components for Nuxt.',
-        icon: 'i-lucide-house',
+        description: 'Real-time geolocation tracking with advanced features',
+        icon: 'i-lucide-map',
         to: '/geoinfo'
-
       },
       {
         label: 'FlagQuiz',
-        description: 'Learn how to install and configure Nuxt UI in your application.',
-        icon: 'i-lucide-cloud-download',
+        description: 'Test your knowledge of world flags',
+        icon: 'i-lucide-flag',
         to: '/flagquiz'
       },
       {
         label: 'Gallery',
-        icon: 'i-lucide-smile',
-        description: 'You have nothing to do, @nuxt/icon will handle it automatically.',
+        icon: 'i-lucide-images',
+        description: 'Browse through our image collection',
         to: '/gallery'
       },
     ]
   },
   {
     label: 'CV',
-    icon: 'i-lucide-database',
+    icon: 'i-lucide-user',
     children: [
       {
         label: 'About',
         icon: 'i-lucide-file-text',
-        description: 'Define shortcuts for your application.',
+        description: 'Learn more about this project',
         to: '/about'
       }
-    //   {
-    //     label: 'useOverlay',
-    //     icon: 'i-lucide-file-text',
-    //     description: 'Display a modal/slideover within your application.',
-    //     to: '/composables/use-overlay'
-    //   },
-    //   {
-    //     label: 'useToast',
-    //     icon: 'i-lucide-file-text',
-    //     description: 'Display a toast within your application.',
-    //     to: '/composables/use-toast'
-    //   }
     ]
   },
   {
     label: 'Misc',
     icon: 'i-lucide-box',
-    active: true,
     children: [
       {
         label: 'Sri Lanka Timeline',
-        icon: 'i-lucide-file-text',
-        description: 'Use NuxtLink with superpowers.',
+        icon: 'i-lucide-clock',
+        description: 'Explore historical timeline',
         to: '/srilankatimeline'
       }
-    //   {
-    //     label: 'Modal',
-    //     icon: 'i-lucide-file-text',
-    //     description: 'Display a modal within your application.',
-    //     to: '/components/modal'
-    //   },
-    //   {
-    //     label: 'NavigationMenu',
-    //     icon: 'i-lucide-file-text',
-    //     description: 'Display a list of links.',
-    //     to: '/components/navigation-menu'
-    //   },
-    //   {
-    //     label: 'Pagination',
-    //     icon: 'i-lucide-file-text',
-    //     description: 'Display a list of pages.',
-    //     to: '/components/pagination'
-    //   },
-    //   {
-    //     label: 'Popover',
-    //     icon: 'i-lucide-file-text',
-    //     description: 'Display a non-modal dialog that floats around a trigger element.',
-    //     to: '/components/popover'
-    //   },
-    //   {
-    //     label: 'Progress',
-    //     icon: 'i-lucide-file-text',
-    //     description: 'Show a horizontal bar to indicate task progression.',
-    //     to: '/components/progress'
-    //   }
     ]
-  },
-  {
-    label: 'GitHub',
-    icon: 'i-simple-icons-github',
-    badge: '3.8k',
-    to: 'https://github.com/nuxt/ui',
-    target: '_blank'
-  },
-  {
-    label: 'Help',
-    icon: 'i-lucide-circle-help',
-    disabled: true
   }
+  ],
+  [
+    {
+      slot: 'auth' as const,
+    },
+    {
+      slot: 'colormode' as const,
+    }
+  ]
 ])
 </script>
 
 <template>
-  <UNavigationMenu :items="items" class="w-full justify-center" />
+  <div class="flex items-center justify-between w-full">
+    <UNavigationMenu :items="items" class="flex-1 justify-center">
+      <template #auth>
+        <div class="flex items-center gap-3">
+          <div v-if="user" class="flex items-center gap-2">
+            <UAvatar 
+              :src="user.user_metadata?.avatar_url" 
+              :alt="user.email" 
+              size="sm"
+            />
+            <UButton 
+              @click="handleLogout"
+              variant="ghost"
+              size="sm"
+              icon="i-lucide-log-out"
+            >
+              Logout
+            </UButton>
+          </div>
+          <UButton 
+            v-else
+            to="/login"
+            variant="solid"
+            size="sm"
+            icon="i-lucide-log-in"
+          >
+            Login
+          </UButton>
+        </div>
+      </template>
+      <template #colormode>
+        <ColorModeButton />
+      </template>
+    </UNavigationMenu>
+  </div>
 </template>

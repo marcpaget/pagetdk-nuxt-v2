@@ -1,51 +1,59 @@
-<template>
-    
-</template>
+<script setup lang="ts">
+const items = [
+  'https://picsum.photos/640/640?random=1',
+  'https://picsum.photos/640/640?random=2',
+  'https://picsum.photos/640/640?random=3',
+  'https://picsum.photos/640/640?random=4',
+  'https://picsum.photos/640/640?random=5',
+  'https://picsum.photos/640/640?random=6'
+]
 
-<!-- 
+const carousel = useTemplateRef('carousel')
+const activeIndex = ref(0)
+
+function onClickPrev() {
+  activeIndex.value--
+}
+function onClickNext() {
+  activeIndex.value++
+}
+function onSelect(index: number) {
+  activeIndex.value = index
+}
+
+function select(index: number) {
+  activeIndex.value = index
+
+  carousel.value?.emblaApi?.scrollTo(index)
+}
+</script>
+
 <template>
-    <div class="card">
-        <Galleria :value="images" :responsiveOptions="responsiveOptions" :numVisible="5" :circular="true" containerStyle="max-width: 640px" :showItemNavigators="true" :showItemNavigatorsOnHover="true">
-            <template #item="slotProps">
-                <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" style="width: 100%; display: block" />
-            </template>
-            <template #thumbnail="slotProps">
-                <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" style="display: block" />
-            </template>
-        </Galleria>
+  <div class="flex-1 w-full">
+    <UCarousel
+      ref="carousel"
+      v-slot="{ item }"
+      arrows
+      :items="items"
+      :prev="{ onClick: onClickPrev }"
+      :next="{ onClick: onClickNext }"
+      class="w-full max-w-xs mx-auto"
+      @select="onSelect"
+    >
+      <img :src="item" width="320" height="320" class="rounded-lg">
+    </UCarousel>
+
+    <div class="flex gap-1 justify-between pt-4 max-w-xs mx-auto">
+      <div
+        v-for="(item, index) in items"
+        :key="index"
+        class="size-11 opacity-25 hover:opacity-100 transition-opacity"
+        :class="{ 'opacity-100': activeIndex === index }"
+        @click="select(index)"
+      >
+        <img :src="item" width="44" height="44" class="rounded-lg">
+      </div>
     </div>
+  </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from "vue";
-import { PhotoService } from '@/service/PhotoService';
-
-onMounted(() => {
-    PhotoService.getImages().then((data) => (images.value = data));
-});
-
-cloudinary
-SriLanka
-
-const img = useImage()
-const photos = computed(() => {
-  const photourl = img('https://github.com/nuxt.png', { width: 100 })
-  return { photos: `url('${photourl}')` }
-})
-
-
-
-
-
-const images = ref();
-const responsiveOptions = ref([
-    {
-        breakpoint: '1300px',
-        numVisible: 4
-    },
-    {
-        breakpoint: '575px',
-        numVisible: 1
-    }
-]);
-</script> -->

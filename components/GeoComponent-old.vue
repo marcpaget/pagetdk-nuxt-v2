@@ -94,23 +94,18 @@ const distancekm = computed(() => {
             )
         }}</pre> -->
 
-
-     
-<div class="stats shadow w-full">
-  <div class="stat join-item">
-    <div class="stat-title flex items-center gap-2">
-      <UIcon name="cil:speedometer" class="size-5" />
-      <UIcon name="bi:speedometer" class="size-5" />
-      Speed
+  <div class="join join-vertical stats stats-vertical lg:stats-horizontal shadow bg-primary text-primary-content">
+    <div class="stat join-item">
+      <div class="stat-title">
+        Speed
+      </div>
+      <div class="stat-value">
+        {{ speedkmh }}
+      </div>
+      <div class="stat-desc">
+        KM/T
+      </div>
     </div>
-    <div class="stat-value">
-      {{ speedkmh }}
-    </div>
-    <div class="stat-desc">
-      KM/T
-    </div>
-  </div>
-
     <div class="stat join-item">
       <div class="stat-title">
         Max. Speed
@@ -150,7 +145,6 @@ const distancekm = computed(() => {
       </div>
       <div class="stat-value">
         {{ altitude }}
-        <UIcon name="material-symbols-light:altitude-outline" class="size-5" />
       </div>
       <div class="stat-desc">
         M.O.H.
@@ -201,5 +195,5 @@ const distancekm = computed(() => {
         </div>
       </div>
     </div>
-</div>
+  </div>
 </template>

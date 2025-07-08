@@ -209,3 +209,5 @@ node_modules
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,nuxtjs,macos,jetbrains
 # Local Netlify folder
 .netlify
+.vscode/settings.json
+
