@@ -13,6 +13,11 @@
           {
             "file": "./.vscode/daisyui.md"
           }
-        ]
-      
+        ],
+  "editor.codeActionsOnSave": {
+    "source.action.useSortedKeys.biome": "never",
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "always",
+    "source.sortImports.biome": "always"
+  }
 }
