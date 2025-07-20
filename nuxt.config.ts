@@ -3,21 +3,71 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-    "nuxt-mapbox",
-    "@nuxt/image",
-    "@nuxtjs/supabase",
-    'nuxt-api-party',
-    "@nuxtjs/leaflet",
-    "@vueuse/nuxt",
-    'nuxt-umami',
-    '@nuxt/ui',
-    'nuxt-i18n-micro',
-    '@nuxtjs/mdc',
-    'nuxt-toc',
-    '@nuxt/content',
+   "nuxt-mapbox",
+   "@nuxt/image",
+   "@nuxtjs/supabase",
+   'nuxt-api-party',
+   "@nuxtjs/leaflet",
+   "@vueuse/nuxt",
+   'nuxt-umami',
+   '@nuxt/ui',
+   'nuxt-i18n-micro',
+   '@nuxtjs/mdc',
+   'nuxt-toc',
+   '@nuxt/content',
+   '@vite-pwa/nuxt',
   ],
   // Tilføj Prisma ORM eller Drizzle ORM
   // Tilføj Supabase Auth fra Claude
+    pwa: {
+      /* PWA options */
+   
+    registerType: 'autoUpdate',
+    workbox: {
+      navigateFallback: '/',
+      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+    },
+    client: {
+      installPrompt: true,
+      // you can omit this to use the default install prompt
+      periodicSyncForUpdates: 20,
+    },
+    devOptions: {
+      enabled: true,
+      suppressWarnings: true,
+      navigateFallbackAllowlist: [/^\/$/],
+      type: 'module',
+    },
+    manifest: {
+      name: 'Paget.dk',
+      short_name: 'Paget.dk',
+      description: 'Explore our projects, tools, and services',
+      theme_color: '#ffffff',
+      background_color: '#ffffff',
+      display: 'standalone',
+      orientation: 'portrait',
+      scope: '/',
+      start_url: '/',
+      icons: [
+        {
+          src: 'pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: 'pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+        {
+          src: 'pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'any maskable',
+        }
+      ],
+    },
+  },
   runtimeConfig: {
     public: {
       supabase: {
@@ -26,7 +76,6 @@ export default defineNuxtConfig({
       }
     }
   },
-
   css: ['~/assets/css/main.css'],
 i18n: {
   locales: [
@@ -43,7 +92,7 @@ mapbox: {
 },
 umami: {
   id: process.env.UMAMI_ID,
-  host: 'https://pagetv2.netlify.app/',
+  host: process.env.UMAMI_HOST,
   autoTrack: true,
   // proxy: 'cloak',
   // useDirective: true,
@@ -95,5 +144,5 @@ content:{
 //     },
 //   },
 // },
-  compatibilityDate: "2024-11-19"
-})
+  compatibilityDate: "2024-11-19",
+  })

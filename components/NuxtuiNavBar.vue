@@ -76,8 +76,8 @@ const items = ref<NavigationMenuItem[][]>([
 </script>
 
 <template>
-  <div class="flex items-center justify-between w-full">
-    <UNavigationMenu :items="items" class="flex-1 justify-center">
+  <!-- <div class="flex items-center justify-between w-full"> -->
+    <UNavigationMenu :items="items" class="justify-center">
       <template #auth>
         <div class="flex items-center gap-3">
           <div v-if="user" class="flex items-center gap-2">
@@ -110,5 +110,5 @@ const items = ref<NavigationMenuItem[][]>([
         <ColorModeButton />
       </template>
     </UNavigationMenu>
-  </div>
+  <!-- </div> -->
 </template>

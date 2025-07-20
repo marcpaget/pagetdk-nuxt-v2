@@ -3,4 +3,10 @@ export default defineAppConfig({
   //   primary: 'lime',
   //   gray: ' cool',
   // }
+
+  icon: {
+    mode: 'css',
+    cssLayer: 'base'
+  }
+
 })
