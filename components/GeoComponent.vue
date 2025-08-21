@@ -83,8 +83,8 @@ const distancekm = computed(() => {
     <p>Altitude: {{ altitude }} m</p>
     <p>Accuracy: {{ accuracy }} m</p>
     <p>Heading: {{ heading }}°</p>
-    <p>Max Speed: {{ maxSpeed }} km/h</p>
-    <p>Distance: {{ distance }} km</p>
+    <p>Max Speed: {{ maxSpeedkmh }} km/h</p>
+    <p>Distance: {{ distancekm }} km</p>
   </UCardBody>
  </UCard>
 </template>   
