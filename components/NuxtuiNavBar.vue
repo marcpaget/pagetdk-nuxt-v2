@@ -15,6 +15,12 @@ const handleLogout = async () => {
 
 const items = ref<NavigationMenuItem[][]>([
   [
+    {
+      label: 'Paget.dk',
+      to: '/'
+    },
+  ],
+  [
   {
     label: 'Projects',
     icon: 'i-lucide-book-open',
@@ -48,7 +54,14 @@ const items = ref<NavigationMenuItem[][]>([
         icon: 'i-lucide-file-text',
         description: 'Learn more about this project',
         to: '/about'
+      },
+      {
+        label: 'Github repos',
+        icon: 'i-lucide-github',
+        description: 'View my GitHub repositories',
+        to: '/github'
       }
+
     ]
   },
   {
@@ -77,7 +90,7 @@ const items = ref<NavigationMenuItem[][]>([
 
 <template>
   <!-- <div class="flex items-center justify-between w-full"> -->
-    <UNavigationMenu :items="items" class="justify-center">
+    <UNavigationMenu content-orientation="vertical" :items="items" class="justify-center">
       <template #auth>
         <div class="flex items-center gap-3">
           <div v-if="user" class="flex items-center gap-2">

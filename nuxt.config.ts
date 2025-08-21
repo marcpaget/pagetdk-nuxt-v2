@@ -3,71 +3,126 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
-   "nuxt-mapbox",
-   "@nuxt/image",
-   "@nuxtjs/supabase",
-   'nuxt-api-party',
-   "@nuxtjs/leaflet",
+   // Performance and optimization modules first
+   //'nuxt-booster',
+   // Core functionality modules
    "@vueuse/nuxt",
-   'nuxt-umami',
-   '@nuxt/ui',
-   'nuxt-i18n-micro',
+   //'nuxt-i18n-micro',
+   // Content and UI modules
    '@nuxtjs/mdc',
    'nuxt-toc',
    '@nuxt/content',
-   '@vite-pwa/nuxt',
+   // UI framework - load after content modules
+   '@nuxt/ui',
+   // External service integrations
+   "@nuxt/image",
+   "@nuxtjs/supabase",
+   'nuxt-api-party',
+   'nuxt-umami',
+   // Map modules
+   "nuxt-mapbox",
+   "@nuxtjs/leaflet",
+   // PWA should be last to wrap everything
+   //'@vite-pwa/nuxt',
   ],
+  // PWA Configuration
+  // pwa: {
+  //   registerType: 'autoUpdate',
+  //   workbox: {
+  //     navigateFallback: '/',
+  //     globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+  //   },
+  //   client: {
+  //     installPrompt: true,
+  //     periodicSyncForUpdates: 20,
+  //   },
+  //   devOptions: {
+  //     enabled: true,
+  //     suppressWarnings: true,
+  //     navigateFallbackAllowlist: [/^\/$/],
+  //     type: 'module',
+  //   },
+  //   manifest: {
+  //     name: 'Paget.dk',
+  //     short_name: 'Paget.dk',
+  //     description: 'Explore our projects, tools, and services',
+  //     theme_color: '#ffffff',
+  //     background_color: '#ffffff',
+  //     display: 'standalone',
+  //     orientation: 'portrait',
+  //     scope: '/',
+  //     start_url: '/',
+  //     icons: [
+  //       {
+  //         src: 'pwa-192x192.png',
+  //         sizes: '192x192',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'pwa-512x512.png',
+  //         sizes: '512x512',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'pwa-512x512.png',
+  //         sizes: '512x512',
+  //         type: 'image/png',
+  //         purpose: 'any maskable',
+  //       }
+  //     ],
+  //   },
+  // },
   // Tilføj Prisma ORM eller Drizzle ORM
   // Tilføj Supabase Auth fra Claude
-    pwa: {
-      /* PWA options */
+  //   pwa: {
+  //     /* PWA options */
    
-    registerType: 'autoUpdate',
-    workbox: {
-      navigateFallback: '/',
-      globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-    },
-    client: {
-      installPrompt: true,
-      // you can omit this to use the default install prompt
-      periodicSyncForUpdates: 20,
-    },
-    devOptions: {
-      enabled: true,
-      suppressWarnings: true,
-      navigateFallbackAllowlist: [/^\/$/],
-      type: 'module',
-    },
-    manifest: {
-      name: 'Paget.dk',
-      short_name: 'Paget.dk',
-      description: 'Explore our projects, tools, and services',
-      theme_color: '#ffffff',
-      background_color: '#ffffff',
-      display: 'standalone',
-      orientation: 'portrait',
-      scope: '/',
-      start_url: '/',
-      icons: [
-        {
-          src: 'pwa-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
-        },
-        {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-        },
-        {
-          src: 'pwa-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-          purpose: 'any maskable',
-        }
-      ],
-    },
-  },
+  //   registerType: 'autoUpdate',
+  //   workbox: {
+  //     navigateFallback: '/',
+  //     globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
+  //   },
+  //   client: {
+  //     installPrompt: true,
+  //     // you can omit this to use the default install prompt
+  //     periodicSyncForUpdates: 20,
+  //   },
+  //   devOptions: {
+  //     enabled: true,
+  //     suppressWarnings: true,
+  //     navigateFallbackAllowlist: [/^\/$/],
+  //     type: 'module',
+  //   },
+  //   manifest: {
+  //     name: 'Paget.dk',
+  //     short_name: 'Paget.dk',
+  //     description: 'Explore our projects, tools, and services',
+  //     theme_color: '#ffffff',
+  //     background_color: '#ffffff',
+  //     display: 'standalone',
+  //     orientation: 'portrait',
+  //     scope: '/',
+  //     start_url: '/',
+  //     icons: [
+  //       {
+  //         src: 'pwa-192x192.png',
+  //         sizes: '192x192',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'pwa-512x512.png',
+  //         sizes: '512x512',
+  //         type: 'image/png',
+  //       },
+  //       {
+  //         src: 'pwa-512x512.png',
+  //         sizes: '512x512',
+  //         type: 'image/png',
+  //         purpose: 'any maskable',
+  //       }
+  //     ],
+  //   },
+  // },
   runtimeConfig: {
     public: {
       supabase: {
@@ -77,16 +132,16 @@ export default defineNuxtConfig({
     }
   },
   css: ['~/assets/css/main.css'],
-i18n: {
-  locales: [
-    { code: 'en', iso: 'en-US', dir: 'ltr' },
-   // { code: 'da', iso: 'da-DK', dir: 'ltr' },
+// i18n: {
+//   locales: [
+//     { code: 'en', iso: 'en-US', dir: 'ltr' },
+//    // { code: 'da', iso: 'da-DK', dir: 'ltr' },
     
-  ],
-  defaultLocale: 'en',
-  translationDir: 'locales',
-  meta: true,
-},
+//   ],
+//   defaultLocale: 'en',
+//   translationDir: 'locales',
+//   meta: true,
+// },
 mapbox: {
   accessToken: process.env.MAPBOX_API_KEY,
 },
@@ -120,6 +175,25 @@ image: {
   cloudinary: {
     baseURL: 'https://res.cloudinary.com/selfhostingninja/image/upload/v1733716709/NyPagetDkNuxt',
   },
+  // Added by nuxt-booster
+   screens: {
+      default: 320,
+      xxs: 480,
+      xs: 576,
+      sm: 768,
+      md: 996,
+      lg: 1200,
+      xl: 1367,
+      xxl: 1600,
+      '4k': 1921
+    },
+
+    domains: ['img.youtube.com', 'i.vimeocdn.com'],
+
+    alias: {
+      youtube: 'https://img.youtube.com',
+      vimeo: 'https://i.vimeocdn.com',
+    },
 },
 apiParty: {
   endpoints: {
@@ -137,6 +211,94 @@ content:{
       }
     }
 },
+
+  // Booster configuration to prevent UI conflicts
+  // booster: {
+  //   detection: {
+  //     performance: true,
+  //     browserSupport: true
+  //   },
+  //   performanceMetrics: {
+  //     device: {
+  //       hardwareConcurrency: { min: 2, max: 48 },
+  //       deviceMemory: { min: 2 }
+  //     },
+  //     timing: {
+  //       fcp: 800,
+  //       dcl: 1200
+  //     }
+  //   },
+  //   targetFormats: ['webp', 'avif', 'jpg|jpeg|png|gif'],
+  //   lazyOffset: {
+  //     component: '0%',
+  //     asset: '0%'
+  //   }
+  // },
+
+  // booster: {
+
+  //   detection: {
+  //     performance: true,
+  //     browserSupport: true
+  //   },
+
+  //   performanceMetrics: {
+  //     device: {
+  //       hardwareConcurrency: { min: 2, max: 48 },
+  //       deviceMemory: { min: 2 }
+  //     },
+  //     timing: {
+  //       fcp: 800,
+  //       dcl: 1200
+  //     }
+  //   },
+
+  //   fonts: [{
+  //     family: 'Font A',
+  //     locals: ['Font A'],
+  //     fallback: ['Arial', 'sans-serif'],
+  //     variances: [
+  //       {
+  //         style: 'normal',
+  //         weight: 400,
+  //         sources: [
+  //           { src: '@/assets/fonts/font-a-regular.woff', type:'woff' },
+  //           { src: '@/assets/fonts/font-a-regular.woff2', type:'woff2' }
+  //         ]
+  //       }, {
+  //         style: 'italic',
+  //         weight: 400,
+  //         sources: [
+  //           { src: '@/assets/fonts/font-a-regularItalic.woff', type:'woff' },
+  //           { src: '@/assets/fonts/font-a-regularItalic.woff2', type:'woff2' }
+  //         ]
+  //       }, {
+  //         style: 'normal',
+  //         weight: 700,
+  //         sources: [
+  //           { src: '@/assets/fonts/font-a-700.woff', type:'woff' },
+  //           { src: '@/assets/fonts/font-a-700.woff2', type:'woff2' }
+  //         ]
+  //       }
+  //     ]
+  //   }],
+
+  //   targetFormats: ['webp', 'avif', 'jpg|jpeg|png|gif'],
+
+  //   componentAutoImport: true,
+  //   componentPrefix: undefined,
+
+  //   /**
+  //    * IntersectionObserver rootMargin for Compoennts and Assets
+  //    */
+  //   lazyOffset: {
+  //     component: '0%',
+  //     asset: '0%'
+  //   }
+    
+  // },
+
+
 // vite: {
 //   server: {
 //     fs: {

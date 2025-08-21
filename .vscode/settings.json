@@ -19,5 +19,6 @@
     "source.fixAll.biome": "explicit",
     "source.organizeImports.biome": "always",
     "source.sortImports.biome": "always"
-  }
+  },
+  "githubPullRequests.codingAgent.uiIntegration": true,
 }

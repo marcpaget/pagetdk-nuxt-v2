@@ -1,3 +1,3 @@
 <template>
-    <GeoComponent />
-</template>
+<GeoComponent/>
+        </template>
