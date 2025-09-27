@@ -2,29 +2,17 @@
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: [
-   // Performance and optimization modules first
-   //'nuxt-booster',
-   // Core functionality modules
-   "@vueuse/nuxt",
-   //'nuxt-i18n-micro',
-   // Content and UI modules
-   '@nuxtjs/mdc',
-   'nuxt-toc',
-   '@nuxt/content',
-   // UI framework - load after content modules
-   '@nuxt/ui',
-   // External service integrations
-   "@nuxt/image",
-   "@nuxtjs/supabase",
-   'nuxt-api-party',
-   'nuxt-umami',
-   // Map modules
-   "nuxt-mapbox",
-   "@nuxtjs/leaflet",
-   // PWA should be last to wrap everything
-   //'@vite-pwa/nuxt',
-  ],
+  modules: [// Performance and optimization modules first
+  //'nuxt-booster',
+  // Core functionality modules
+  "@vueuse/nuxt", //'nuxt-i18n-micro',
+  // Content and UI modules
+  '@nuxtjs/mdc', 'nuxt-toc', '@nuxt/content', // UI framework - load after content modules
+  '@nuxt/ui', // External service integrations
+  "@nuxt/image", "@nuxtjs/supabase", 'nuxt-api-party', 'nuxt-umami', // Map modules
+  "nuxt-mapbox", // PWA should be last to wrap everything
+  //'@vite-pwa/nuxt',
+  "@nuxtjs/leaflet", '@nuxt/scripts'],
   // PWA Configuration
   // pwa: {
   //   registerType: 'autoUpdate',
