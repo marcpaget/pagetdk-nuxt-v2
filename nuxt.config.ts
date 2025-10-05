@@ -5,14 +5,14 @@ export default defineNuxtConfig({
   modules: [// Performance and optimization modules first
   //'nuxt-booster',
   // Core functionality modules
-  "@vueuse/nuxt", //'nuxt-i18n-micro',
-  // Content and UI modules
-  '@nuxtjs/mdc', 'nuxt-toc', '@nuxt/content', // UI framework - load after content modules
-  '@nuxt/ui', // External service integrations
-  "@nuxt/image", "@nuxtjs/supabase", 'nuxt-api-party', 'nuxt-umami', // Map modules
-  "nuxt-mapbox", // PWA should be last to wrap everything
-  //'@vite-pwa/nuxt',
-  "@nuxtjs/leaflet", '@nuxt/scripts'],
+  //'nuxt-i18n-micro',
+  "@vueuse/nuxt", // Content and UI modules
+  '@nuxtjs/mdc', 'nuxt-toc', // UI framework - load after content modules
+  '@nuxt/content', // External service integrations
+  '@nuxt/ui', "@nuxt/image", "@nuxtjs/supabase", 'nuxt-api-party', // Map modules
+  'nuxt-umami', // PWA should be last to wrap everything
+  "nuxt-mapbox", //'@vite-pwa/nuxt',
+  "@nuxtjs/leaflet", '@nuxt/scripts', '@compodium/nuxt'],
   // PWA Configuration
   // pwa: {
   //   registerType: 'autoUpdate',
