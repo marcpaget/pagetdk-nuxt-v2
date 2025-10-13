@@ -14,10 +14,8 @@
       <Analytics />
       <SpeedInsights />
     <NuxtLoadingIndicator />
-    <NuxtLayout>
       <NuxtuiNavBar />
       <NuxtPage />
-    </NuxtLayout>
   </UApp>
 </template>
 

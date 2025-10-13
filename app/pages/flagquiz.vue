@@ -1,20 +1,24 @@
  <!-- Top <template> and <script> sections from Claude.ai -->
 <template>
+  <UContainer>
   <div>
     <QuizStart v-if="quizState === 'not-started'" @start-quiz="startQuiz" />
-    <QuizLogic 
-      v-else-if="quizState === 'in-progress'" 
-      @quiz-completed="endQuiz" 
-      :number-of-questions="numberOfQuestions"
-    />
+    <ClientOnly>
+      <QuizLogic 
+        v-if="quizState === 'in-progress'" 
+        @quiz-completed="endQuiz" 
+        :number-of-questions="numberOfQuestions"
+      />
+    </ClientOnly>
     <QuizEnd 
-      v-else-if="quizState === 'ended'" 
+      v-if="quizState === 'ended'" 
       :score="finalScore" 
       :total-questions="numberOfQuestions"
       :wrong="wrongAnswers"
       @restart-quiz="resetQuiz"
     />
   </div>
+  </UContainer>
 </template>
 
 <script>

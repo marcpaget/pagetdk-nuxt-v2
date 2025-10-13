@@ -90,7 +90,8 @@ const items = ref<NavigationMenuItem[][]>([
 
 <template>
   <!-- <div class="flex items-center justify-between w-full"> -->
-    <UNavigationMenu content-orientation="vertical" :items="items" class="justify-center">
+    <UNavigationMenu   highlight
+    highlight-color="primary" content-orientation="vertical" :items="items" class="justify-center">
       <template #auth>
         <div class="flex items-center gap-3">
           <div v-if="user" class="flex items-center gap-2">
