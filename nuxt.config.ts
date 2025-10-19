@@ -1,7 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
-    sourcemap: { client: 'hidden' },
   devtools: { enabled: true },
   modules: [// Performance and optimization modules first
   //'nuxt-booster',
@@ -13,7 +12,7 @@ export default defineNuxtConfig({
   '@nuxt/ui', "@nuxt/image", "@nuxtjs/supabase", 'nuxt-api-party', // Map modules
   'nuxt-umami', // PWA should be last to wrap everything
   "nuxt-mapbox", //'@vite-pwa/nuxt',
-  "@nuxtjs/leaflet", '@nuxt/scripts', '@compodium/nuxt','@sentry/nuxt/module'],
+  "@nuxtjs/leaflet", '@nuxt/scripts', '@compodium/nuxt'],
   // PWA Configuration
   // pwa: {
   //   registerType: 'autoUpdate',
@@ -117,16 +116,8 @@ export default defineNuxtConfig({
       supabase: {
         url: process.env.NUXT_PUBLIC_SUPABASE_URL,
         key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
-      },
-      sentry: {
-        dsn: process.env.SENTRY_DSN || '', // Fallback to an empty string if not set
-      },
-    },
-  },
-  sentry: {
-    org: 'marc-paget',
-    project: 'pagetdk-nuxtui',
-    authToken: process.env.SENTRY_AUTH_TOKEN,
+      }
+    }
   },
   css: ['~/assets/css/main.css'],
 // i18n: {
@@ -157,7 +148,7 @@ umami: {
   // tag: 'website-variation-123',
 },
 supabase: {
-  url: process.env.NUXT_PUBLIC_SUPABASE_URL,
+    url: process.env.NUXT_PUBLIC_SUPABASE_URL,
   key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
   redirect: false,
   redirectOptions: {
@@ -208,7 +199,6 @@ content:{
       }
     }
 },
-
   // Booster configuration to prevent UI conflicts
   // booster: {
   //   detection: {
@@ -286,8 +276,8 @@ content:{
   //   componentPrefix: undefined,
 
   //   /**
-  //    * IntersectionObserver rootMargin for Compoennts and Assets
-  //    */
+  //    IntersectionObserver rootMargin for Compoennts and Assets
+  //    
   //   lazyOffset: {
   //     component: '0%',
   //     asset: '0%'
@@ -303,5 +293,4 @@ content:{
 //     },
 //   },
 // },
-  compatibilityDate: "2024-11-19",
-  })
+})
