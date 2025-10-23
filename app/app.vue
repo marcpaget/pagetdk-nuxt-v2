@@ -1,19 +1,12 @@
-<!-- <template>
-   <NuxtLayout>
-    <div>
-     
-      <NuxtLoadingIndicator />
-      <DaisyNavbar />
-      <NuxtPage />
-      
-    </div>
-  </NuxtLayout>
-</template> -->
 <template>
     <UApp>
-      <Analytics />
-      <SpeedInsights />
-    <NuxtLoadingIndicator />
+      <client-only>
+        <Analytics />
+      </client-only>
+      <client-only>
+        <SpeedInsights />
+      </client-only>
+      <NuxtLoadingIndicator />
       <NuxtuiNavBar />
       <NuxtPage />
   </UApp>
