@@ -1,20 +1,24 @@
 <template>
-    <div>
-      <div class="flex flex-row justify-center">
-        <div class="basis-1/3">
-          <span class="text-xl text-sky-600 text-center mb-2">Progress</span>
-          <p class="text-2xl text-green-600 text-center mb-2">{{ totalQuestions }}/{{ numberOfQuestions }}</p>
-        </div>
-        <div class="basis-1/3">
-          <p class="text-xl text-sky-600 text-center mb-2">Correct</p>
-          <p class="text-2xl text-green-600 text-center mb-2">{{ score }}</p>
-        </div>
-        <div class="basis-1/3">
-          <p class="text-xl text-sky-600 text-center mb-2">Wrong</p>
-          <p class="text-2xl text-red-600 text-center mb-2">{{ wrong }}</p>
+  <UCard variant="subtle" class="max-w-md text-center mx-auto my-8 p-4">
+    <template #header>
+      <div>
+        <div class="flex flex-row justify-center">
+          <div class="basis-1/3">
+            <p class="text-xl text-sky-600 text-center mb-2">Progress</p>
+            <p class="text-2xl text-green-600 text-center mb-2">{{ totalQuestions }}/{{ numberOfQuestions }}</p>
+          </div>
+          <div class="basis-1/3">
+            <p class="text-xl text-sky-600 text-center mb-2">Correct</p>
+            <p class="text-2xl text-green-600 text-center mb-2">{{ score }}</p>
+          </div>
+          <div class="basis-1/3">
+            <p class="text-xl text-sky-600 text-center mb-2">Wrong</p>
+            <p class="text-2xl text-red-600 text-center mb-2">{{ wrong }}</p>
+          </div>
         </div>
       </div>
-      <div class="card-body items-center text-center px-4">
+    </template>
+
         <figure class="w-64 mx-auto">
           <template v-if="isMounted">
             <img
@@ -27,23 +31,21 @@
             <div v-else class="animate-pulse bg-gray-200 h-40 w-full rounded-xl"></div>
           </template>
         </figure>
-  
-        <div class="card-actions w-64 mt-4">
-          <div class="flex flex-col w-full gap-2">
-            <button
+    <template #footer>
+          <div class="flex flex-col  w-64 gap-3 mx-auto">
+            <UButton
               v-for="(option, index) in options"
               :key="index"
-              class="btn btn-primary w-full"
+              class="btn btn-primary  justify-center"
               :disabled="isLoading"
               @click="checkAnswer(option)"
             >
               {{ option }}
-            </button>
+            </UButton>
           </div>
-        </div>
-      </div>
-    </div>
-  </template>
+    </template>
+  </UCard>
+</template>
   
   <script>
   export default {
@@ -76,7 +78,7 @@
     methods: {
       async fetchCountries() {
         try {
-          const response = await fetch('https://restcountries.com/v3.1/all', {
+          const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags', {
             mode: 'cors',
             headers: {
               'Accept': 'application/json'

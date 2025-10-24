@@ -11,6 +11,7 @@ const { data, error } = await supabase.auth.signInWithPassword({
   if (error) console.log(error)
 }
 
+
 // const signInWithGithub = async () => {
 // const { data, error } = await supabase.auth.signInWithPassword({
 //   email: email.value,

@@ -1,35 +1,42 @@
 <script setup lang="ts">
-import * as v from 'valibot'
 import type { FormSubmitEvent } from '@nuxt/ui'
+import * as v from 'valibot'
 
 const supabase = useSupabaseClient()
 const router = useRouter()
 const loginError = ref('')
 
-const signInWithPassword = async (formData: { email: string; password: string }) => {
+const signInWithPassword = async (formData: {
+  email: string
+  password: string
+}) => {
   loginError.value = ''
   const { data, error } = await supabase.auth.signInWithPassword({
     email: formData.email,
     password: formData.password,
   })
   if (error || !data.user) {
-    loginError.value = error?.message || 'Login failed. Please check your credentials.'
+    loginError.value =
+      error?.message || 'Login failed. Please check your credentials.'
     throw error
   }
   // Redirect to confirm page after successful login
-  await router.push({ path: '/confirm', query: { redirect: router.currentRoute.value.fullPath } })
+  await router.push({
+    path: '/confirm',
+    query: { redirect: router.currentRoute.value.fullPath },
+  })
 }
 
 const schema = v.object({
   email: v.pipe(v.string(), v.email('Invalid email')),
-  password: v.pipe(v.string(), v.minLength(8, 'Must be at least 8 characters'))
+  password: v.pipe(v.string(), v.minLength(8, 'Must be at least 8 characters')),
 })
 
 type Schema = v.InferOutput<typeof schema>
 
 const state = reactive({
   email: '',
-  password: ''
+  password: '',
 })
 
 const toast = useToast()
@@ -37,23 +44,25 @@ const toast = useToast()
 async function onSubmit(event: FormSubmitEvent<Schema>) {
   try {
     await signInWithPassword(event.data)
-    toast.add({ 
-      title: 'Success', 
-      description: 'Login successful!', 
-      color: 'success' 
+    toast.add({
+      title: 'Success',
+      description: 'Login successful!',
+      color: 'success',
     })
   } catch (error) {
-    toast.add({ 
-      title: 'Error', 
-      description: loginError.value || 'Login failed', 
-      color: 'warning' 
+    toast.add({
+      title: 'Error',
+      description: loginError.value || 'Login failed',
+      color: 'warning',
     })
   }
 }
 </script>
 
 <template>
-  <div class="max-w-sm mx-auto mt-10">
+  
+      <div class="flex flex-col items-center justify-center gap-4 p-4">
+    <UPageCard class="w-full max-w-md">
     <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
       <UFormField label="Email" name="email">
         <UInput v-model="state.email" />
@@ -75,6 +84,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
       class="mt-4"
       :description="loginError"
     />
+  </UPageCard>
   </div>
 </template>
 
