@@ -1,11 +1,14 @@
-// All from Claude.ai
-
 <template>
+  <UCard variant="subtle" class="max-w-md text-center mx-auto my-8 p-4">
+     <template #header>
     <div class="flex flex-col mt-2">
       <div class="card w-96 bg-base-100 shadow-xl justify-center self-center">
         <div class="card-body items-center text-center">
           <h1 class="text-3xl font-bold text-sky-600 mb-6">Quiz Completed!</h1>
-          
+          </div>
+      </div>
+      </div>
+          </template>
           <div class="stats shadow mb-6">
             <div class="stat">
               <div class="stat-title">Final Score</div>
@@ -24,13 +27,12 @@
               <div class="text-sm">Wrong</div>
             </div>
           </div>
-  
+    <template #footer>
           <div class="card-actions">
             <button class="btn btn-primary" @click="restartQuiz">Play Again</button>
           </div>
-        </div>
-      </div>
-    </div>
+          </template>
+    </UCard>
   </template>
   
   <script>

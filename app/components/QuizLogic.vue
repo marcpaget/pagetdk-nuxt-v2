@@ -1,10 +1,10 @@
 <template>
-  <UCard variant="subtle" class="max-w-md mx-auto my-8 p-4">
+  <UCard variant="subtle" class="max-w-md text-center mx-auto my-8 p-4">
     <template #header>
       <div>
         <div class="flex flex-row justify-center">
           <div class="basis-1/3">
-            <span class="text-xl text-sky-600 text-center mb-2">Progress</span>
+            <p class="text-xl text-sky-600 text-center mb-2">Progress</p>
             <p class="text-2xl text-green-600 text-center mb-2">{{ totalQuestions }}/{{ numberOfQuestions }}</p>
           </div>
           <div class="basis-1/3">
@@ -18,7 +18,7 @@
         </div>
       </div>
     </template>
-    <div class="card-body items-center text-center px-4">
+
         <figure class="w-64 mx-auto">
           <template v-if="isMounted">
             <img
@@ -31,21 +31,18 @@
             <div v-else class="animate-pulse bg-gray-200 h-40 w-full rounded-xl"></div>
           </template>
         </figure>
-    </div>
     <template #footer>
-        <div class="card-actions w-64 mt-4">
-          <div class="flex flex-col items-center text-center px-4 w-full gap-2">
+          <div class="flex flex-col  w-64 gap-3 mx-auto">
             <UButton
               v-for="(option, index) in options"
               :key="index"
-              class="btn btn-primary w-full"
+              class="btn btn-primary  justify-center"
               :disabled="isLoading"
               @click="checkAnswer(option)"
             >
               {{ option }}
             </UButton>
           </div>
-        </div>
     </template>
   </UCard>
 </template>

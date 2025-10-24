@@ -2,7 +2,6 @@
 <template>
   <UContainer>
   <div>
-    <QuizStart v-if="quizState === 'not-started'" @start-quiz="startQuiz" />
     <ClientOnly>
       <QuizLogic 
         v-if="quizState === 'in-progress'" 
@@ -25,25 +24,20 @@
 export default {
   data() {
     return {
-      quizState: 'not-started', // 'not-started', 'in-progress', 'ended'
+      quizState: 'in-progress', // 'not-started', 'in-progress', 'ended'
       finalScore: 0,
       wrongAnswers: 0,
       numberOfQuestions: 10
     }
   },
   methods: {
-    startQuiz() {
-      this.quizState = 'in-progress'
-      this.finalScore = 0
-      this.wrongAnswers = 0
-    },
     endQuiz(result) {
       this.finalScore = result.score
       this.wrongAnswers = result.wrong
       this.quizState = 'ended'
     },
     resetQuiz() {
-      this.quizState = 'not-started'
+      this.quizState = 'in-progress'
     }
   }
 }
