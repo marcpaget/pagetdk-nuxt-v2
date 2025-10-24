@@ -276,13 +276,36 @@ export default defineNuxtConfig({
  //     asset: '0%'
  //   }
  // },
- // vite: {
- //   server: {
- //     fs: {
- //       strict: false, // Allow access to files outside the root directory
- //     },
- //   },
- // },
+ vite: {
+    build: {
+      chunkSizeWarningLimit: 1000, // Adjust chunk size warning limit
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            vendor: ['vue', 'vue-router'], // Split large chunks
+          },
+        },
+      },
+    },
+  },
+
+  nitro: {
+    preset: 'vercel', // Optimize for Vercel deployment
+  },
+
+  sourcemap: {
+    client: 'hidden', // Retain existing setting
+    server: false, // Disable server sourcemaps for production
+  },
+
+  sentry: {
+    sourceMapsUploadOptions: {
+      org: 'marc-paget',
+      project: 'pagetdk-nuxtui',
+    },
+    autoInjectServerSentry: 'top-level-import',
+  },
+
  content:{
   build: {
        markdown: {
@@ -292,18 +315,5 @@ export default defineNuxtConfig({
        }
      }
  },
-
- sentry: {
-  sourceMapsUploadOptions: {
-   org: 'marc-paget',
-   project: 'pagetdk-nuxtui',
-  },
-
-  autoInjectServerSentry: 'top-level-import',
- },
-
- sourcemap: {
-  client: 'hidden',
- },
-  compatibilityDate: '2025-10-20',
+ compatibilityDate: '2025-10-20',
 })

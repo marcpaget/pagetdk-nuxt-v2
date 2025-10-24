@@ -214,3 +214,7 @@ node_modules
 
 # Sentry Config File
 .env.sentry-build-plugin
+
+.vercel
+
+.github
