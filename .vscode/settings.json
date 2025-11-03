@@ -21,4 +21,5 @@
     "source.sortImports.biome": "always"
   },
   "githubPullRequests.codingAgent.uiIntegration": true,
+  "idf.pythonInstallPath": "/Users/marcpaget/miniconda3/bin/python",
 }

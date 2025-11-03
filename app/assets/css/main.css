@@ -1,15 +1,18 @@
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Maven+Pro&family=Nunito+Sans&family=Quicksand&display=swap');
 @import "tailwindcss";
 @import "@nuxt/ui";
 
-
+@theme {
+  --font-display: 'Permanent Marker', cursive;
+}
 
 /* Override default fonts to maintain your custom font setup */
 body {
   font-family: 'Nunito Sans', sans-serif;
 }
-
+.logo {
+  font-family: 'Permanent Marker', cursive; /* Use your desired font */
+  color: #ff5733; /* Replace with your desired color */
+}
 .font-quicksand {
   font-family: 'Quicksand', sans-serif;
 }

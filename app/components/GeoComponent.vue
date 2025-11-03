@@ -74,17 +74,31 @@ const distancekm = computed(() => {
 </script>
 
 <template>
- <UCard>
-  <UCardHeader>
+  
+  <UContainer>
+     <div class="p-4 justify-center items-center">
+   <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
     <h2 class="text-lg font-semibold">Geolocation Info</h2>
-  </UCardHeader>
-  <UCardBody>
-    <p>Speed: {{ speedkmh }} km/h</p>
-    <p>Altitude: {{ altitude }} m</p>
-    <p>Accuracy: {{ accuracy }} m</p>
-    <p>Heading: {{ heading }}°</p>
-    <p>Max Speed: {{ maxSpeedkmh }} km/h</p>
-    <p>Distance: {{ distancekm }} km</p>
-  </UCardBody>
- </UCard>
+ <div>
+    <p>Speed: {{ speedkmh }} km/h</p> <UIcon name="material-symbols-light:speed-outline-rounded" class="size-10" />
+    </div>
+    <div> 
+    <p>Altitude: {{ altitude }} m</p>  <UIcon name="material-symbols-light:altitude-outline-rounded" class="size-10" />
+    </div>
+    <div>
+    <p>Accuracy: {{ accuracy }} m</p> <UIcon name="radix-icons:crosshair-2" class="size-10" />
+    </div>
+    <div>
+    <p>Heading: {{ heading }}°</p> <UIcon name="lineicons:direction-alt" class="size-10" />
+    </div>
+    <div>
+    <p>Max Speed: {{ maxSpeedkmh }} km/h</p> <UIcon name="material-symbols:performance-max-outline-sharp" class="size-10" />
+    </div>
+    <div>
+    <p>Distance: {{ distancekm }} km</p><UIcon name="game-icons:path-distance" class="size-10" />
+    </div>  
+</div>
+  </div>
+ </UContainer>
+ 
 </template>   
