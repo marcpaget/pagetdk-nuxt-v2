@@ -3,17 +3,17 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev",
-    "build": "nuxt build",
-    "generate": "nuxt generate",
+    "dev": "NODE_OPTIONS='--max-old-space-size=6144' nuxt dev",
+    "build": "NODE_OPTIONS='--max-old-space-size=6144' nuxt build",
+    "generate": "NODE_OPTIONS='--max-old-space-size=6144' nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "build:pwa": "nuxt build --pwa",
-    "dev:pwa": "nuxt dev --pwa",
-    "generate:pwa": "nuxt generate --pwa",
+    "build:pwa": "NODE_OPTIONS='--max-old-space-size=6144' nuxt build --pwa",
+    "dev:pwa": "NODE_OPTIONS='--max-old-space-size=6144' nuxt dev --pwa",
+    "generate:pwa": "NODE_OPTIONS='--max-old-space-size=6144' nuxt generate --pwa",
     "preview:pwa": "nuxt preview --pwa",
     "pwa:build": "npm run generate:pwa && npm run preview:pwa",
-    "pwa:dev": "nuxt dev --pwa"
+    "pwa:dev": "NODE_OPTIONS='--max-old-space-size=6144' nuxt dev --pwa"
   },
   "devDependencies": {
     "@biomejs/biome": "2.3.2",

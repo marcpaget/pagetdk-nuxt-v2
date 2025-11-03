@@ -306,8 +306,8 @@ export default defineNuxtConfig({
   },
 
   sourcemap: {
-    client: 'hidden', // Retain existing setting
-    server: true, // Disable server sourcemaps for production
+    client: false, // Disable client sourcemaps to reduce memory usage
+    server: false, // Disable server sourcemaps for production
   },
 
   sentry: {
