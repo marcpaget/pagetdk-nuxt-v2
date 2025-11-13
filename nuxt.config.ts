@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+// https://favicon.im/da/blog/add-favicon-to-nuxt3-project
+// Todo: Fix Sentry Source Maps Uploading
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -306,8 +308,8 @@ export default defineNuxtConfig({
   },
 
   sourcemap: {
-    client: false, // Disable client sourcemaps to reduce memory usage
-    server: false, // Disable server sourcemaps for production
+    client: true, // Disable client sourcemaps to reduce memory usage
+    server: true, // Disable server sourcemaps for production
   },
 
   sentry: {

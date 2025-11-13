@@ -218,3 +218,4 @@ node_modules
 .vercel
 
 .github
+.vscode/settings.json
