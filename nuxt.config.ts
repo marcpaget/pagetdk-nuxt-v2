@@ -26,8 +26,11 @@ export default defineNuxtConfig({
     '@compodium/nuxt',
     '@sentry/nuxt/module',
     '@nuxt/fonts',
+    // 'nuxt-particles',
   ],
-
+  // particles: {
+  //   mode: 'slim', // 'full' | 'slim' | 'basic' | 'custom'
+  // },
   // PWA Configuration
   // pwa: {
   //   registerType: 'autoUpdate',
@@ -293,6 +296,7 @@ export default defineNuxtConfig({
   vite: {
     build: {
       chunkSizeWarningLimit: 1000, // Adjust chunk size warning limit
+      sourcemap: false, // Disable sourcemap generation in Vite build
       rollupOptions: {
         output: {
           manualChunks: {

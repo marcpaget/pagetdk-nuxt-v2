@@ -32,6 +32,7 @@
     "mapbox-gl": "^3.16.0",
     "nuxt-api-party": "^3.4.1",
     "nuxt-mapbox": "^1.6.4",
+    "nuxt-particles": "^0.3.0",
     "nuxt-umami": "^3.2.1",
     "typescript": "^5.9.3",
     "usemods-nuxt": "^1.15.0",
