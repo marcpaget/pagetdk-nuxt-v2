@@ -1,34 +1,14 @@
 <script setup lang="ts">
 useSeoMeta({
   title: 'Welcome to Paget.dk',
-  description: 'Explore our projects, tools, and services'
+  description: 'Explore our projects, tools, and services',
 })
 </script>
 
 <template>
-  <div class="min-h-screen bg-base-100">
-    <!-- Hero Section -->
-    <div class="hero min-h-screen bg-gradient-to-br from-primary to-secondary">
-      <div class="hero-content text-center text-primary-content">
-        <div class="max-w-md">
-          <h1 class="text-5xl font-bold mb-5">Welcome to Paget.dk</h1>
-          <p class="mb-5">
-            Discover our collection of interactive projects, tools, and applications built with modern web technologies.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <NuxtLink to="/flagquiz" class="btn btn-accent btn-lg">
-              Try Flag Quiz
-            </NuxtLink>
-            <NuxtLink to="/geoinfo" class="btn btn-outline btn-accent btn-lg">
-              Explore GeoInfo
-            </NuxtLink>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <!-- Features Section -->
-    <div class="py-20 bg-base-200">
+    <div class="min-h-screen py-3 bg-base-200 flex items-center">
       <div class="container mx-auto px-4">
         <h2 class="text-3xl font-bold text-center mb-12">Featured Projects</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -93,5 +73,5 @@ useSeoMeta({
         </div>
       </div>
     </div>
-  </div>
+
 </template>

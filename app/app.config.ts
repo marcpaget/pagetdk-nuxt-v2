@@ -6,11 +6,14 @@ export default defineAppConfig({
 
   icon: {
     mode: 'css',
-    cssLayer: 'base'
+    cssLayer: 'base',
   },
   ui: {
     navigationMenu: {
-      variants:{}
-  }
-  }
+      variants: {},
+    },
+    container: {
+      base: 'w-1/2 max-w-(--ui-container) mx-auto px-4 sm:px-3 lg:px-4',
+    },
+  },
 })

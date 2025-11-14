@@ -3,6 +3,7 @@ import { computed, ref } from 'vue'
 //  Implement functionality to save the session data (e.g., speed, altitude, distance) to a database.
 
 import { useGeolocation } from '@vueuse/core'
+import { title } from 'valibot'
 
 // const options = {
 //     enableHighAccuracy: true,
@@ -71,32 +72,61 @@ const distancekm = computed(() => {
   }
   return 0
 })
+const cards = computed(() => [
+  {
+    title: coords.value.latitude?.toFixed(6) || 'N/A',
+    description: 'Latitude',
+    icon: 'lucide:navigation',
+  },
+  {
+    title: coords.value?.longitude?.toFixed(6) || 'N/A',
+    description: 'Longitude',
+    icon: 'lucide:map-pin',
+  },
+  {
+    title: coords.value?.speed
+      ? `${(coords.value.speed * 3.6).toFixed(2)} km/h`
+      : 'N/A',
+    description: 'Speed',
+    icon: 'lucide:gauge',
+  },
+  {
+    title: coords.value?.altitude?.toFixed(2) || 'N/A',
+    description: 'Altitude',
+    icon: 'lucide:mountain',
+  },
+  {
+    title: coords.value?.heading?.toFixed(2) || 'N/A',
+    description: 'Heading',
+    icon: 'lucide:compass',
+  },
+  {
+    title: `${coords.value?.heading?.toFixed(2)}°` || 'N/A',
+    description: 'Heading',
+    icon: 'lucide:compass',
+  },
+  {
+    title: coords.value?.accuracy?.toFixed(2) || 'N/A',
+    description: 'Accuracy',
+    icon: 'radix-icons:crosshair-2',
+  },
+])
 </script>
 
 <template>
   
+
   <UContainer>
-     <div class="p-4 justify-center items-center">
-   <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-    <h2 class="text-lg font-semibold">Geolocation Info</h2>
- <div>
-    <p>Speed: {{ speedkmh }} km/h</p> <UIcon name="material-symbols-light:speed-outline-rounded" class="size-10" />
-    </div>
-    <div> 
-    <p>Altitude: {{ altitude }} m</p>  <UIcon name="material-symbols-light:altitude-outline-rounded" class="size-10" />
-    </div>
-    <div>
-    <p>Accuracy: {{ accuracy }} m</p> <UIcon name="radix-icons:crosshair-2" class="size-10" />
-    </div>
-    <div>
-    <p>Heading: {{ heading }}°</p> <UIcon name="lineicons:direction-alt" class="size-10" />
-    </div>
-    <div>
-    <p>Max Speed: {{ maxSpeedkmh }} km/h</p> <UIcon name="material-symbols:performance-max-outline-sharp" class="size-10" />
-    </div>
-    <div>
-    <p>Distance: {{ distancekm }} km</p><UIcon name="game-icons:path-distance" class="size-10" />
-    </div>  
+     <div class="p-4 justify-center items-center self-center">
+        <h2 class="text-lg font-semibold text-center">Geolocation Info</h2>
+   <div class="grid grid-cols-2 gap-4 items-center justify-center text-center ">
+    <UPageGrid>
+    <UPageCard
+      v-for="(card, index) in cards"
+      :key="index"
+      v-bind="card"
+    />
+  </UPageGrid>
 </div>
   </div>
  </UContainer>
