@@ -13,6 +13,30 @@ const handleLogout = async () => {
   }
 }
 
+const userInitials = computed(() => {
+  console.log('User object:', user.value)
+  console.log('User metadata:', user.value?.user_metadata)
+
+  if (user.value?.user_metadata?.full_name) {
+    const names = user.value.user_metadata.full_name.split(' ')
+    const initials = names
+      .map((n: string) => n.charAt(0).toUpperCase())
+      .join('')
+    console.log('Computed initials:', initials)
+    return initials
+  }
+
+  // Fallback to email if no full name
+  if (user.value?.email) {
+    const emailInitial = user.value.email.charAt(0).toUpperCase()
+    console.log('Using email initial:', emailInitial)
+    return emailInitial
+  }
+
+  console.log('No initials available')
+  return '?'
+})
+
 const items = ref<NavigationMenuItem[][]>([
   [
     {
@@ -86,11 +110,15 @@ const items = ref<NavigationMenuItem[][]>([
                      <UColorModeSwitch />
       </div>
         <div v-if="user" class="flex items-center gap-2">
-            <UAvatar 
-              :src="user.user_metadata?.avatar_url" 
-              :alt="user.email" 
+            <UTooltip text="View Profile">
+            <UButton 
+             :label="userInitials"
+              to="/profile"
               size="sm"
+
+              color="primary"
             />
+             </UTooltip>
             <UButton 
               @click="handleLogout"
               variant="ghost"

@@ -1,0 +1,3 @@
+<template>
+<MapComponent/>
+</template>

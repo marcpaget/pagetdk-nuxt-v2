@@ -30,5 +30,10 @@
 </template>
 
 <script setup>
-const { error, pending, data } = await useFetch('https://api.github.com/users/marcpaget/repos')
+definePageMeta({
+  middleware: 'auth',
+})
+const { error, pending, data } = await useFetch(
+  'https://api.github.com/users/marcpaget/repos',
+)
 </script>

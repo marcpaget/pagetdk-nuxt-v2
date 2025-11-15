@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 // https://favicon.im/da/blog/add-favicon-to-nuxt3-project
 // Todo: Fix Sentry Source Maps Uploading
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -11,22 +12,22 @@ export default defineNuxtConfig({
     // Core functionality modules
     //'nuxt-i18n-micro',
     // Content and UI modules
-    '@nuxt/ui',
-    '@vueuse/nuxt', // UI framework - load after content modules
-    '@nuxtjs/mdc', // External service integrations
+    '@nuxt/ui', // UI framework - load after content modules
+    '@vueuse/nuxt', // External service integrations
+    '@nuxtjs/mdc',
     'nuxt-toc',
-    '@nuxt/content',
-    '@nuxt/image', // Map modules
-    '@nuxtjs/supabase', // PWA should be last to wrap everything
-    'nuxt-api-party', //'@vite-pwa/nuxt',
+    '@nuxt/content', // Map modules
+    '@nuxt/image', // PWA should be last to wrap everything
+    '@nuxtjs/supabase', //'@vite-pwa/nuxt',
+    'nuxt-api-party',
     'nuxt-umami',
     'nuxt-mapbox',
     '@nuxtjs/leaflet',
     '@nuxt/scripts',
     '@compodium/nuxt',
-    '@sentry/nuxt/module',
+    '@sentry/nuxt/module', // 'nuxt-particles',
     '@nuxt/fonts',
-    // 'nuxt-particles',
+    'nuxt-maplibre',
   ],
   // particles: {
   //   mode: 'slim', // 'full' | 'slim' | 'basic' | 'custom'
@@ -138,7 +139,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css', './app/tailwind.css'],
 
   // i18n: {
   //   locales: [
@@ -174,7 +175,7 @@ export default defineNuxtConfig({
     key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
     redirect: false,
     redirectOptions: {
-      login: '/',
+      login: '/login',
       callback: '/confirm',
       include: undefined,
       exclude: [],
@@ -305,6 +306,7 @@ export default defineNuxtConfig({
         },
       },
     },
+    plugins: [tailwindcss()],
   },
 
   nitro: {

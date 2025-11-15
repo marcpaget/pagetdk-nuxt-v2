@@ -9,17 +9,13 @@
   "tailwindCSS.experimental.classRegex": [
     ["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
   ],
-        "github.copilot.chat.codeGeneration.instructions": [
-          {
-            "file": "./.vscode/daisyui.md"
-          }
-        ],
   "editor.codeActionsOnSave": {
     "source.action.useSortedKeys.biome": "never",
     "source.fixAll.biome": "explicit",
     "source.organizeImports.biome": "always",
-    "source.sortImports.biome": "always"
+    "source.sortImports.biome": "always",
   },
   "githubPullRequests.codingAgent.uiIntegration": true,
   "idf.pythonInstallPath": "/Users/marcpaget/miniconda3/bin/python",
+  "editor.minimap.enabled": false,
 }
