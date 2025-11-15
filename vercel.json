@@ -1,0 +1,6 @@
+{
+  "buildCommand": "NODE_OPTIONS='--max-old-space-size=8192' npm run build",
+  "installCommand": "npm install",
+  "framework": null,
+  "outputDirectory": ".output/public"
+}

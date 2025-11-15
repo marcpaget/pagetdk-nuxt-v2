@@ -296,12 +296,27 @@ export default defineNuxtConfig({
   // },
   vite: {
     build: {
-      chunkSizeWarningLimit: 1000, // Adjust chunk size warning limit
-      sourcemap: false, // Disable sourcemap generation in Vite build
+      chunkSizeWarningLimit: 1000,
+      sourcemap: false,
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
       rollupOptions: {
         output: {
-          manualChunks: {
-            vendor: ['vue', 'vue-router'], // Split large chunks
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              if (id.includes('vue') || id.includes('nuxt')) {
+                return 'vendor-core'
+              }
+              if (id.includes('@nuxt/ui')) {
+                return 'vendor-ui'
+              }
+              return 'vendor-other'
+            }
           },
         },
       },
@@ -314,8 +329,8 @@ export default defineNuxtConfig({
   },
 
   sourcemap: {
-    client: true, // Disable client sourcemaps to reduce memory usage
-    server: true, // Disable server sourcemaps for production
+    client: false,
+    server: false,
   },
 
   sentry: {
