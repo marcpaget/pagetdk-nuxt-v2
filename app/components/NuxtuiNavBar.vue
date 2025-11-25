@@ -61,6 +61,13 @@ const items = ref<NavigationMenuItem[][]>([
           description: 'Browse through our image collection',
           to: '/gallery',
         },
+        {
+          label: 'Map',
+          icon: 'i-lucide-globe',
+          description: 'Interactive map based on MapLibre',
+          slot: 'map' as const,
+          to: '/map',
+        },
       ],
     },
     {
@@ -103,8 +110,17 @@ const items = ref<NavigationMenuItem[][]>([
       <template #title>
       <h1 class="h-6 w-auto logo">Paget.dk</h1> 
     </template>
-    <UNavigationMenu   highlight
-    highlight-color="primary" content-orientation="vertical" :items="items" />
+    <UNavigationMenu highlight highlight-color="primary" content-orientation="vertical" :items="items">
+      <template #map-link="{ item }">
+        <ULink v-if="user" :to="item.to" class="flex items-center gap-2">
+          <UIcon :name="item.icon" class="size-5" />
+          <div>
+            <p class="font-medium">{{ item.label }}</p>
+            <p class="text-sm text-muted">{{ item.description }}</p>
+          </div>
+        </ULink>
+      </template>
+    </UNavigationMenu>
       <template #right>
         <div class="pr-4">
                      <UColorModeSwitch />
@@ -137,9 +153,6 @@ const items = ref<NavigationMenuItem[][]>([
           >
             Login
           </UButton>
-         
-
- 
       </template>
     </UHeader>
   <!-- </div> -->

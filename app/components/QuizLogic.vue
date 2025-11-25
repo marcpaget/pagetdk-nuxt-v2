@@ -48,127 +48,133 @@
 </template>
   
   <script>
-  export default {
-    props: {
-      numberOfQuestions: {
-        type: Number,
-        default: 10
-      }
+// Lav time-attack mode med https://nuxt.com/docs/4.x/api/components/nuxt-time
+export default {
+  props: {
+    numberOfQuestions: {
+      type: Number,
+      default: 10,
     },
-    emits: ['quiz-completed'],
-    data() {
-      return {
-        countries: [],
-        options: [],
-        currentFlag: '',
-        correctAnswer: '',
-        score: 0,
-        wrong: 0,
-        totalQuestions: 0,
-        isLoading: true,
-        isMounted: false,
-        retryCount: 0,
-        maxRetries: 3
-      }
-    },
-    mounted() {
-      this.isMounted = true
-      this.fetchCountries()
-    },
-    methods: {
-      async fetchCountries() {
-        try {
-          const response = await fetch('https://restcountries.com/v3.1/all?fields=name,flags', {
+  },
+  emits: ['quiz-completed'],
+  data() {
+    return {
+      countries: [],
+      options: [],
+      currentFlag: '',
+      correctAnswer: '',
+      score: 0,
+      wrong: 0,
+      totalQuestions: 0,
+      isLoading: true,
+      isMounted: false,
+      retryCount: 0,
+      maxRetries: 3,
+    }
+  },
+  mounted() {
+    this.isMounted = true
+    this.fetchCountries()
+  },
+  methods: {
+    async fetchCountries() {
+      try {
+        const response = await fetch(
+          'https://restcountries.com/v3.1/all?fields=name,flags',
+          {
             mode: 'cors',
             headers: {
-              'Accept': 'application/json'
-            }
-          })
-          
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
-          }
-          
-          const data = await response.json()
-          this.countries = data.filter(country => country.flags?.png || country.flags?.svg)
-          this.getRandomFlag()
-        } catch (error) {
-          console.error('Error fetching countries:', error)
+              Accept: 'application/json',
+            },
+          },
+        )
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        const data = await response.json()
+        this.countries = data.filter(
+          (country) => country.flags?.png || country.flags?.svg,
+        )
+        this.getRandomFlag()
+      } catch (error) {
+        console.error('Error fetching countries:', error)
+        this.isLoading = false
+      }
+    },
+    async getRandomFlag() {
+      this.isLoading = true
+      this.retryCount = 0
+
+      if (!this.countries || this.countries.length === 0) {
+        console.error('Countries array is empty or not defined')
+        this.isLoading = false
+        return
+      }
+
+      const randomIndex = Math.floor(Math.random() * this.countries.length)
+      const country = this.countries[randomIndex]
+
+      this.currentFlag = country.flags?.png || country.flags?.svg
+      this.correctAnswer = country.name.common
+      this.options = this.getRandomOptions(this.correctAnswer)
+
+      if (this.currentFlag) {
+        const img = new Image()
+        img.onload = () => {
           this.isLoading = false
         }
-      },
-      async getRandomFlag() {
-        this.isLoading = true
-        this.retryCount = 0
-        
-        if (!this.countries || this.countries.length === 0) {
-          console.error('Countries array is empty or not defined')
-          this.isLoading = false
-          return
+        img.onerror = () => {
+          this.handleImageError()
         }
-        
+        img.src = this.currentFlag
+      } else {
+        this.isLoading = false
+      }
+    },
+    handleImageError() {
+      if (this.retryCount < this.maxRetries) {
+        this.retryCount++
+        console.log(`Retrying flag load (attempt ${this.retryCount})...`)
+        this.getRandomFlag()
+      } else {
+        console.error('Failed to load flag after maximum retries')
+        this.isLoading = false
+      }
+    },
+    getRandomOptions(correctAnswer) {
+      const options = [correctAnswer]
+      while (options.length < 4) {
         const randomIndex = Math.floor(Math.random() * this.countries.length)
-        const country = this.countries[randomIndex]
-        
-        this.currentFlag = country.flags?.png || country.flags?.svg
-        this.correctAnswer = country.name.common
-        this.options = this.getRandomOptions(this.correctAnswer)
-        
-        if (this.currentFlag) {
-          const img = new Image()
-          img.onload = () => {
-            this.isLoading = false
-          }
-          img.onerror = () => {
-            this.handleImageError()
-          }
-          img.src = this.currentFlag
-        } else {
-          this.isLoading = false
-        }
-      },
-      handleImageError() {
-        if (this.retryCount < this.maxRetries) {
-          this.retryCount++
-          console.log(`Retrying flag load (attempt ${this.retryCount})...`)
-          this.getRandomFlag()
-        } else {
-          console.error('Failed to load flag after maximum retries')
-          this.isLoading = false
-        }
-      },
-      getRandomOptions(correctAnswer) {
-        const options = [correctAnswer]
-        while (options.length < 4) {
-          const randomIndex = Math.floor(Math.random() * this.countries.length)
-          const option = this.countries[randomIndex].name.common
-          if (!options.includes(option)) {
-            options.push(option)
-          }
-        }
-        return options.sort(() => Math.random() - 0.5)
-      },
-      async checkAnswer(option) {
-        if (this.isLoading) return
-        
-        this.totalQuestions++
-        if (option === this.correctAnswer) {
-          this.score++
-        } else {
-          this.wrong++
-        }
-  
-        if (this.totalQuestions >= this.numberOfQuestions) {
-          // Quiz is completed, emit the result
-          this.$emit('quiz-completed', { 
-            score: this.score, 
-            wrong: this.wrong 
-          })
-        } else {
-          // Get next question
-          await this.getRandomFlag()
+        const option = this.countries[randomIndex].name.common
+        if (!options.includes(option)) {
+          options.push(option)
         }
       }
-    }
-  }
-  </script>
+      return options.sort(() => Math.random() - 0.5)
+    },
+    async checkAnswer(option) {
+      if (this.isLoading) return
+
+      this.totalQuestions++
+      if (option === this.correctAnswer) {
+        this.score++
+      } else {
+        this.wrong++
+      }
+
+      if (this.totalQuestions >= this.numberOfQuestions) {
+        // Quiz is completed, emit the result
+        this.$emit('quiz-completed', {
+          score: this.score,
+          wrong: this.wrong,
+        })
+      } else {
+        // Get next question
+        await this.getRandomFlag()
+      }
+    },
+  },
+}
+</script>
