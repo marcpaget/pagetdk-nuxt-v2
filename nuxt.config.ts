@@ -220,6 +220,7 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     workbox: {
+      maximumFileSizeToCacheInBytes: 3000000,
       globPatterns: ['**/*.{js,css,html,png,svg,ico,woff2}'],
       cleanupOutdatedCaches: true,
       runtimeCaching: [
