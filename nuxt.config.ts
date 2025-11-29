@@ -12,123 +12,32 @@ export default defineNuxtConfig({
     // Core functionality modules
     //'nuxt-i18n-micro',
     // Content and UI modules
-    '@nuxt/ui', // UI framework - load after content modules
-    '@vueuse/nuxt', // External service integrations
+    // UI framework - load after content modules
+    '@nuxt/ui', // External service integrations
+    '@vueuse/nuxt',
     '@nuxtjs/mdc',
-    'nuxt-toc',
-    '@nuxt/content', // Map modules
-    '@nuxt/image', // PWA should be last to wrap everything
-    '@nuxtjs/supabase', //'@vite-pwa/nuxt',
+    'nuxt-toc', // Map modules
+    '@nuxt/content',
+    '@nuxt/image',
+    '@nuxtjs/supabase',
     'nuxt-api-party',
     'nuxt-umami',
     'nuxt-mapbox',
     '@nuxtjs/leaflet',
     '@nuxt/scripts',
-    '@compodium/nuxt',
-    '@sentry/nuxt/module', // 'nuxt-particles',
+    '@compodium/nuxt', // 'nuxt-particles',
+    '@sentry/nuxt/module',
     '@nuxt/fonts',
     'nuxt-maplibre',
+    // PWA should be last to wrap everything
+    '@vite-pwa/nuxt',
   ],
-  // particles: {
-  //   mode: 'slim', // 'full' | 'slim' | 'basic' | 'custom'
-  // },
-  // PWA Configuration
-  // pwa: {
-  //   registerType: 'autoUpdate',
-  //   workbox: {
-  //     navigateFallback: '/',
-  //     globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-  //   },
-  //   client: {
-  //     installPrompt: true,
-  //     periodicSyncForUpdates: 20,
-  //   },
-  //   devOptions: {
-  //     enabled: true,
-  //     suppressWarnings: true,
-  //     navigateFallbackAllowlist: [/^\/$/],
-  //     type: 'module',
-  //   },
-  //   manifest: {
-  //     name: 'Paget.dk',
-  //     short_name: 'Paget.dk',
-  //     description: 'Explore our projects, tools, and services',
-  //     theme_color: '#ffffff',
-  //     background_color: '#ffffff',
-  //     display: 'standalone',
-  //     orientation: 'portrait',
-  //     scope: '/',
-  //     start_url: '/',
-  //     icons: [
-  //       {
-  //         src: 'pwa-192x192.png',
-  //         sizes: '192x192',
-  //         type: 'image/png',
-  //       },
-  //       {
-  //         src: 'pwa-512x512.png',
-  //         sizes: '512x512',
-  //         type: 'image/png',
-  //       },
-  //       {
-  //         src: 'pwa-512x512.png',
-  //         sizes: '512x512',
-  //         type: 'image/png',
-  //         purpose: 'any maskable',
-  //       }
-  //     ],
-  //   },
-  // },
-  // Tilføj Prisma ORM eller Drizzle ORM
-  // Tilføj Supabase Auth fra Claude
-  //   pwa: {
-  //     /* PWA options */
-
-  //   registerType: 'autoUpdate',
-  //   workbox: {
-  //     navigateFallback: '/',
-  //     globPatterns: ['**/*.{js,css,html,png,svg,ico}'],
-  //   },
-  //   client: {
-  //     installPrompt: true,
-  //     // you can omit this to use the default install prompt
-  //     periodicSyncForUpdates: 20,
-  //   },
-  //   devOptions: {
-  //     enabled: true,
-  //     suppressWarnings: true,
-  //     navigateFallbackAllowlist: [/^\/$/],
-  //     type: 'module',
-  //   },
-  //   manifest: {
-  //     name: 'Paget.dk',
-  //     short_name: 'Paget.dk',
-  //     description: 'Explore our projects, tools, and services',
-  //     theme_color: '#ffffff',
-  //     background_color: '#ffffff',
-  //     display: 'standalone',
-  //     orientation: 'portrait',
-  //     scope: '/',
-  //     start_url: '/',
-  //     icons: [
-  //       {
-  //         src: 'pwa-192x192.png',
-  //         sizes: '192x192',
-  //         type: 'image/png',
-  //       },
-  //       {
-  //         src: 'pwa-512x512.png',
-  //         sizes: '512x512',
-  //         type: 'image/png',
-  //       },
-  //       {
-  //         src: 'pwa-512x512.png',
-  //         sizes: '512x512',
-  //         type: 'image/png',
-  //         purpose: 'any maskable',
-  //       }
-  //     ],
-  //   },
+  // ssr: false,
+  routeRules: {
+    '/map': { ssr: false },
+  },
+  // appwrite: {
+  //   /* module options */
   // },
   runtimeConfig: {
     public: {
@@ -139,7 +48,40 @@ export default defineNuxtConfig({
     },
   },
 
-  css: ['~/assets/css/main.css', './app/tailwind.css'],
+  css: [
+    '~/assets/css/main.css',
+    './app/tailwind.css',
+    'maplibre-gl/dist/maplibre-gl.css',
+  ],
+
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'en',
+      },
+      title: 'Paget.dk',
+      meta: [
+        { charset: 'utf-8' },
+        {
+          name: 'viewport',
+          content: 'width=device-width, initial-scale=1, viewport-fit=cover',
+        },
+        {
+          name: 'description',
+          content: 'Explore our projects, tools, and services',
+        },
+        { name: 'theme-color', content: '#ffffff' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
+        { name: 'apple-mobile-web-app-title', content: 'Paget' },
+      ],
+      link: [
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+      ],
+    },
+  },
 
   // i18n: {
   //   locales: [
@@ -216,7 +158,141 @@ export default defineNuxtConfig({
       },
     },
   },
+  vite: {
+    build: {
+      chunkSizeWarningLimit: 1000,
+      sourcemap: false,
+      minify: 'terser',
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
+      rollupOptions: {
+        output: {
+          manualChunks: (id) => {
+            if (id.includes('node_modules')) {
+              if (id.includes('vue') || id.includes('nuxt')) {
+                return 'vendor-core'
+              }
+              if (id.includes('@nuxt/ui')) {
+                return 'vendor-ui'
+              }
+              return 'vendor-other'
+            }
+          },
+        },
+      },
+    },
+    plugins: [tailwindcss()],
+  },
 
+  nitro: {
+    preset: 'vercel', // Optimize for Vercel deployment
+  },
+
+  sourcemap: {
+    client: false,
+    server: false,
+  },
+
+  sentry: {
+    sourceMapsUploadOptions: {
+      org: 'marc-paget',
+      project: 'pagetdk-nuxtui',
+    },
+    autoInjectServerSentry: 'top-level-import',
+  },
+
+  content: {
+    build: {
+      markdown: {
+        toc: {
+          depth: 3, // include h3 headings
+        },
+      },
+    },
+  },
+  compatibilityDate: '2025-10-20',
+
+  // PWA Configuration
+  pwa: {
+    registerType: 'autoUpdate',
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,png,svg,ico,woff2}'],
+      cleanupOutdatedCaches: true,
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/api\.maptiler\.com\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'maptiler-cache',
+            expiration: {
+              maxEntries: 10,
+              maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+            },
+            cacheableResponse: {
+              statuses: [0, 200],
+            },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/res\.cloudinary\.com\/.*/i,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'cloudinary-images',
+            expiration: {
+              maxEntries: 50,
+              maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+            },
+            cacheableResponse: {
+              statuses: [0, 200],
+            },
+          },
+        },
+      ],
+    },
+    manifest: {
+      name: 'Paget.dk',
+      short_name: 'Paget',
+      description: 'Explore our projects, tools, and services',
+      theme_color: '#ffffff',
+      background_color: '#ffffff',
+      display: 'standalone',
+      orientation: 'portrait',
+      scope: '/',
+      start_url: '/',
+      icons: [
+        {
+          src: '/pwa-64x64.png',
+          sizes: '64x64',
+          type: 'image/png',
+        },
+        {
+          src: '/pwa-192x192.png',
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: '/pwa-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+        },
+        {
+          src: '/maskable-icon-512x512.png',
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'maskable',
+        },
+      ],
+    },
+    devOptions: {
+      enabled: true,
+      suppressWarnings: true,
+      type: 'module',
+    },
+  },
   // Booster configuration to prevent UI conflicts
   // booster: {
   //   detection: {
@@ -294,61 +370,4 @@ export default defineNuxtConfig({
   //     asset: '0%'
   //   }
   // },
-  vite: {
-    build: {
-      chunkSizeWarningLimit: 1000,
-      sourcemap: false,
-      minify: 'terser',
-      terserOptions: {
-        compress: {
-          drop_console: true,
-          drop_debugger: true,
-        },
-      },
-      rollupOptions: {
-        output: {
-          manualChunks: (id) => {
-            if (id.includes('node_modules')) {
-              if (id.includes('vue') || id.includes('nuxt')) {
-                return 'vendor-core'
-              }
-              if (id.includes('@nuxt/ui')) {
-                return 'vendor-ui'
-              }
-              return 'vendor-other'
-            }
-          },
-        },
-      },
-    },
-    plugins: [tailwindcss()],
-  },
-
-  nitro: {
-    preset: 'vercel', // Optimize for Vercel deployment
-  },
-
-  sourcemap: {
-    client: false,
-    server: false,
-  },
-
-  sentry: {
-    sourceMapsUploadOptions: {
-      org: 'marc-paget',
-      project: 'pagetdk-nuxtui',
-    },
-    autoInjectServerSentry: 'top-level-import',
-  },
-
-  content: {
-    build: {
-      markdown: {
-        toc: {
-          depth: 3, // include h3 headings
-        },
-      },
-    },
-  },
-  compatibilityDate: '2025-10-20',
 })
