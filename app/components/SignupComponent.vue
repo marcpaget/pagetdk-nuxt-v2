@@ -62,7 +62,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     email,
     password,
     options: {
-      emailRedirectTo: 'localhost:3000/confirm',
+      emailRedirectTo: getRedirectUrl('confirm'),
     },
   })
 

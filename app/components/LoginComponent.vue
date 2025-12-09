@@ -51,6 +51,7 @@ const providers = [
 const schema = z.object({
   email: z.string().email('Invalid email'),
   password: z.string().min(8, 'Must be at least 8 characters'),
+  remember: z.boolean().optional(),
 })
 
 type Schema = z.output<typeof schema>
@@ -103,7 +104,7 @@ async function handlePasswordReset() {
   const { error } = await supabase.auth.resetPasswordForEmail(
     resetEmail.value,
     {
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo: getRedirectUrl('reset-password'),
     },
   )
 

@@ -33,14 +33,15 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
   ],
   // ssr: false,
-  routeRules: {
-    '/map': { ssr: false },
-  },
+  // routeRules: {
+  //   '/map': { ssr: false },
+  // },
   // appwrite: {
   //   /* module options */
   // },
   runtimeConfig: {
     public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
       supabase: {
         url: process.env.NUXT_PUBLIC_SUPABASE_URL,
         key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
