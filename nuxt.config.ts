@@ -6,32 +6,17 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: [
-    // Performance and optimization modules first
-    //'nuxt-booster',
-    // Core functionality modules
-    //'nuxt-i18n-micro',
-    // Content and UI modules
-    // UI framework - load after content modules
-    '@nuxt/ui', // External service integrations
-    '@vueuse/nuxt',
-    '@nuxtjs/mdc',
-    'nuxt-toc', // Map modules
-    '@nuxt/content',
-    '@nuxt/image',
-    '@nuxtjs/supabase',
-    'nuxt-api-party',
-    'nuxt-umami',
-    'nuxt-mapbox',
-    '@nuxtjs/leaflet',
-    '@nuxt/scripts',
-    '@compodium/nuxt', // 'nuxt-particles',
-    '@sentry/nuxt/module',
-    '@nuxt/fonts',
-    'nuxt-maplibre',
-    // PWA should be last to wrap everything
-    '@vite-pwa/nuxt',
-  ],
+  modules: [// Performance and optimization modules first
+  //'nuxt-booster',
+  // Core functionality modules
+  //'nuxt-i18n-micro',
+  // Content and UI modules
+  // UI framework - load after content modules
+  // External service integrations
+  '@nuxt/ui', '@vueuse/nuxt', // Map modules
+  '@nuxtjs/mdc', 'nuxt-toc', '@nuxt/content', '@nuxt/image', '@nuxtjs/supabase', 'nuxt-api-party', 'nuxt-umami', 'nuxt-mapbox', '@nuxtjs/leaflet', // 'nuxt-particles',
+  '@nuxt/scripts', '@compodium/nuxt', '@sentry/nuxt/module', '@nuxt/fonts', // PWA should be last to wrap everything
+  'nuxt-maplibre', '@vite-pwa/nuxt', 'nuxt-studio'],
   // ssr: false,
   // routeRules: {
   //   '/map': { ssr: false },
@@ -83,17 +68,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-
-  // i18n: {
-  //   locales: [
-  //     { code: 'en', iso: 'en-US', dir: 'ltr' },
-  //    // { code: 'da', iso: 'da-DK', dir: 'ltr' },
-
-  //   ],
-  //   defaultLocale: 'en',
-  //   translationDir: 'locales',
-  //   meta: true,
-  // },
   mapbox: {
     accessToken: process.env.MAPBOX_API_KEY,
   },

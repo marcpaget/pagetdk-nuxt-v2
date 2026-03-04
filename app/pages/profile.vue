@@ -1,53 +1,38 @@
 <script setup lang="ts">
 definePageMeta({
-  middleware: ['auth']
+  middleware: ['auth'],
 })
 
 const user = useSupabaseUser()
 const supabase = useSupabaseClient()
-const router = useRouter()
 
 const signOut = async () => {
   await supabase.auth.signOut()
-  router.push('/login')
+  await navigateTo('/login')
 }
 </script>
 
 <template>
-  <div class="flex min-h-screen flex-col items-center bg-base-200 p-8">
-    <div class="card w-full max-w-3xl bg-base-100 shadow-xl">
-      <div class="card-body">
-        <h2 class="card-title text-2xl font-bold">Profile</h2>
-        
-        <div class="mt-6">
-          <div class="avatar placeholder mb-6 flex justify-center">
-            <div class="bg-neutral text-neutral-content w-24 rounded-full">
-              <span class="text-2xl">{{ user?.email?.charAt(0).toUpperCase() }}</span>
-            </div>
-          </div>
-          
-          <div class="mb-6 text-center">
-            <h3 class="text-xl font-semibold">{{ user?.email }}</h3>
-            <p class="text-base-content/70">User ID: {{ user?.id }}</p>
-            <ClientOnly>
-              <p class="text-base-content/70">
-                Last sign in:
-                {{
-                  user?.last_sign_in_at
-                    ? new Date(user.last_sign_in_at).toLocaleString()
-                    : 'N/A'
-                }}
-              </p>
-            </ClientOnly>
-          </div>
+  <div class="flex items-center justify-center min-h-screen p-4">
+    <UCard class="w-full max-w-md">
+      <template #header>
+        <h2 class="text-2xl font-bold text-center">Profile</h2>
+      </template>
+
+      <div class="space-y-6">
+        <div class="flex justify-center">
+          <UAvatar size="xl" :alt="user?.email || 'User'" />
         </div>
-        
-        <div class="card-actions mt-4 justify-center">
-          <button @click="signOut" class="btn btn-primary">
-            Sign out
-          </button>
+
+        <div class="space-y-2 text-center">
+          <p class="font-semibold">{{ user?.email }}</p>
+          <p class="text-sm text-gray-500">ID: {{ user?.id?.slice(0, 8) }}...</p>
         </div>
+
+        <UButton block color="error" @click="signOut">
+          Sign Out
+        </UButton>
       </div>
-    </div>
+    </UCard>
   </div>
 </template>

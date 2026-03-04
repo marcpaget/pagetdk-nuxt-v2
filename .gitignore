@@ -219,3 +219,4 @@ node_modules
 
 .github
 .vscode/settings.json
+.env.example

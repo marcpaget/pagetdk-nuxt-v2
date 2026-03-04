@@ -6,6 +6,7 @@ const user = useSupabaseUser()
 const router = useRouter()
 
 // Logout function
+// biome-ignore lint: used in template
 const handleLogout = async () => {
   const { error } = await supabase.auth.signOut()
   if (!error) {
@@ -13,6 +14,7 @@ const handleLogout = async () => {
   }
 }
 
+// biome-ignore lint: used in template
 const userInitials = computed(() => {
   console.log('User object:', user.value)
   console.log('User metadata:', user.value?.user_metadata)
@@ -37,6 +39,7 @@ const userInitials = computed(() => {
   return '?'
 })
 
+// biome-ignore lint: used in template
 const items = ref<NavigationMenuItem[][]>([
   [
     {
@@ -102,58 +105,68 @@ const items = ref<NavigationMenuItem[][]>([
     },
   ],
 ])
+
+// biome-ignore lint: used in template
+const asNavItem = (item: unknown) => item as NavigationMenuItem
 </script>
 
 <template>
-  <!-- <div class="flex items-center justify-between w-full"> -->
-    <UHeader>
-      <template #title>
-      <h1 class="h-6 w-auto logo">Paget.dk</h1> 
+  <UHeader class="w-full px-8">
+    <template #title>
+      <h1 class="h-6 w-auto logo mr-10">Paget.dk</h1>
     </template>
-    <UNavigationMenu highlight highlight-color="primary" content-orientation="vertical" :items="items">
-      <template #map-link="{ item }">
-        <ULink v-if="user" :to="item.to" class="flex items-center gap-2">
-          <UIcon :name="item.icon" class="size-5" />
-          <div>
-            <p class="font-medium">{{ item.label }}</p>
-            <p class="text-sm text-muted">{{ item.description }}</p>
-          </div>
-        </ULink>
-      </template>
-    </UNavigationMenu>
-      <template #right>
-        <div class="pr-4">
-                     <UColorModeSwitch />
-      </div>
+
+    <div class="flex w-full items-center gap-14">
+      <UNavigationMenu
+        class="flex-1 mx-10"
+        highlight
+        highlight-color="primary"
+        content-orientation="vertical"
+        :items="items"
+      >
+        <template #map="{ item }">
+          <ULink v-if="user" :to="asNavItem(item).to" class="flex items-center gap-2">
+            <UIcon :name="asNavItem(item).icon" class="size-5" />
+            <div>
+              <p class="font-medium">{{ asNavItem(item).label }}</p>
+              <p class="text-sm text-muted">{{ asNavItem(item).description }}</p>
+            </div>
+          </ULink>
+        </template>
+      </UNavigationMenu>
+
+      <div class="flex items-center gap-6 pl-10">
         <div v-if="user" class="flex items-center gap-2">
-            <UTooltip text="View Profile">
-            <UButton 
-             :label="userInitials"
+          <UTooltip text="View Profile">
+            <UButton
+              :label="userInitials"
               to="/profile"
               size="sm"
-
               color="primary"
             />
-             </UTooltip>
-            <UButton 
-              @click="handleLogout"
-              variant="ghost"
-              size="sm"
-              icon="i-lucide-log-out"
-            >
-              Logout
-            </UButton>
-          </div>
-          <UButton 
-            v-else
-            to="/login"
-            variant="solid"
+          </UTooltip>
+          <UButton
+            @click="handleLogout"
+            variant="ghost"
             size="sm"
-            icon="i-lucide-log-in"
+            icon="i-lucide-log-out"
           >
-            Login
+            Logout
           </UButton>
-      </template>
-    </UHeader>
-  <!-- </div> -->
+        </div>
+        <UButton
+          v-else
+          to="/login"
+          variant="solid"
+          size="sm"
+          icon="i-lucide-log-in"
+        >
+          Login
+        </UButton>
+        <div class="pr-4 ml-6">
+          <UColorModeSwitch />
+        </div>
+      </div>
+    </div>
+  </UHeader>
 </template>
