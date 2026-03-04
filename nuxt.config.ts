@@ -6,17 +6,33 @@ import tailwindcss from '@tailwindcss/vite'
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: [// Performance and optimization modules first
-  //'nuxt-booster',
-  // Core functionality modules
-  //'nuxt-i18n-micro',
-  // Content and UI modules
-  // UI framework - load after content modules
-  // External service integrations
-  '@nuxt/ui', '@vueuse/nuxt', // Map modules
-  '@nuxtjs/mdc', 'nuxt-toc', '@nuxt/content', '@nuxt/image', '@nuxtjs/supabase', 'nuxt-api-party', 'nuxt-umami', 'nuxt-mapbox', '@nuxtjs/leaflet', // 'nuxt-particles',
-  '@nuxt/scripts', '@compodium/nuxt', '@sentry/nuxt/module', '@nuxt/fonts', // PWA should be last to wrap everything
-  'nuxt-maplibre', '@vite-pwa/nuxt', 'nuxt-studio'],
+  modules: [
+    // Performance and optimization modules first
+    //'nuxt-booster',
+    // Core functionality modules
+    //'nuxt-i18n-micro',
+    // Content and UI modules
+    // UI framework - load after content modules
+    // External service integrations
+    '@nuxt/ui',
+    '@vueuse/nuxt', // Map modules
+    '@nuxtjs/mdc',
+    'nuxt-toc',
+    '@nuxt/content',
+    '@nuxt/image',
+    '@nuxtjs/supabase',
+    'nuxt-api-party',
+    'nuxt-umami',
+    'nuxt-mapbox',
+    '@nuxtjs/leaflet', // 'nuxt-particles',
+    '@nuxt/scripts',
+    '@compodium/nuxt',
+    '@sentry/nuxt/module',
+    '@nuxt/fonts', // PWA should be last to wrap everything
+    'nuxt-maplibre',
+    '@vite-pwa/nuxt',
+    'nuxt-studio',
+  ],
   // ssr: false,
   // routeRules: {
   //   '/map': { ssr: false },
@@ -210,7 +226,7 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'autoUpdate',
     workbox: {
-      maximumFileSizeToCacheInBytes: 3000000,
+      maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
       globPatterns: [
         '**/*.{js,css,html,png,svg,ico,woff2}',
         // Remove _payload.json pattern to avoid warning
