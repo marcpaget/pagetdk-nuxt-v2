@@ -32,6 +32,7 @@ export default defineNuxtConfig({
     'nuxt-maplibre',
     '@vite-pwa/nuxt',
     'nuxt-studio',
+    '@nuxt/test-utils/module', // https://nuxt.com/docs/4.x/getting-started/testing + https://vitest.dev/guide/projects.html#test-projects
   ],
   // ssr: false,
   // routeRules: {
