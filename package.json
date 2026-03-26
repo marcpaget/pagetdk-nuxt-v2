@@ -14,7 +14,16 @@
     "preview:pwa": "nuxt preview --pwa",
     "pwa:build": "npm run generate:pwa && npm run preview:pwa",
     "pwa:dev": "NODE_OPTIONS='--max-old-space-size=6144' nuxt dev --pwa",
-    "prepare": "husky"
+    "prepare": "husky",
+    "lint": "biome lint .",
+    "format": "biome format .",
+    "check": "biome check .",
+    "check:fix": "biome check --write ."
+  },
+  "lint-staged": {
+    "**/*": [
+      "biome check --write --files-ignore-unknown=true --no-errors-on-unmatched"
+    ]
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.5",
