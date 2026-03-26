@@ -18,7 +18,11 @@
     "lint": "biome lint .",
     "format": "biome format .",
     "check": "biome check .",
-    "check:fix": "biome check --write ."
+    "check:fix": "biome check --write .",
+    "test": "vitest run",
+    "test:unit": "vitest run --project unit",
+    "test:nuxt": "vitest run --project nuxt",
+    "test:e2e": "vitest run --project e2e"
   },
   "lint-staged": {
     "**/*": [
