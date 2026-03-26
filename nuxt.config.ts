@@ -204,6 +204,15 @@ export default defineNuxtConfig({
     server: false,
   },
 
+  studio: {
+    repository: {
+      provider: 'github',
+      owner: 'marcpaget',
+      repo: 'pagetdk-nuxt-v2',
+      branch: 'webnative',
+    },
+  },
+
   sentry: {
     sourceMapsUploadOptions: {
       org: 'marc-paget',
