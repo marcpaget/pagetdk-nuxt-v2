@@ -4,6 +4,14 @@
 import { defineVitestProject } from '@nuxt/test-utils/config'
 import { defineConfig } from 'vitest/config'
 
+const nuxtTestOverrides = {
+  // Limit modules during Nuxt tests to avoid non-serializable runtime config.
+  modules: ['@nuxt/test-utils/module'],
+  runtimeConfig: {
+    public: {},
+  },
+}
+
 export default defineConfig({
   test: {
     projects: [
@@ -26,6 +34,11 @@ export default defineConfig({
           name: 'nuxt',
           include: ['test/nuxt/*.{test,spec}.ts'],
           environment: 'nuxt',
+          environmentOptions: {
+            nuxt: {
+              overrides: nuxtTestOverrides,
+            },
+          },
         },
       }),
     ],
