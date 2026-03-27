@@ -3,37 +3,41 @@
 // Todo: Fix Sentry Source Maps Uploading
 import tailwindcss from '@tailwindcss/vite'
 
+const isTest = process.env.NODE_ENV === 'test'
+
+const appModules = [
+  // Performance and optimization modules first
+  //'nuxt-booster',
+  // Core functionality modules
+  //'nuxt-i18n-micro',
+  // Content and UI modules
+  // UI framework - load after content modules
+  // External service integrations
+  '@nuxt/ui',
+  '@vueuse/nuxt', // Map modules
+  '@nuxtjs/mdc',
+  'nuxt-toc',
+  '@nuxt/content',
+  '@nuxt/image',
+  '@nuxtjs/supabase',
+  'nuxt-api-party',
+  'nuxt-umami',
+  'nuxt-mapbox',
+  '@nuxtjs/leaflet', // 'nuxt-particles',
+  '@nuxt/scripts',
+  '@compodium/nuxt',
+  '@sentry/nuxt/module',
+  '@nuxt/fonts', // PWA should be last to wrap everything
+  'nuxt-maplibre',
+  '@vite-pwa/nuxt',
+  'nuxt-studio',
+  '@nuxt/test-utils/module', // https://nuxt.com/docs/4.x/getting-started/testing + https://vitest.dev/guide/projects.html#test-projects
+]
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  modules: [
-    // Performance and optimization modules first
-    //'nuxt-booster',
-    // Core functionality modules
-    //'nuxt-i18n-micro',
-    // Content and UI modules
-    // UI framework - load after content modules
-    // External service integrations
-    '@nuxt/ui',
-    '@vueuse/nuxt', // Map modules
-    '@nuxtjs/mdc',
-    'nuxt-toc',
-    '@nuxt/content',
-    '@nuxt/image',
-    '@nuxtjs/supabase',
-    'nuxt-api-party',
-    'nuxt-umami',
-    'nuxt-mapbox',
-    '@nuxtjs/leaflet', // 'nuxt-particles',
-    '@nuxt/scripts',
-    '@compodium/nuxt',
-    '@sentry/nuxt/module',
-    '@nuxt/fonts', // PWA should be last to wrap everything
-    'nuxt-maplibre',
-    '@vite-pwa/nuxt',
-    'nuxt-studio',
-    '@nuxt/test-utils/module', // https://nuxt.com/docs/4.x/getting-started/testing + https://vitest.dev/guide/projects.html#test-projects
-  ],
+  modules: isTest ? ['@nuxt/test-utils/module'] : appModules,
   // ssr: false,
   // routeRules: {
   //   '/map': { ssr: false },
@@ -41,15 +45,17 @@ export default defineNuxtConfig({
   // appwrite: {
   //   /* module options */
   // },
-  runtimeConfig: {
-    public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
-      supabase: {
-        url: process.env.NUXT_PUBLIC_SUPABASE_URL,
-        key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
+  runtimeConfig: isTest
+    ? { public: {} }
+    : {
+        public: {
+          siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
+          supabase: {
+            url: process.env.NUXT_PUBLIC_SUPABASE_URL,
+            key: process.env.NUXT_PUBLIC_SUPABASE_KEY,
+          },
+        },
       },
-    },
-  },
 
   css: [
     '~/assets/css/main.css',
