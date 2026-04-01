@@ -19,3 +19,4 @@ import { SpeedInsights } from '@vercel/speed-insights/nuxt/runtime'
 </script>
 
 
+n
