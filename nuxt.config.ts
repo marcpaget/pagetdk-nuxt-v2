@@ -165,11 +165,7 @@ export default defineNuxtConfig({
   },
   vite: {
     optimizeDeps: {
-      include: [
-        'workbox-window',
-        '@vercel/analytics/nuxt',
-        '@vercel/speed-insights/nuxt',
-      ],
+      include: ['workbox-window'],
     },
     build: {
       chunkSizeWarningLimit: 1500, // Increased for icon/map libraries
