@@ -3,7 +3,7 @@
   <UContainer>
   <div>
     <ClientOnly>
-      <QuizLogic 
+      <quizLogic 
         v-if="quizState === 'in-progress'" 
         @quiz-completed="endQuiz" 
         :number-of-questions="numberOfQuestions"
@@ -27,7 +27,7 @@ export default {
       quizState: 'in-progress', // 'not-started', 'in-progress', 'ended'
       finalScore: 0,
       wrongAnswers: 0,
-      numberOfQuestions: 10
+      numberOfQuestions: 10,
     }
   },
   methods: {
@@ -38,8 +38,8 @@ export default {
     },
     resetQuiz() {
       this.quizState = 'in-progress'
-    }
-  }
+    },
+  },
 }
 </script>
 

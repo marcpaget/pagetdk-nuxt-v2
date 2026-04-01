@@ -1,5 +1,7 @@
 <template>
-  <UCard variant="subtle" class="max-w-md text-center mx-auto my-8 p-4">
+  <UCard variant="subtle" class="max-w-m
+
+d text-center mx-auto my-8 p-4">
     <template #header>
       <div>
         <div class="flex flex-row justify-center">
@@ -38,7 +40,7 @@
               :key="index"
               class="btn btn-primary  justify-center"
               :disabled="isLoading"
-              @click="checkAnswer(option)"
+              @click="handleOptionClick(option)"
             >
               {{ option }}
             </UButton>
@@ -46,10 +48,19 @@
     </template>
   </UCard>
 </template>
-  
+
   <script>
 // Lav time-attack mode med https://nuxt.com/docs/4.x/api/components/nuxt-time
 export default {
+  setup() {
+    const { trigger } = useWebHaptics({ debug: true })
+
+    const triggerHaptics = (type = 'light') => {
+      trigger(type)
+    }
+
+    return { triggerHaptics }
+  },
   props: {
     numberOfQuestions: {
       type: Number,
@@ -77,6 +88,13 @@ export default {
     this.fetchCountries()
   },
   methods: {
+    handleOptionClick(option) {
+      if (this.isLoading) return
+
+      const isCorrect = option === this.correctAnswer
+      this.triggerHaptics(isCorrect ? 'medium' : 'heavy')
+      this.checkAnswer(option)
+    },
     async fetchCountries() {
       try {
         const response = await fetch(

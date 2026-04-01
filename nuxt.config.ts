@@ -14,8 +14,8 @@ export default defineNuxtConfig({
     // Content and UI modules
     // UI framework - load after content modules
     // External service integrations
-    '@nuxt/ui',
-    '@vueuse/nuxt', // Map modules
+    '@nuxt/ui', // Map modules
+    '@vueuse/nuxt',
     '@nuxtjs/mdc',
     'nuxt-toc',
     '@nuxt/content',
@@ -23,17 +23,31 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     'nuxt-api-party',
     'nuxt-umami',
-    'nuxt-mapbox',
-    '@nuxtjs/leaflet', // 'nuxt-particles',
+    'nuxt-mapbox', // 'nuxt-particles',
+    '@nuxtjs/leaflet',
     '@nuxt/scripts',
     '@compodium/nuxt',
-    '@sentry/nuxt/module',
-    '@nuxt/fonts', // PWA should be last to wrap everything
+    '@sentry/nuxt/module', // PWA should be last to wrap everything
+    '@nuxt/fonts',
     'nuxt-maplibre',
     '@vite-pwa/nuxt',
-    'nuxt-studio',
-    '@nuxt/test-utils/module', // https://nuxt.com/docs/4.x/getting-started/testing + https://vitest.dev/guide/projects.html#test-projects
+    'nuxt-studio', // https://nuxt.com/docs/4.x/getting-started/testing + https://vitest.dev/guide/projects.html#test-projects
+    '@nuxt/test-utils/module',
+    '@nuxtjs/partytown',
   ],
+  scripts: {
+    registry: {
+      plausibleAnalytics: {
+        domain: 'paget.dk',
+        endpoint: 'https://plausible.paget.dk/api/event',
+        scriptInput: {
+          src: 'https://plausible.paget.dk/js/script.js',
+        },
+        partytown: true,
+        trigger: 'onNuxtReady',
+      },
+    },
+  },
   // ssr: false,
   // routeRules: {
   //   '/map': { ssr: false },
@@ -126,7 +140,6 @@ export default defineNuxtConfig({
     screens: {
       default: 320,
       xxs: 480,
-      xs: 576,
       sm: 768,
       md: 996,
       lg: 1200,
@@ -151,6 +164,13 @@ export default defineNuxtConfig({
     },
   },
   vite: {
+    optimizeDeps: {
+      include: [
+        'workbox-window',
+        '@vercel/analytics/nuxt',
+        '@vercel/speed-insights/nuxt',
+      ],
+    },
     build: {
       chunkSizeWarningLimit: 1500, // Increased for icon/map libraries
       sourcemap: false,
