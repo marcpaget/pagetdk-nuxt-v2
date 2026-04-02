@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "NODE_OPTIONS='--max-old-space-size=6144' nuxt dev",
-    "build": "NODE_OPTIONS='--max-old-space-size=8192' nuxt build",
+    "build": "NODE_OPTIONS='--max-old-space-size=4096' nuxt build",
     "generate": "NODE_OPTIONS='--max-old-space-size=8192' nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
@@ -87,7 +87,7 @@
     "@unhead/vue": "^2.1.12",
     "@vercel/analytics": "^2.0.1",
     "@vercel/speed-insights": "^2.0.0",
-    "@vite-pwa/nuxt": "^0.6.0",
+    "@vite-pwa/nuxt": "^1.1.1",
     "@vue/compiler-sfc": "^3.5.31",
     "better-sqlite3": "^12.8.0",
     "daisyui": "^5.5.19",
@@ -100,6 +100,7 @@
     "valibot": "^1.3.1",
     "vite": "^8.0.3",
     "vue": "^3.5.31",
+    "vue-router": "^5.0.4",
     "web-haptics": "^0.0.6",
     "zod": "^4.3.6"
   },
