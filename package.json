@@ -85,8 +85,6 @@
     "@sentry/nuxt": "^10.47.0",
     "@tailwindcss/vite": "^4.2.2",
     "@unhead/vue": "^2.1.12",
-    "@vercel/analytics": "^2.0.1",
-    "@vercel/speed-insights": "^2.0.0",
     "@vite-pwa/nuxt": "^1.1.1",
     "@vue/compiler-sfc": "^3.5.31",
     "better-sqlite3": "^12.8.0",
