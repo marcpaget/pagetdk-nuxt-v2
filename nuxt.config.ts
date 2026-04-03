@@ -69,7 +69,7 @@ export default defineNuxtConfig({
 
   css: [
     '~/assets/css/main.css',
-    './app/tailwind.css',
+    '~/tailwind.css',
     'maplibre-gl/dist/maplibre-gl.css',
   ],
 
