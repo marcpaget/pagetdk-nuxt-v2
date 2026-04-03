@@ -3,6 +3,8 @@
 // Todo: Fix Sentry Source Maps Uploading
 import tailwindcss from '@tailwindcss/vite'
 
+const isDev = process.env.NODE_ENV === 'development'
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
@@ -14,6 +16,8 @@ export default defineNuxtConfig({
     // Content and UI modules
     // UI framework - load after content modules
     // External service integrations
+    '@vercel/analytics/nuxt',
+    '@vercel/speed-insights/nuxt',
     '@nuxt/ui', // Map modules
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
@@ -30,10 +34,10 @@ export default defineNuxtConfig({
     '@sentry/nuxt/module', // PWA should be last to wrap everything
     '@nuxt/fonts',
     'nuxt-maplibre',
-    '@vite-pwa/nuxt',
-    'nuxt-studio', // https://nuxt.com/docs/4.x/getting-started/testing + https://vitest.dev/guide/projects.html#test-projects
+    ...(isDev ? ['nuxt-studio'] : []), // Only load Studio when local repo metadata is available
     '@nuxt/test-utils/module',
     '@nuxtjs/partytown',
+    '@vite-pwa/nuxt',
   ],
   scripts: {
     registry: {
