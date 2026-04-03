@@ -16,8 +16,6 @@ export default defineNuxtConfig({
     // Content and UI modules
     // UI framework - load after content modules
     // External service integrations
-    '@vercel/analytics/nuxt',
-    '@vercel/speed-insights/nuxt',
     '@nuxt/ui', // Map modules
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
