@@ -2,25 +2,27 @@
 @import "@nuxt/ui";
 
 @theme inline {
-  --font-display: 'Permanent Marker', cursive;
+  --font-display: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
 }
 
-/* Override default fonts to maintain your custom font setup */
+/* Use local fallback stacks so builds do not depend on remote font downloads. */
 body {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: Inter, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
+
 .logo {
-  font-family: 'Permanent Marker', cursive; /* Use your desired font */
-  color: #ff5733; /* Replace with your desired color */
+  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  color: #ff5733;
 }
+
 .font-quicksand {
-  font-family: 'Quicksand', sans-serif;
+  font-family: Inter, "Avenir Next", "Segoe UI", sans-serif;
 }
 
 .font-permanentmarker {
-  font-family: 'Permanent Marker', cursive;
+  font-family: "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
 }
 
 .font-mavenpro {
-  font-family: 'Maven Pro', sans-serif;
+  font-family: Inter, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }

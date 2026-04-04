@@ -6,7 +6,10 @@ import tailwindcss from '@tailwindcss/vite'
 const isDev = process.env.NODE_ENV === 'development'
 
 export default defineNuxtConfig({
-  devtools: { enabled: true },
+  devtools: { enabled: isDev },
+  ui: {
+    fonts: false,
+  },
 
   modules: [
     // Performance and optimization modules first
@@ -30,10 +33,9 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@compodium/nuxt',
     '@sentry/nuxt/module', // PWA should be last to wrap everything
-    '@nuxt/fonts',
     'nuxt-maplibre',
     ...(isDev ? ['nuxt-studio'] : []), // Only load Studio when local repo metadata is available
-    '@nuxt/test-utils/module',
+    ...(isDev ? ['@nuxt/test-utils/module'] : []),
     '@nuxtjs/partytown',
     '@vite-pwa/nuxt',
   ],
@@ -223,6 +225,9 @@ export default defineNuxtConfig({
   },
 
   sentry: {
+    sourcemaps: {
+      disable: true,
+    },
     sourceMapsUploadOptions: {
       org: 'marc-paget',
       project: 'pagetdk-nuxtui',
