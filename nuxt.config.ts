@@ -43,9 +43,9 @@ export default defineNuxtConfig({
     registry: {
       plausibleAnalytics: {
         domain: 'paget.dk',
-        endpoint: 'https://plausible.paget.dk/api/event',
+        endpoint: 'https://plausible.deploycentral.xyz/api/event',
         scriptInput: {
-          src: 'https://plausible.paget.dk/js/script.js',
+          src: 'https://plausible.deploycentral.xyz/js/script.js',
         },
         partytown: true,
         trigger: 'onNuxtReady',
@@ -100,6 +100,16 @@ export default defineNuxtConfig({
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
         { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+        { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+        {
+          rel: 'preconnect',
+          href: 'https://fonts.gstatic.com',
+          crossorigin: '',
+        },
+        {
+          rel: 'stylesheet',
+          href: 'https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700&family=Nunito+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Permanent+Marker&family=Quicksand:wght@400;500;600;700&display=swap',
+        },
       ],
     },
   },
@@ -173,7 +183,7 @@ export default defineNuxtConfig({
     },
     build: {
       chunkSizeWarningLimit: 1500, // Increased for icon/map libraries
-      sourcemap: false,
+      sourcemap: true,
       minify: 'terser',
       terserOptions: {
         compress: {
@@ -220,13 +230,16 @@ export default defineNuxtConfig({
   },
 
   sourcemap: {
-    client: false,
-    server: false,
+    client: true,
+    server: true,
   },
 
   sentry: {
     sourcemaps: {
-      disable: true,
+      disable: false,
+    },
+    errorHandler(error) {
+      console.warn('[Sentry sourcemaps]', error.message)
     },
     sourceMapsUploadOptions: {
       org: 'marc-paget',
