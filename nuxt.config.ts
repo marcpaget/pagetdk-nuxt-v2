@@ -4,6 +4,7 @@
 import tailwindcss from '@tailwindcss/vite'
 
 const isDev = process.env.NODE_ENV === 'development'
+const enableSourceMaps = process.env.NUXT_ENABLE_SOURCEMAPS === 'true'
 
 export default defineNuxtConfig({
   devtools: { enabled: isDev },
@@ -183,7 +184,7 @@ export default defineNuxtConfig({
     },
     build: {
       chunkSizeWarningLimit: 1500, // Increased for icon/map libraries
-      sourcemap: true,
+      sourcemap: enableSourceMaps,
       minify: 'terser',
       terserOptions: {
         compress: {
@@ -230,13 +231,13 @@ export default defineNuxtConfig({
   },
 
   sourcemap: {
-    client: true,
-    server: true,
+    client: enableSourceMaps,
+    server: enableSourceMaps,
   },
 
   sentry: {
     sourcemaps: {
-      disable: false,
+      disable: !enableSourceMaps,
     },
     errorHandler(error) {
       console.warn('[Sentry sourcemaps]', error.message)
