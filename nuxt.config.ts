@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     '@nuxtjs/leaflet',
     '@nuxt/scripts',
     '@compodium/nuxt',
+    '@vercel/speed-insights',
     '@sentry/nuxt/module', // PWA should be last to wrap everything
     'nuxt-maplibre',
     ...(isDev ? ['nuxt-studio'] : []), // Only load Studio when local repo metadata is available
@@ -180,7 +181,7 @@ export default defineNuxtConfig({
   },
   vite: {
     optimizeDeps: {
-      include: ['workbox-window'],
+      include: ['workbox-window', 'web-haptics/vue'],
     },
     build: {
       chunkSizeWarningLimit: 1500, // Increased for icon/map libraries

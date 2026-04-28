@@ -50,6 +50,7 @@ d text-center mx-auto my-8 p-4">
 </template>
 
   <script>
+import { useWebHaptics } from 'web-haptics/vue'
 // Lav time-attack mode med https://nuxt.com/docs/4.x/api/components/nuxt-time
 export default {
   setup() {
