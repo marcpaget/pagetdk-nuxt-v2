@@ -197,28 +197,7 @@ export default defineNuxtConfig({
         output: {
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
-              // Core Vue/Nuxt
-              if (id.includes('vue') || id.includes('nuxt')) {
-                return 'vendor-core'
-              }
-              // UI libraries
-              if (id.includes('@nuxt/ui') || id.includes('tailwind')) {
-                return 'vendor-ui'
-              }
-              // Map libraries - split into separate chunk
-              if (
-                id.includes('maplibre') ||
-                id.includes('mapbox') ||
-                id.includes('leaflet')
-              ) {
-                return 'vendor-maps'
-              }
-              // Large icon libraries
-              if (id.includes('@iconify') || id.includes('icons')) {
-                return 'vendor-icons'
-              }
-              // Other vendors
-              return 'vendor-other'
+              return 'vendor'
             }
           },
         },
