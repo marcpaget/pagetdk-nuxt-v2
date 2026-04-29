@@ -31,7 +31,7 @@ export default defineNuxtConfig({
     'nuxt-umami',
     'nuxt-mapbox', // 'nuxt-particles',
     '@nuxtjs/leaflet',
-    '@nuxt/scripts',
+    // '@nuxt/scripts',
     '@compodium/nuxt',
     '@vercel/speed-insights',
     '@sentry/nuxt/module', // PWA should be last to wrap everything
@@ -41,19 +41,19 @@ export default defineNuxtConfig({
     '@nuxtjs/partytown',
     '@vite-pwa/nuxt',
   ],
-  scripts: {
-    registry: {
-      plausibleAnalytics: {
-        domain: 'paget.dk',
-        endpoint: 'https://plausible.deploycentral.xyz/api/event',
-        scriptInput: {
-          src: 'https://plausible.deploycentral.xyz/js/script.js',
-        },
-        partytown: true,
-        trigger: 'onNuxtReady',
-      },
-    },
-  },
+  // scripts: {
+  //   registry: {
+  //     plausibleAnalytics: {
+  //       domain: 'paget.dk',
+  //       endpoint: 'https://plausible.deploycentral.xyz/api/event',
+  //       scriptInput: {
+  //         src: 'https://plausible.deploycentral.xyz/js/script.js',
+  //       },
+  //       partytown: true,
+  //       trigger: 'onNuxtReady',
+  //     },
+  //   },
+  // },
   // ssr: false,
   // routeRules: {
   //   '/map': { ssr: false },
