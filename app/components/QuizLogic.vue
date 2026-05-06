@@ -27,10 +27,10 @@ d text-center mx-auto my-8 p-4">
               v-if="currentFlag"
               :src="currentFlag"
               :alt="'Flag of ' + correctAnswer"
-              class="rounded-xl w-full h-40 object-cover"
+              class="rounded-sm w-full h-40 object-cover"
               @error="handleImageError"
             >
-            <div v-else class="animate-pulse bg-gray-200 h-40 w-full rounded-xl"></div>
+            <div v-else class="animate-pulse bg-gray-200 h-40 w-full rounded-sm"></div>
           </template>
         </figure>
     <template #footer>

@@ -1,4 +1,3 @@
- <!-- Top <template> and <script> sections from Claude.ai -->
 <template>
   <UContainer>
   <div>

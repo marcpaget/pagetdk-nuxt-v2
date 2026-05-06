@@ -33,7 +33,7 @@ export default defineNuxtConfig({
     '@nuxtjs/leaflet',
     // '@nuxt/scripts',
     '@compodium/nuxt',
-    '@vercel/speed-insights',
+    '@vercel/speed-insights/nuxt',
     '@sentry/nuxt/module', // PWA should be last to wrap everything
     'nuxt-maplibre',
     ...(isDev ? ['nuxt-studio'] : []), // Only load Studio when local repo metadata is available

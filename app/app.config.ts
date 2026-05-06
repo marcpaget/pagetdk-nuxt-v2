@@ -13,7 +13,7 @@ export default defineAppConfig({
       variants: {},
     },
     container: {
-      base: 'w-1/2 max-w-(--ui-container) mx-auto px-4 sm:px-3 lg:px-4',
+      base: 'w-full max-w-(--ui-container) mx-auto px-4 sm:px-6 lg:px-8',
     },
   },
 })
