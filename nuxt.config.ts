@@ -36,8 +36,8 @@ export default defineNuxtConfig({
     '@vercel/speed-insights/nuxt',
     '@sentry/nuxt/module', // PWA should be last to wrap everything
     'nuxt-maplibre',
-    ...(isDev ? ['nuxt-studio'] : []), // Only load Studio when local repo metadata is available
-    ...(isDev ? ['@nuxt/test-utils/module'] : []),
+    'nuxt-studio', // Only load Studio when local repo metadata is available
+    '@nuxt/test-utils/module',
     '@nuxtjs/partytown',
     '@vite-pwa/nuxt',
   ],
@@ -61,6 +61,15 @@ export default defineNuxtConfig({
   // appwrite: {
   //   /* module options */
   // },
+  studio: {
+    dev: false,
+    repository: {
+      provider: 'github', // 'github' or 'gitlab'
+      owner: 'marcpaget',
+      repo: 'pagetdk-nuxt-v2',
+      branch: 'main',
+    },
+  },
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',

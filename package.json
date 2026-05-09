@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "NODE_OPTIONS='--max-old-space-size=6144' nuxt dev",
-    "build": "nuxt build",
+    "build": "NODE_OPTIONS='--max-old-space-size=8192' nuxt build",
     "generate": "NODE_OPTIONS='--max-old-space-size=8192' nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
