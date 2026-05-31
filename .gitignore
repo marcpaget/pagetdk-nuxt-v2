@@ -217,7 +217,8 @@ node_modules
 
 .vercel
 
-.github
+#.github
 .vscode/settings.json
 .env.example
 .env*.local
+.github/copilot-instructions.md
