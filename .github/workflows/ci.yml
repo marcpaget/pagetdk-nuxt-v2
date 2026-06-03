@@ -120,40 +120,12 @@ jobs:
             NUXT_PUBLIC_APP_VERSION=${{ github.sha }}
 
   # ─────────────────────────────────────────────
-  # 4a. Deploy to Coolify
-  # ─────────────────────────────────────────────
-  deploy-coolify:
-    name: Deploy → Coolify
-    runs-on: ubuntu-latest
-    needs: build-and-push
-    # Remove the condition below if you are using ONLY Coolify
-    if: vars.DEPLOY_TARGET == 'coolify' || vars.DEPLOY_TARGET == 'both'
-    environment: production
-
-    steps:
-      - name: Trigger Coolify redeploy webhook
-        run: |
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-            -X GET \
-            "${{ secrets.COOLIFY_WEBHOOK_URL }}" \
-            -H "Authorization: Bearer ${{ secrets.COOLIFY_WEBHOOK_TOKEN }}")
-
-          echo "Coolify webhook responded with HTTP $HTTP_STATUS"
-
-          if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
-            echo "Coolify deployment trigger failed (HTTP $HTTP_STATUS)"
-            exit 1
-          fi
-
-  # ─────────────────────────────────────────────
-  # 4b. Deploy to Dokploy
+  # 4. Deploy to Dokploy
   # ─────────────────────────────────────────────
   deploy-dokploy:
     name: Deploy → Dokploy
     runs-on: ubuntu-latest
     needs: build-and-push
-    # Remove the condition below if you are using ONLY Dokploy
-    if: vars.DEPLOY_TARGET == 'dokploy' || vars.DEPLOY_TARGET == 'both'
     environment: production
 
     steps:
