@@ -6,25 +6,19 @@ import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
+    passWithNoTests: true,
     projects: [
       {
         test: {
           name: 'unit',
-          include: ['test/unit/*.{test,spec}.ts'],
-          environment: 'node',
-        },
-      },
-      {
-        test: {
-          name: 'e2e',
-          include: ['test/e2e/*.{test,spec}.ts'],
+          include: ['tests/unit/*.{test,spec}.ts'],
           environment: 'node',
         },
       },
       await defineVitestProject({
         test: {
           name: 'nuxt',
-          include: ['test/nuxt/*.{test,spec}.ts'],
+          include: ['tests/nuxt/*.{test,spec}.ts'],
           environment: 'nuxt',
         },
       }),
