@@ -17,6 +17,11 @@ WORKDIR /app
 ARG NUXT_PUBLIC_APP_VERSION=unknown
 ENV NUXT_PUBLIC_APP_VERSION=$NUXT_PUBLIC_APP_VERSION
 
+# Force Node server preset so Nuxt outputs to .output/
+# (without this, vercel.json causes Nuxt to auto-detect Vercel preset
+# and build to .vercel/output/ instead)
+ENV NITRO_PRESET=node-server
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
