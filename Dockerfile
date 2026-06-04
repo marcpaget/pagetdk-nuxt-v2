@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Install only production + dev deps for the build
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # ─── Stage 2: Build the Nuxt app ──────────────────────────────────────────────
 FROM node:20-alpine AS builder
