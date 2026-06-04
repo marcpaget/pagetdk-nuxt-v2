@@ -2,6 +2,9 @@
 FROM node:20-alpine AS deps
 WORKDIR /app
 
+# better-sqlite3 and other native modules require Python + build tools to compile
+RUN apk add --no-cache python3 make g++
+
 # Install only production + dev deps for the build
 COPY package.json package-lock.json ./
 RUN npm ci --legacy-peer-deps
