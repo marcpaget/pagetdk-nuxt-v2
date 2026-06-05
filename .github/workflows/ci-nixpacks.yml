@@ -79,6 +79,7 @@ jobs:
         run: |
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \
+            -L \
             "${{ secrets.DOKPLOY_WEBHOOK_URL_NUXT_NIXPACKS }}" \
             -H "Content-Type: application/json" \
             -d '{}')
