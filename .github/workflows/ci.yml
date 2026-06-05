@@ -135,7 +135,7 @@ jobs:
           HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
             -X POST \
             "${{ secrets.DOKPLOY_WEBHOOK_URL }}" \
-            -H "x-dokploy-token: ${{ secrets.DOKPLOY_WEBHOOK_TOKEN }}" \
+            -H "x-dokploy-token: ${{ secrets.DOKPLOY_WEBHOOK_URL_NUXT_NIXPACKS }}" \
             -H "Content-Type: application/json" \
             -d '{}')
 
