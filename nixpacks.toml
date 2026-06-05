@@ -2,4 +2,4 @@
 nixPkgs = ["nodejs_20", "python3", "gcc", "gnumake"]
 
 [phases.install]
-cmds = ["npm install --cache /tmp/npm-cache-fresh"]
+cmds = ["rm -f package-lock.json && npm install"]
