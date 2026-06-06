@@ -1,5 +1,21 @@
+# Dokploy uses Nixpacks to build and run this Nuxt server.
+# Keep the install command explicit so Nuxt and its build-time modules are
+# available even when the platform sets NODE_ENV=production.
+
+providers = ["node"]
+
 [phases.setup]
-nixPkgs = ["nodejs_22", "python3", "gcc", "gnumake"]
+nixPkgs = ["nodejs_20"]
 
 [phases.install]
-cmds = ["rm -f package-lock.json && npm install"]
+cmds = ["npm ci --include=dev"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm run start"
+
+[variables]
+NODE_ENV = "production"
+NITRO_HOST = "0.0.0.0"
