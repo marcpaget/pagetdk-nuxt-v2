@@ -5,6 +5,11 @@ import tailwindcss from '@tailwindcss/vite'
 
 const isDev = process.env.NODE_ENV === 'development'
 const enableSourceMaps = process.env.NUXT_ENABLE_SOURCEMAPS === 'true'
+const nitroPreset =
+  process.env.NITRO_PRESET || (process.env.VERCEL ? 'vercel' : 'node-server')
+const devOnlyModules = isDev
+  ? ['nuxt-studio', '@nuxt/test-utils/module', '@nuxt/devtools']
+  : []
 
 export default defineNuxtConfig({
   devtools: { enabled: isDev },
@@ -36,10 +41,9 @@ export default defineNuxtConfig({
     '@vercel/speed-insights/nuxt',
     '@sentry/nuxt/module', // PWA should be last to wrap everything
     'nuxt-maplibre',
-    'nuxt-studio', // Only load Studio when local repo metadata is available
-    '@nuxt/test-utils/module',
     '@nuxtjs/partytown',
     '@vite-pwa/nuxt',
+    ...devOnlyModules,
   ],
   // scripts: {
   //   registry: {
@@ -61,15 +65,25 @@ export default defineNuxtConfig({
   // appwrite: {
   //   /* module options */
   // },
-  studio: {
-    dev: false,
-    repository: {
-      provider: 'github', // 'github' or 'gitlab'
-      owner: 'marcpaget',
-      repo: 'pagetdk-nuxt-v2',
-      branch: 'main',
-    },
-  },
+  ...(isDev
+    ? {
+        studio: {
+          dev: false,
+          repository: {
+            provider: 'github', // 'github' or 'gitlab'
+            owner: 'marcpaget',
+            repo: 'pagetdk-nuxt-v2',
+            branch: 'main',
+          },
+          git: {
+            commit: {
+              // Prefix to prepend (include trailing colon for conventional format)
+              messagePrefix: 'content:', // e.g. 'docs:', 'feat:', 'chore:'
+            },
+          },
+        },
+      }
+    : {}),
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
@@ -216,7 +230,7 @@ export default defineNuxtConfig({
   },
 
   nitro: {
-    preset: 'vercel', // Optimize for Vercel deployment
+    preset: nitroPreset,
   },
 
   sourcemap: {

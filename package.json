@@ -8,6 +8,7 @@
     "generate": "NODE_OPTIONS='--max-old-space-size=8192' nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
+    "start": "node .output/server/index.mjs",
     "build:pwa": "NODE_OPTIONS='--max-old-space-size=6144' nuxt build --pwa",
     "dev:pwa": "NODE_OPTIONS='--max-old-space-size=6144' nuxt dev --pwa",
     "generate:pwa": "NODE_OPTIONS='--max-old-space-size=6144' nuxt generate --pwa",
@@ -119,5 +120,8 @@
     "@sentry/cli@2.58.5": true,
     "@tsparticles/engine@3.9.1": true,
     "fsevents@2.3.3": true
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }

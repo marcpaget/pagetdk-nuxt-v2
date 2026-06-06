@@ -1,7 +1,7 @@
 <script setup lang="ts">
-const { data: pages } = await useAsyncData('content', () =>
-  queryCollection('content').all(),
-)
+const { data: pages } = await useFetch('/api/content', {
+  key: 'content',
+})
 </script>
 
 <template>
