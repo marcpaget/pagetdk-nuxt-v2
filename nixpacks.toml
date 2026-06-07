@@ -5,7 +5,7 @@
 providers = ["node"]
 
 [phases.setup]
-nixPkgs = ["nodejs_20"]
+nixPkgs = ["nodejs_20", "python3", "gcc", "gnumake", "pkg-config"]
 
 [phases.install]
 cmds = ["npm ci --include=dev"]
@@ -19,3 +19,5 @@ cmd = "npm run start"
 [variables]
 NODE_ENV = "production"
 NITRO_HOST = "0.0.0.0"
+PYTHON = "python3"
+NPM_CONFIG_PYTHON = "python3"
