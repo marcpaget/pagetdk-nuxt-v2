@@ -1,16 +1,18 @@
-# Nuxt CI/CD Pipeline — Setup Guide
+# Nuxt CI/CD Pipeline - Setup Guide
 
 ## How the pipeline works
 
 ```
-push to main
-     │
-     ├─► unit-test  ──┐
-     │                ├─► build-and-push (ghcr.io) ──► deploy-coolify
-     └─► e2e-test  ──┘                               └─► deploy-dokploy
+push / pull_request
+        │
+        ├─► unit-test  ──┐
+        └─► e2e-test   ──┘
+                           push to main/master/cicd-pipeline
+                                      │
+                                      └─► build-and-push (ghcr.io) ──► deploy-dokploy
 ```
 
-Pull requests only run the test jobs — no image is built and nothing is deployed.
+Pull requests only run the test jobs. Docker images are only built on pushes to `main`, `master`, or `cicd-pipeline`.
 
 ---
 
@@ -47,24 +49,16 @@ Go to **Settings → Secrets and variables → Actions** in your GitHub reposito
 
 | Secret name | Value |
 |---|---|
-| `COOLIFY_WEBHOOK_URL` | Full webhook URL from Coolify (includes the token as a query param **or** use the separate token header — see §4) |
-| `COOLIFY_WEBHOOK_TOKEN` | Bearer token shown in Coolify's webhook settings |
 | `DOKPLOY_WEBHOOK_URL` | Full webhook URL from Dokploy |
 | `DOKPLOY_WEBHOOK_TOKEN` | Token shown in Dokploy's webhook settings |
 
 `GITHUB_TOKEN` is provided automatically — no setup needed for pushing to ghcr.io.
 
-### Repository variables (non-sensitive)
-
-| Variable name | Value |
-|---|---|
-| `DEPLOY_TARGET` | `coolify`, `dokploy`, or `both` |
-
 ---
 
-## 3. Make your Coolify/Dokploy app use the ghcr.io image
+## 3. Make your Dokploy app use the ghcr.io image
 
-Both platforms need to be pointed at the Docker image that CI pushes, rather than building from source themselves.
+Dokploy must be pointed at the Docker image that CI pushes, rather than building from source with Nixpacks on the VPS.
 
 The image tag pushed by CI is:
 
@@ -82,39 +76,26 @@ ghcr.io/<your-github-org-or-user>/<repo-name>:sha-<short-sha>
 
 Go to **github.com → Packages → your image → Package settings → Change visibility → Public**.
 
-If you keep it private, add a deploy token and configure it as a registry credential in Coolify/Dokploy.
+If you keep it private, add a deploy token and configure it as a registry credential in Dokploy.
 
 ---
 
-## 4. Coolify — webhook setup
-
-1. In Coolify, open your application → **Settings** → scroll to **Webhooks**.
-2. Enable **"Deploy Webhook"** and copy the URL + token.
-3. Set the application's **Build Pack** to **"Docker Image"** and enter the image name:
-   ```
-   ghcr.io/<org>/<repo>:latest
-   ```
-4. Save the URL as `COOLIFY_WEBHOOK_URL` and the token as `COOLIFY_WEBHOOK_TOKEN` in GitHub.
-
-Coolify's redeploy webhook is a `GET` request authenticated via `Authorization: Bearer <token>` — the workflow already does this.
-
----
-
-## 5. Dokploy — webhook setup
+## 4. Dokploy — image + webhook setup
 
 1. In Dokploy, open your application → **General** → **Deployments** → **Webhook**.
 2. Copy the webhook URL and token shown there.
-3. Set the application's **Docker Image** to:
+3. Change the deployment type away from source/Nixpacks and set the application's **Docker Image** to:
    ```
    ghcr.io/<org>/<repo>:latest
    ```
-4. Save the URL as `DOKPLOY_WEBHOOK_URL` and the token as `DOKPLOY_WEBHOOK_TOKEN` in GitHub.
+4. If the package is private, add GHCR registry credentials in Dokploy.
+5. Save the URL as `DOKPLOY_WEBHOOK_URL` and the token as `DOKPLOY_WEBHOOK_TOKEN` in GitHub.
 
 Dokploy's webhook expects a `POST` with `x-dokploy-token` header — the workflow already does this.
 
 ---
 
-## 6. nuxt.config.ts — enable the test utils module
+## 5. nuxt.config.ts — enable the test utils module
 
 ```ts
 // nuxt.config.ts
@@ -133,9 +114,9 @@ export default defineNuxtConfig({
 
 ---
 
-## 7. Environment variables for your Nuxt app
+## 6. Environment variables for your Nuxt app
 
-Set runtime secrets in Coolify/Dokploy's **Environment** panel (not in `.env` files committed to git). Use `NUXT_` prefix for Nuxt runtime config:
+Set runtime secrets in Dokploy's **Environment** panel (not in `.env` files committed to git). Use `NUXT_` prefix for Nuxt runtime config:
 
 ```
 NUXT_SECRET_KEY=...

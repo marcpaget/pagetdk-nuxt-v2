@@ -1,4 +1,5 @@
-# Dokploy uses Nixpacks to build and run this Nuxt server.
+# Legacy fallback for source builds.
+# Preferred production deploy path is the GHCR Docker image built in GitHub Actions.
 # Keep the install command explicit so Nuxt and its build-time modules are
 # available even when the platform sets NODE_ENV=production.
 
