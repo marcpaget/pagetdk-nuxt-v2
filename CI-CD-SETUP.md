@@ -50,7 +50,6 @@ Go to **Settings → Secrets and variables → Actions** in your GitHub reposito
 | Secret name | Value |
 |---|---|
 | `DOKPLOY_WEBHOOK_URL` | Full webhook URL from Dokploy |
-| `DOKPLOY_WEBHOOK_TOKEN` | Token shown in Dokploy's webhook settings |
 
 `GITHUB_TOKEN` is provided automatically — no setup needed for pushing to ghcr.io.
 
@@ -83,15 +82,15 @@ If you keep it private, add a deploy token and configure it as a registry creden
 ## 4. Dokploy — image + webhook setup
 
 1. In Dokploy, open your application → **General** → **Deployments** → **Webhook**.
-2. Copy the webhook URL and token shown there.
+2. Copy the webhook URL shown there.
 3. Change the deployment type away from source/Nixpacks and set the application's **Docker Image** to:
    ```
    ghcr.io/<org>/<repo>:latest
    ```
 4. If the package is private, add GHCR registry credentials in Dokploy.
-5. Save the URL as `DOKPLOY_WEBHOOK_URL` and the token as `DOKPLOY_WEBHOOK_TOKEN` in GitHub.
+5. Save the URL as `DOKPLOY_WEBHOOK_URL` in GitHub.
 
-Dokploy's webhook expects a `POST` with `x-dokploy-token` header — the workflow already does this.
+Dokploy's webhook is triggered directly from the full URL in the workflow.
 
 ---
 
