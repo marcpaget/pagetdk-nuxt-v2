@@ -17,6 +17,7 @@ ENV NODE_ENV=production
 ENV NITRO_HOST=0.0.0.0
 
 RUN npm run build
+RUN npm prune --omit=dev
 
 FROM node:22-bookworm-slim AS runtime
 
@@ -28,6 +29,7 @@ ENV PORT=3000
 
 COPY --from=build /app/.output ./.output
 COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/node_modules ./node_modules
 
 EXPOSE 3000
 

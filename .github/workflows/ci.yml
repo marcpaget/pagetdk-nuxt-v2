@@ -136,17 +136,20 @@ jobs:
     environment: production
 
     steps:
-      - name: Trigger Dokploy redeploy webhook
+      - name: Trigger Dokploy deployment via API
         run: |
-          HTTP_STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+          HTTP_STATUS=$(curl -sS -o /tmp/dokploy-response.json -w "%{http_code}" \
             -X POST \
-            "${{ secrets.DOKPLOY_WEBHOOK_URL }}" \
+            "${{ secrets.DOKPLOY_API_URL }}" \
+            -H "accept: application/json" \
             -H "Content-Type: application/json" \
-            -d '{}')
+            -H "x-api-key: ${{ secrets.DOKPLOY_API_TOKEN }}" \
+            -d "{\"applicationId\":\"${{ secrets.DOKPLOY_APPLICATION_ID }}\"}")
 
-          echo "Dokploy webhook responded with HTTP $HTTP_STATUS"
+          echo "Dokploy API responded with HTTP $HTTP_STATUS"
 
           if [ "$HTTP_STATUS" -lt 200 ] || [ "$HTTP_STATUS" -ge 300 ]; then
             echo "Dokploy deployment trigger failed (HTTP $HTTP_STATUS)"
+            cat /tmp/dokploy-response.json || true
             exit 1
           fi

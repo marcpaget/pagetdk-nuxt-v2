@@ -50,7 +50,9 @@ Go to **Settings → Secrets and variables → Actions** in your GitHub reposito
 
 | Secret name | Value |
 |---|---|
-| `DOKPLOY_WEBHOOK_URL` | Full webhook URL from Dokploy |
+| `DOKPLOY_API_URL` | `https://<your-dokploy-domain>/api/application.deploy` |
+| `DOKPLOY_API_TOKEN` | API token generated in your Dokploy profile |
+| `DOKPLOY_APPLICATION_ID` | Application ID for the Dokploy app |
 
 `GITHUB_TOKEN` is provided automatically — no setup needed for pushing to ghcr.io.
 
@@ -80,18 +82,22 @@ If you keep it private, add a deploy token and configure it as a registry creden
 
 ---
 
-## 4. Dokploy — image + webhook setup
+## 4. Dokploy — image + API deploy setup
 
-1. In Dokploy, open your application → **General** → **Deployments** → **Webhook**.
-2. Copy the webhook URL shown there.
-3. Change the deployment type away from source/Nixpacks and set the application's **Docker Image** to:
+1. Change the deployment type away from source/Nixpacks and set the application's **Docker Image** to:
    ```
    ghcr.io/<org>/<repo>:latest
    ```
-4. If the package is private, add GHCR registry credentials in Dokploy.
-5. Save the URL as `DOKPLOY_WEBHOOK_URL` in GitHub.
+2. If the package is private, add GHCR registry credentials in Dokploy.
+3. In Dokploy, generate an API token from your profile settings.
+4. Set `DOKPLOY_API_URL` to:
+   ```
+   https://<your-dokploy-domain>/api/application.deploy
+   ```
+5. Find the app's `applicationId` via Dokploy API or UI and save it as `DOKPLOY_APPLICATION_ID`.
+6. Save the token as `DOKPLOY_API_TOKEN` in GitHub secrets.
 
-Dokploy's webhook is triggered directly from the full URL in the workflow.
+Dokploy recommends the API method for external registries such as GHCR.
 
 ---
 
@@ -121,7 +127,21 @@ Set runtime secrets in Dokploy's **Environment** panel (not in `.env` files comm
 ```
 NUXT_SECRET_KEY=...
 NUXT_PUBLIC_API_BASE=https://api.example.com
+NUXT_PUBLIC_SUPABASE_URL=https://<your-project>.supabase.co
+NUXT_PUBLIC_SUPABASE_KEY=<your-anon-or-publishable-key>
 ```
+
+---
+
+## 7. Health checks
+
+The app exposes:
+
+```
+/health
+```
+
+Use that in Dokploy health checks so failed deployments can roll back automatically.
 
 ---
 
