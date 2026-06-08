@@ -13,6 +13,7 @@ push / pull_request
 ```
 
 Pull requests only run the test jobs. Docker images are only built on pushes to `main`, `master`, or `cicd-pipeline`.
+The production image is built as `linux/arm64`, intended for Oracle ARM instances such as Ampere Altra.
 
 ---
 

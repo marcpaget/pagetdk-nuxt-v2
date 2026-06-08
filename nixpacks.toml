@@ -6,7 +6,7 @@
 providers = ["node"]
 
 [phases.setup]
-nixPkgs = ["nodejs_20", "python3", "gcc", "gnumake", "pkg-config"]
+nixPkgs = ["nodejs_22", "python3", "gcc", "gnumake", "pkg-config"]
 
 [phases.install]
 cmds = ["npm ci --include=dev"]
