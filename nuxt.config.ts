@@ -3,16 +3,16 @@
 // Todo: Fix Sentry Source Maps Uploading
 import tailwindcss from '@tailwindcss/vite'
 
-const isDev = process.env.NODE_ENV === 'development'
 const enableSourceMaps = process.env.NUXT_ENABLE_SOURCEMAPS === 'true'
 const nitroPreset =
   process.env.NITRO_PRESET || (process.env.VERCEL ? 'vercel' : 'node-server')
-const devOnlyModules = isDev
-  ? ['nuxt-studio', '@nuxt/test-utils/module', '@nuxt/devtools']
-  : []
+const devOnlyModules =
+  process.env.NODE_ENV === 'development'
+    ? ['nuxt-studio', '@nuxt/test-utils/module', '@nuxt/devtools']
+    : []
 
 export default defineNuxtConfig({
-  devtools: { enabled: isDev },
+  devtools: { enabled: process.env.NODE_ENV === 'development' },
   ui: {
     fonts: false,
   },
@@ -65,25 +65,21 @@ export default defineNuxtConfig({
   // appwrite: {
   //   /* module options */
   // },
-  ...(isDev
-    ? {
-        studio: {
-          dev: false,
-          repository: {
-            provider: 'github', // 'github' or 'gitlab'
-            owner: 'marcpaget',
-            repo: 'pagetdk-nuxt-v2',
-            branch: 'main',
-          },
-          git: {
-            commit: {
-              // Prefix to prepend (include trailing colon for conventional format)
-              messagePrefix: 'content:', // e.g. 'docs:', 'feat:', 'chore:'
-            },
-          },
-        },
-      }
-    : {}),
+  studio: {
+    dev: false,
+    repository: {
+      provider: 'github', // 'github' or 'gitlab'
+      owner: 'marcpaget',
+      repo: 'pagetdk-nuxt-v2',
+      branch: 'main',
+    },
+    git: {
+      commit: {
+        // Prefix to prepend (include trailing colon for conventional format)
+        messagePrefix: 'content:', // e.g. 'docs:', 'feat:', 'chore:'
+      },
+    },
+  },
   runtimeConfig: {
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
