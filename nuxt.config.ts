@@ -6,11 +6,6 @@ import tailwindcss from '@tailwindcss/vite'
 const enableSourceMaps = process.env.NUXT_ENABLE_SOURCEMAPS === 'true'
 const nitroPreset =
   process.env.NITRO_PRESET || (process.env.VERCEL ? 'vercel' : 'node-server')
-const devOnlyModules =
-  process.env.NODE_ENV === 'development'
-    ? ['nuxt-studio', '@nuxt/test-utils/module', '@nuxt/devtools']
-    : []
-
 export default defineNuxtConfig({
   devtools: { enabled: process.env.NODE_ENV === 'development' },
   ui: {
@@ -42,9 +37,20 @@ export default defineNuxtConfig({
     '@sentry/nuxt/module', // PWA should be last to wrap everything
     'nuxt-maplibre',
     '@nuxtjs/partytown',
+    '@nuxtjs/plausible',
     '@vite-pwa/nuxt',
-    ...devOnlyModules,
+    'nuxt-studio',
+    '@nuxt/test-utils/module',
+    '@nuxt/devtools',
   ],
+  plausible: {
+    apiHost: 'https://plausible.deploycentral.xyz',
+    // Prevent tracking on localhost
+    ignoredHostnames: ['localhost'],
+    autoOutboundTracking: true,
+    fileDownloads: true,
+    formSubmissions: true,
+  },
   // scripts: {
   //   registry: {
   //     plausibleAnalytics: {
