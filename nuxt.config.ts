@@ -218,15 +218,6 @@ export default defineNuxtConfig({
           drop_debugger: true,
         },
       },
-      rollupOptions: {
-        output: {
-          manualChunks: (id) => {
-            if (id.includes('node_modules')) {
-              return 'vendor'
-            }
-          },
-        },
-      },
     },
     plugins: [tailwindcss()],
   },
