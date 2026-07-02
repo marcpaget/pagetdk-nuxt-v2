@@ -45,6 +45,7 @@ export default defineNuxtConfig({
   ],
   plausible: {
     apiHost: 'https://plausible.deploycentral.xyz',
+    proxy: true,
     // Prevent tracking on localhost
     ignoredHostnames: ['localhost'],
     autoOutboundTracking: true,
