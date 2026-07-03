@@ -74,12 +74,12 @@ export default defineNuxtConfig({
   // },
   studio: {
     dev: false,
-    repository: {
-      provider: 'github', // 'github' or 'gitlab'
-      owner: 'marcpaget',
-      repo: 'pagetdk-nuxt-v2',
-      branch: 'main',
-    },
+    // repository: {
+    //   provider: 'github', // 'github' or 'gitlab'
+    //   owner: 'marcpaget',
+    //   repo: 'pagetdk-nuxt-v2',
+    //   branch: 'main',
+    // },
     git: {
       commit: {
         // Prefix to prepend (include trailing colon for conventional format)
