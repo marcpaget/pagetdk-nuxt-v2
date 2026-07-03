@@ -43,7 +43,7 @@
     "@biomejs/biome": "^2.5.2",
     "@iconify-json/cil": "^1.2.3",
     "@iconify-json/heroicons": "^1.2.3",
-    "@iconify-json/lucide": "^1.2.115",
+    "@iconify-json/lucide": "^1.2.116",
     "@iconify-json/noto": "^1.2.7",
     "@iconify-json/simple-icons": "^1.2.88",
     "@nuxt/devtools": "latest",
@@ -113,7 +113,6 @@
     "typescript": "6.0.3"
   },
   "allowScripts": {
-    "better-sqlite3@12.10.0": true,
     "esbuild@0.27.7": true,
     "esbuild@0.28.0": true,
     "sharp@0.34.5": true,
@@ -121,6 +120,7 @@
     "@parcel/watcher@2.5.6": true,
     "@sentry/cli@2.58.5": true,
     "@tsparticles/engine@3.9.1": true,
+    "better-sqlite3@12.11.1": true,
     "fsevents@2.3.3": true
   },
   "engines": {
