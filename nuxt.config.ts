@@ -259,7 +259,7 @@ export default defineNuxtConfig({
 
   // PWA Configuration
   pwa: {
-    registerType: 'autoUpdate',
+    registerType: 'prompt',
     workbox: {
       maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
       globPatterns: [
