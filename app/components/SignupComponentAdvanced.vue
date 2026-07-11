@@ -48,11 +48,13 @@ async function signUpNewUser(
         description:
           'This email is already registered. Please try logging in instead.',
         color: 'warning',
-        timeout: 5000,
+        duration: 5000,
         actions: [
           {
             label: 'Go to Login',
-            onClick: () => router.push('/login'),
+            onClick: async () => {
+              await router.push('/login')
+            },
           },
         ],
       })
@@ -77,11 +79,13 @@ async function signUpNewUser(
         description:
           'This email is already registered. Please check your email or try logging in.',
         color: 'warning',
-        timeout: 5000,
+        duration: 5000,
         actions: [
           {
             label: 'Go to Login',
-            onClick: () => router.push('/login'),
+            onClick: async () => {
+              await router.push('/login')
+            },
           },
         ],
       })
@@ -97,12 +101,6 @@ async function signUpNewUser(
   }
 }
 
-// Password strength checker
-const show = ref(false)
-const showConfirm = ref(false)
-const password = ref('')
-const confirmPassword = ref('')
-
 function checkStrength(str: string) {
   const requirements = [
     { regex: /.{8,}/, text: 'At least 8 characters' },
@@ -116,34 +114,6 @@ function checkStrength(str: string) {
     text: req.text,
   }))
 }
-
-const strength = computed(() => checkStrength(password.value))
-const score = computed(() => strength.value.filter((req) => req.met).length)
-
-const color = computed(() => {
-  if (score.value === 0) return 'neutral'
-  if (score.value <= 1) return 'error'
-  if (score.value <= 2) return 'warning'
-  if (score.value === 3) return 'warning'
-  return 'success'
-})
-
-const text = computed(() => {
-  if (score.value === 0) return 'Enter a password'
-  if (score.value <= 2) return 'Weak password'
-  if (score.value === 3) return 'Medium password'
-  return 'Strong password'
-})
-
-const passwordsMatch = computed(() => {
-  if (!confirmPassword.value) return true // Don't show error until user starts typing
-  return password.value === confirmPassword.value
-})
-
-const confirmPasswordColor = computed(() => {
-  if (!confirmPassword.value) return 'neutral'
-  return passwordsMatch.value ? 'success' : 'error'
-})
 
 const fields: AuthFormField[] = [
   {
@@ -187,6 +157,7 @@ const fields: AuthFormField[] = [
     type: 'checkbox',
   },
 ]
+void fields
 
 const schema = z.object({
   email: z.string().email('Invalid email'),
@@ -239,6 +210,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     payload.data.lastname,
   )
 }
+void onSubmit
 </script>
 
 <template>

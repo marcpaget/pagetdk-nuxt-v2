@@ -23,7 +23,6 @@ export default defineNuxtConfig({
     '@nuxt/ui', // Map modules
     '@vueuse/nuxt',
     '@nuxtjs/mdc',
-    'nuxt-toc',
     '@nuxt/content',
     '@nuxt/image',
     '@nuxtjs/supabase',
@@ -207,7 +206,13 @@ export default defineNuxtConfig({
   },
   vite: {
     optimizeDeps: {
-      include: ['workbox-window', 'web-haptics/vue'],
+      include: [
+        '@plausible-analytics/tracker',
+        '@vue/devtools-core',
+        '@vue/devtools-kit',
+        'web-haptics/vue',
+        'workbox-window',
+      ],
     },
     build: {
       chunkSizeWarningLimit: 1500, // Increased for icon/map libraries

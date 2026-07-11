@@ -4,13 +4,13 @@ const email = ref('')
 const password = ref('')
 
 const signInWithEmail = async () => {
-const { data, error } = await supabase.auth.signInWithPassword({
-  email: email.value,
-  password: password.value,
+  const { error } = await supabase.auth.signInWithPassword({
+    email: email.value,
+    password: password.value,
   })
   if (error) console.log(error)
 }
-
+void signInWithEmail
 
 // const signInWithGithub = async () => {
 // const { data, error } = await supabase.auth.signInWithPassword({
@@ -19,7 +19,6 @@ const { data, error } = await supabase.auth.signInWithPassword({
 //   })
 //   if (error) console.log(error)
 // }
-
 </script>
 
 <template>
@@ -43,7 +42,7 @@ const { data, error } = await supabase.auth.signInWithPassword({
       <UButton class="mt-3 justify-center"
         type="submit"
         variant="solid"
-        color="black"
+        color="neutral"
       >
         Sign In
       </UButton>
