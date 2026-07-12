@@ -201,6 +201,9 @@ export default defineNuxtConfig({
     endpoints: {
       restCountriesApi: {
         url: 'https://restcountries.com/',
+        headers: {
+          Authorization: `Bearer ${process.env.REST_COUNTRIES_API_TOKEN}`,
+        },
       },
     },
   },
