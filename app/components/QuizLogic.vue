@@ -1,7 +1,5 @@
 <template>
-  <UCard variant="subtle" class="max-w-m
-
-d text-center mx-auto my-8 p-4">
+  <UCard variant="subtle" class="max-w-md text-center mx-auto my-8 p-4">
     <template #header>
       <div>
         <div class="flex flex-row justify-center">
@@ -32,6 +30,7 @@ d text-center mx-auto my-8 p-4">
             >
             <div v-else class="animate-pulse bg-gray-200 h-40 w-full rounded-sm"></div>
           </template>
+          <div v-else class="bg-gray-200 h-40 w-full rounded-sm"></div>
         </figure>
     <template #footer>
           <div class="flex flex-col  w-64 gap-3 mx-auto">
@@ -89,6 +88,21 @@ export default {
     this.fetchCountries()
   },
   methods: {
+    getCountryName(country) {
+      return (
+        country?.name || country?.names?.common || country?.name?.common || ''
+      )
+    },
+    getCountryFlag(country) {
+      return (
+        country?.flag ||
+        country?.flag?.url_png ||
+        country?.flag?.url_svg ||
+        country?.flags?.png ||
+        country?.flags?.svg ||
+        ''
+      )
+    },
     handleOptionClick(option) {
       if (this.isLoading) return
 
@@ -98,24 +112,17 @@ export default {
     },
     async fetchCountries() {
       try {
-        const response = await fetch(
-          'https://restcountries.com/v3.1/all?fields=name,flags',
-          {
-            mode: 'cors',
-            headers: {
-              Accept: 'application/json',
-            },
-          },
+        const countries = await $fetch('/api/flagquiz/countries')
+
+        this.countries = countries.filter(
+          (country) =>
+            this.getCountryFlag(country) && this.getCountryName(country),
         )
 
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
+        if (this.countries.length === 0) {
+          throw new Error('No countries with flags were returned')
         }
 
-        const data = await response.json()
-        this.countries = data.filter(
-          (country) => country.flags?.png || country.flags?.svg,
-        )
         this.getRandomFlag()
       } catch (error) {
         console.error('Error fetching countries:', error)
@@ -135,8 +142,8 @@ export default {
       const randomIndex = Math.floor(Math.random() * this.countries.length)
       const country = this.countries[randomIndex]
 
-      this.currentFlag = country.flags?.png || country.flags?.svg
-      this.correctAnswer = country.name.common
+      this.currentFlag = this.getCountryFlag(country)
+      this.correctAnswer = this.getCountryName(country)
       this.options = this.getRandomOptions(this.correctAnswer)
 
       if (this.currentFlag) {
@@ -166,7 +173,7 @@ export default {
       const options = [correctAnswer]
       while (options.length < 4) {
         const randomIndex = Math.floor(Math.random() * this.countries.length)
-        const option = this.countries[randomIndex].name.common
+        const option = this.getCountryName(this.countries[randomIndex])
         if (!options.includes(option)) {
           options.push(option)
         }

@@ -4,6 +4,11 @@ import type { NavigationMenuItem } from '@nuxt/ui'
 const supabase = useSupabaseClient()
 const user = useSupabaseUser()
 const router = useRouter()
+const isHydrated = ref(false)
+
+onMounted(() => {
+  isHydrated.value = true
+})
 
 // Logout function
 // biome-ignore lint: used in template
@@ -16,26 +21,19 @@ const handleLogout = async () => {
 
 // biome-ignore lint: used in template
 const userInitials = computed(() => {
-  console.log('User object:', user.value)
-  console.log('User metadata:', user.value?.user_metadata)
-
   if (user.value?.user_metadata?.full_name) {
     const names = user.value.user_metadata.full_name.split(' ')
     const initials = names
       .map((n: string) => n.charAt(0).toUpperCase())
       .join('')
-    console.log('Computed initials:', initials)
     return initials
   }
 
   // Fallback to email if no full name
   if (user.value?.email) {
-    const emailInitial = user.value.email.charAt(0).toUpperCase()
-    console.log('Using email initial:', emailInitial)
-    return emailInitial
+    return user.value.email.charAt(0).toUpperCase()
   }
 
-  console.log('No initials available')
   return '?'
 })
 
@@ -125,7 +123,11 @@ const asNavItem = (item: unknown) => item as NavigationMenuItem
         :items="items"
       >
         <template #map="{ item }">
-          <ULink v-if="user" :to="asNavItem(item).to" class="flex items-center gap-2">
+          <ULink
+            v-if="isHydrated && user"
+            :to="asNavItem(item).to"
+            class="flex items-center gap-2"
+          >
             <UIcon :name="asNavItem(item).icon" class="size-5" />
             <div>
               <p class="font-medium">{{ asNavItem(item).label }}</p>
@@ -136,7 +138,7 @@ const asNavItem = (item: unknown) => item as NavigationMenuItem
       </UNavigationMenu>
 
       <div class="flex items-center gap-6 pl-10">
-        <div v-if="user" class="flex items-center gap-2">
+        <div v-if="isHydrated && user" class="flex items-center gap-2">
           <UTooltip text="View Profile">
             <UButton
               :label="userInitials"
@@ -154,17 +156,17 @@ const asNavItem = (item: unknown) => item as NavigationMenuItem
             Logout
           </UButton>
         </div>
-        <UButton
-          v-else
-          to="/login"
-          variant="solid"
-          size="sm"
-          icon="i-lucide-log-in"
-        >
+        <UButton v-else-if="isHydrated" to="/login" variant="solid" size="sm" icon="i-lucide-log-in">
           Login
         </UButton>
+        <div v-else class="h-8 w-20" aria-hidden="true" />
         <div class="pr-4 ml-6">
-          <UColorModeSwitch />
+          <ClientOnly>
+            <UColorModeSwitch />
+            <template #fallback>
+              <div class="size-8" aria-hidden="true" />
+            </template>
+          </ClientOnly>
         </div>
       </div>
     </div>

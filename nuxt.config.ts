@@ -87,6 +87,7 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
+    restCountriesApiToken: process.env.REST_COUNTRIES_API_TOKEN || '',
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
       supabase: {
@@ -200,7 +201,7 @@ export default defineNuxtConfig({
   apiParty: {
     endpoints: {
       restCountriesApi: {
-        url: 'https://restcountries.com/',
+        url: 'https://api.restcountries.com/',
         headers: {
           Authorization: `Bearer ${process.env.REST_COUNTRIES_API_TOKEN}`,
         },
