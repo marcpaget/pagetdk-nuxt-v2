@@ -1,33 +1,35 @@
+type RestCountry = {
+  flag?: {
+    url_png?: string
+    url_svg?: string
+  }
+  flags?: {
+    png?: string
+    svg?: string
+  }
+  name?: {
+    common?: string
+  }
+  names?: {
+    common?: string
+  }
+}
+
 type RestCountriesPage = {
   data?: {
     meta?: {
       count?: number
       more?: boolean
     }
-    objects?: Array<{
-      flag?: {
-        url_png?: string
-        url_svg?: string
-      }
-      flags?: {
-        png?: string
-        svg?: string
-      }
-      name?: {
-        common?: string
-      }
-      names?: {
-        common?: string
-      }
-    }>
+    objects?: RestCountry[]
   }
 }
 
-function getCountryName(country: RestCountriesPage['data']['objects'][number]) {
+function getCountryName(country: RestCountry) {
   return country?.names?.common || country?.name?.common || ''
 }
 
-function getCountryFlag(country: RestCountriesPage['data']['objects'][number]) {
+function getCountryFlag(country: RestCountry) {
   return (
     country?.flag?.url_png ||
     country?.flag?.url_svg ||
@@ -44,7 +46,7 @@ export default defineEventHandler(async () => {
   if (!apiToken) {
     throw createError({
       statusCode: 500,
-      statusMessage: 'REST_COUNTRIES_API_TOKEN is not configured.',
+      statusMessage: 'NUXT_REST_COUNTRIES_API_TOKEN is not configured.',
     })
   }
 

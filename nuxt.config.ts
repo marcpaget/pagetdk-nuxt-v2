@@ -87,7 +87,7 @@ export default defineNuxtConfig({
     },
   },
   runtimeConfig: {
-    restCountriesApiToken: process.env.REST_COUNTRIES_API_TOKEN || '',
+    restCountriesApiToken: '',
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
       supabase: {
