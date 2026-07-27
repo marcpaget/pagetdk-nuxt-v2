@@ -53,7 +53,7 @@ import { useWebHaptics } from 'web-haptics/vue'
 // Lav time-attack mode med https://nuxt.com/docs/4.x/api/components/nuxt-time
 export default {
   setup() {
-    const { trigger } = useWebHaptics({ debug: true })
+    const { trigger } = useWebHaptics()
 
     const triggerHaptics = (type = 'light') => {
       trigger(type)

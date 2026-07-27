@@ -3,6 +3,5 @@
     <NuxtLoadingIndicator />
     <NuxtuiNavBar />
     <NuxtPage />
-    <PwaUpdatePrompt />
   </UApp>
 </template>
