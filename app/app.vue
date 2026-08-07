@@ -2,6 +2,10 @@
   <UApp>
     <NuxtLoadingIndicator />
     <NuxtuiNavBar />
-    <NuxtPage />
+    <NuxtPage  :transition="{
+          name: 'bounce',
+          mode: 'out-in',
+        }"
+        />
   </UApp>
 </template>

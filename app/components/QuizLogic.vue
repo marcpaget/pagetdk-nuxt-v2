@@ -34,57 +34,28 @@
         </figure>
     <template #footer>
           <div class="flex flex-col  w-64 gap-3 mx-auto">
-            <div
+            <UButton
               v-for="(option, index) in options"
               :key="index"
-              class="relative overflow-hidden rounded-md"
+              class="btn btn-primary  justify-center"
+              :disabled="isLoading"
+              @click="handleOptionClick(option)"
             >
-              <UButton
-                block
-                class="btn btn-primary justify-center"
-                :disabled="isLoading"
-                @click="handleOptionClick(option)"
-              >
-                {{ option }}
-              </UButton>
-              <input
-                v-if="usesDirectIosHaptics"
-                type="checkbox"
-                switch
-                tabindex="-1"
-                aria-hidden="true"
-                :disabled="isLoading"
-                class="absolute inset-0 z-10 size-full cursor-pointer appearance-auto opacity-0"
-                @change="handleOptionClick(option, true)"
-              >
-            </div>
+              {{ option }}
+            </UButton>
           </div>
     </template>
   </UCard>
 </template>
 
   <script>
-import { onMounted, ref } from 'vue'
 import { useWebHaptics } from 'web-haptics/vue'
 // Lav time-attack mode med https://nuxt.com/docs/4.x/api/components/nuxt-time
 export default {
   setup() {
     const { trigger } = useWebHaptics()
-    const usesDirectIosHaptics = ref(false)
 
-    const triggerHaptics = async (type = 'light') => {
-      await trigger(type)
-    }
-
-    onMounted(() => {
-      const isIosDevice =
-        /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
-
-      usesDirectIosHaptics.value = isIosDevice
-    })
-
-    return { triggerHaptics, usesDirectIosHaptics }
+    return { trigger }
   },
   props: {
     numberOfQuestions: {
@@ -128,13 +99,11 @@ export default {
         ''
       )
     },
-    handleOptionClick(option, hapticAlreadyTriggered = false) {
+    handleOptionClick(option) {
       if (this.isLoading) return
 
       const isCorrect = option === this.correctAnswer
-      if (!hapticAlreadyTriggered) {
-        this.triggerHaptics(isCorrect ? 'medium' : 'heavy')
-      }
+      this.trigger(isCorrect ? 'success' : 'error')
       this.checkAnswer(option)
     },
     async fetchCountries() {
