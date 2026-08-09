@@ -55,7 +55,28 @@ export default {
   setup() {
     const { trigger } = useWebHaptics()
 
-    return { trigger }
+    const triggerHaptics = async (type = 'light') => {
+      try {
+        if (typeof trigger === 'function') {
+          await trigger(type)
+        }
+      } catch (error) {
+        console.warn('WebHaptics trigger failed:', error)
+      }
+
+      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+        const pattern =
+          type === 'success'
+            ? [40, 40, 40]
+            : type === 'error'
+              ? [80, 40, 80]
+              : [20]
+
+        navigator.vibrate(pattern)
+      }
+    }
+
+    return { triggerHaptics }
   },
   props: {
     numberOfQuestions: {
@@ -103,7 +124,7 @@ export default {
       if (this.isLoading) return
 
       const isCorrect = option === this.correctAnswer
-      this.trigger(isCorrect ? 'success' : 'error')
+      this.triggerHaptics(isCorrect ? 'success' : 'error')
       this.checkAnswer(option)
     },
     async fetchCountries() {
