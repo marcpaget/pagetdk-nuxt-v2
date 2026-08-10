@@ -34,15 +34,29 @@
         </figure>
     <template #footer>
           <div class="flex flex-col  w-64 gap-3 mx-auto">
-            <UButton
+            <div
               v-for="(option, index) in options"
               :key="index"
-              class="btn btn-primary  justify-center"
-              :disabled="isLoading"
-              @click="handleOptionClick(option)"
+              class="relative overflow-hidden rounded-md"
             >
-              {{ option }}
-            </UButton>
+              <UButton
+                block
+                class="btn btn-primary justify-center"
+                :disabled="isLoading"
+                @click="handleOptionClick(option)"
+              >
+                {{ option }}
+              </UButton>
+              <input
+                type="checkbox"
+                switch
+                tabindex="-1"
+                aria-hidden="true"
+                :disabled="isLoading"
+                class="ios-haptic-switch"
+                @change="handleOptionClick(option, true)"
+              >
+            </div>
           </div>
     </template>
   </UCard>
@@ -62,17 +76,6 @@ export default {
         }
       } catch (error) {
         console.warn('WebHaptics trigger failed:', error)
-      }
-
-      if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
-        const pattern =
-          type === 'success'
-            ? [40, 40, 40]
-            : type === 'error'
-              ? [80, 40, 80]
-              : [20]
-
-        navigator.vibrate(pattern)
       }
     }
 
@@ -120,11 +123,13 @@ export default {
         ''
       )
     },
-    handleOptionClick(option) {
+    handleOptionClick(option, hapticAlreadyTriggered = false) {
       if (this.isLoading) return
 
       const isCorrect = option === this.correctAnswer
-      this.triggerHaptics(isCorrect ? 'success' : 'error')
+      if (!hapticAlreadyTriggered) {
+        this.triggerHaptics(isCorrect ? 'success' : 'error')
+      }
       this.checkAnswer(option)
     },
     async fetchCountries() {
@@ -221,3 +226,29 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.ios-haptic-switch {
+  display: none;
+}
+
+@supports (-webkit-touch-callout: none) {
+  @media (hover: none) and (pointer: coarse) {
+    .ios-haptic-switch {
+      position: absolute;
+      inset: 0;
+      z-index: 10;
+      display: block;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      appearance: auto;
+      cursor: pointer;
+      opacity: 0;
+      clip-path: inset(0 round 999px);
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+  }
+}
+</style>
