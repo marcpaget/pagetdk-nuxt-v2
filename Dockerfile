@@ -11,9 +11,12 @@ COPY package.json package-lock.json .npmrc ./
 
 RUN npm ci --include=dev
 # The v13 linux-arm64 prebuild requires glibc 2.38, while Bookworm ships 2.36.
-# Remove it before rebuilding so better-sqlite3 loads the Bookworm-compatible addon.
-RUN rm node_modules/better-sqlite3/prebuilds/linux-arm64.node \
-  && npm rebuild better-sqlite3 --build-from-source
+# v13 has no install hook, so npm rebuild does not compile the native addon.
+# Invoke node-gyp explicitly, then verify the binding before building Nuxt Content.
+RUN rm -f node_modules/better-sqlite3/prebuilds/linux-arm64.node \
+  && npm exec --yes --package=node-gyp@10.3.1 -- \
+    node-gyp rebuild --directory=node_modules/better-sqlite3 --release --force_build=1 \
+  && node -e "const Database = require('better-sqlite3'); new Database(':memory:').close()"
 
 COPY . .
 
