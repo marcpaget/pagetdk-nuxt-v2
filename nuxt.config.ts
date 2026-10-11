@@ -88,6 +88,7 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     restCountriesApiToken: process.env.REST_COUNTRIES_API_TOKEN || '',
+    tmdbToken: process.env.TMDB_TOKEN,
     public: {
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || '',
       supabase: {
@@ -121,6 +122,7 @@ export default defineNuxtConfig({
         },
         { name: 'theme-color', content: '#ffffff' },
         { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'mobile-web-app-capable', content: 'yes' },
         { name: 'apple-mobile-web-app-status-bar-style', content: 'default' },
         { name: 'apple-mobile-web-app-title', content: 'Paget' },
       ],
@@ -212,8 +214,6 @@ export default defineNuxtConfig({
     optimizeDeps: {
       include: [
         '@plausible-analytics/tracker',
-        '@vue/devtools-core',
-        '@vue/devtools-kit',
         'web-haptics/vue',
         'workbox-window',
       ],
@@ -248,11 +248,8 @@ export default defineNuxtConfig({
     errorHandler(error) {
       console.warn('[Sentry sourcemaps]', error.message)
     },
-    sourceMapsUploadOptions: {
-      org: 'marc-paget',
-      project: 'pagetdk-nuxtui',
-    },
-    autoInjectServerSentry: 'top-level-import',
+    org: 'marc-paget',
+    project: 'pagetdk-nuxtui',
   },
 
   content: {

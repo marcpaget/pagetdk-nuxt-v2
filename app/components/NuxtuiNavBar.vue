@@ -109,14 +109,12 @@ const asNavItem = (item: unknown) => item as NavigationMenuItem
 </script>
 
 <template>
-  <UHeader class="w-full px-8">
+  <UHeader class="w-full">
     <template #title>
-      <h1 class="h-6 w-auto logo mr-10">Paget.dk</h1>
+      <h1 class="h-6 w-auto logo">Paget.dk</h1>
     </template>
 
-    <div class="flex w-full items-center gap-14">
       <UNavigationMenu
-        class="flex-1 mx-10"
         highlight
         highlight-color="primary"
         content-orientation="vertical"
@@ -137,7 +135,8 @@ const asNavItem = (item: unknown) => item as NavigationMenuItem
         </template>
       </UNavigationMenu>
 
-      <div class="flex items-center gap-6 pl-10">
+    <template #right>
+      <div class="flex items-center gap-2">
         <div v-if="isHydrated && user" class="flex items-center gap-2">
           <UTooltip text="View Profile">
             <UButton
@@ -156,19 +155,31 @@ const asNavItem = (item: unknown) => item as NavigationMenuItem
             Logout
           </UButton>
         </div>
-        <UButton v-else-if="isHydrated" to="/login" variant="solid" size="sm" icon="i-lucide-log-in">
+        <UButton v-else to="/login" variant="solid" size="sm" icon="i-lucide-log-in">
           Login
         </UButton>
-        <div v-else class="h-8 w-20" aria-hidden="true" />
-        <div class="pr-4 ml-6">
-          <ClientOnly>
-            <UColorModeSwitch />
-            <template #fallback>
-              <div class="size-8" aria-hidden="true" />
-            </template>
-          </ClientOnly>
+        <div class="flex items-center">
+          <UColorModeSwitch />
         </div>
       </div>
-    </div>
+    </template>
+
+    <template #body>
+      <UNavigationMenu :items="items" orientation="vertical" class="-mx-2.5">
+        <template #map="{ item }">
+          <ULink
+            v-if="isHydrated && user"
+            :to="asNavItem(item).to"
+            class="flex items-center gap-2"
+          >
+            <UIcon :name="asNavItem(item).icon" class="size-5" />
+            <div>
+              <p class="font-medium">{{ asNavItem(item).label }}</p>
+              <p class="text-sm text-muted">{{ asNavItem(item).description }}</p>
+            </div>
+          </ULink>
+        </template>
+      </UNavigationMenu>
+    </template>
   </UHeader>
 </template>

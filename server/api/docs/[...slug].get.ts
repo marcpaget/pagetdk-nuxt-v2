@@ -4,5 +4,9 @@ export default defineEventHandler(async (event) => {
   const slug = getRouterParam(event, 'slug') || ''
   const path = `/${slug}`
 
-  return queryCollection(event, 'content').path(path).first()
+  const page = await queryCollection(event, 'content').path(path).first()
+  if (!page) {
+    throw createError({ statusCode: 404, statusMessage: 'Page not found' })
+  }
+  return page
 })

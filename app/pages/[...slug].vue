@@ -4,17 +4,16 @@ const route = useRoute()
 const { data: page } = await useFetch(`/api/docs${route.path}`, {
   key: route.path,
 })
-const { data: surround } = await useAsyncData(`${route.path}:surround`, () =>
-  queryCollectionItemSurroundings('content', route.path),
-)
-void surround
 if (!page.value) {
   throw createError({
     statusCode: 404,
     statusMessage: 'Page not found',
-    fatal: true,
   })
 }
+const { data: surround } = await useAsyncData(`${route.path}:surround`, () =>
+  queryCollectionItemSurroundings('content', route.path),
+)
+void surround
 </script>
 
 <template>

@@ -6,7 +6,7 @@ useSeoMeta({
 </script>
 
 <template>
-
+  <main>
     <!-- Features Section -->
     <div class="min-h-screen py-3 bg-base-200 flex items-center">
       <div class="container mx-auto px-4">
@@ -74,4 +74,5 @@ useSeoMeta({
       </div>
     </div>
 
+  </main>
 </template>
