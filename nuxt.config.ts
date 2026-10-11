@@ -267,6 +267,8 @@ export default defineNuxtConfig({
   pwa: {
     registerType: 'prompt',
     workbox: {
+      // SSR pages are served by Nitro, not included in the precache manifest.
+      navigateFallback: null,
       maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
       globPatterns: [
         '**/*.{js,css,html,png,svg,ico,woff2}',
