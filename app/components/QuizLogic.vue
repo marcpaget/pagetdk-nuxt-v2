@@ -1,5 +1,5 @@
 <template>
-  <UCard variant="subtle" class="max-w-md text-center mx-auto my-8 p-4">
+  <UCard variant="subtle" class="max-w-md min-h-[38rem] text-center mx-auto my-8 p-4">
     <template #header>
       <div>
         <div class="flex flex-row justify-center">
@@ -19,23 +19,30 @@
       </div>
     </template>
 
-        <figure class="w-64 mx-auto">
+        <figure class="w-64 max-w-full mx-auto">
           <template v-if="isMounted">
             <img
               v-if="currentFlag"
               :src="currentFlag"
               :alt="'Flag of ' + correctAnswer"
               class="rounded-sm w-full h-40 object-cover"
-              @error="handleImageError"
             >
             <div v-else class="animate-pulse bg-gray-200 h-40 w-full rounded-sm"></div>
           </template>
           <div v-else class="bg-gray-200 h-40 w-full rounded-sm"></div>
         </figure>
     <template #footer>
-          <div class="flex flex-col  w-64 gap-3 mx-auto">
+          <div class="flex flex-col w-64 max-w-full min-h-60 gap-3 mx-auto" :aria-busy="isLoading">
+            <div v-if="loadError" role="alert" class="text-error">
+              <p>{{ loadError }}</p>
+              <UButton class="mt-3" @click="fetchCountries">Try again</UButton>
+            </div>
+            <template v-else-if="!options.length">
+              <span class="sr-only" role="status">Loading quiz…</span>
+              <div v-for="n in 4" :key="n" class="h-12 rounded-md bg-muted animate-pulse" />
+            </template>
             <div
-              v-for="(option, index) in options"
+              v-for="(option, index) in (loadError ? [] : options)"
               :key="index"
               class="relative overflow-hidden rounded-md"
             >
@@ -101,28 +108,20 @@ export default {
       isMounted: false,
       retryCount: 0,
       maxRetries: 3,
+      loadError: '',
+      loadVersion: 0,
+      cancelImageLoad: null,
     }
   },
   mounted() {
     this.isMounted = true
     this.fetchCountries()
   },
+  beforeUnmount() {
+    this.loadVersion++
+    this.cancelImageLoad?.()
+  },
   methods: {
-    getCountryName(country) {
-      return (
-        country?.name || country?.names?.common || country?.name?.common || ''
-      )
-    },
-    getCountryFlag(country) {
-      return (
-        country?.flag ||
-        country?.flag?.url_png ||
-        country?.flag?.url_svg ||
-        country?.flags?.png ||
-        country?.flags?.svg ||
-        ''
-      )
-    },
     handleOptionClick(option, hapticAlreadyTriggered = false) {
       if (this.isLoading) return
 
@@ -133,74 +132,103 @@ export default {
       this.checkAnswer(option)
     },
     async fetchCountries() {
+      const version = ++this.loadVersion
+      this.cancelImageLoad?.()
+      this.isLoading = true
+      this.loadError = ''
+      this.options = []
+      this.currentFlag = ''
       try {
-        const countries = await $fetch('/api/flagquiz/countries')
-
-        this.countries = countries.filter(
-          (country) =>
-            this.getCountryFlag(country) && this.getCountryName(country),
-        )
-
-        if (this.countries.length === 0) {
-          throw new Error('No countries with flags were returned')
+        const countries = await $fetch('/api/flagquiz/countries', {
+          timeout: 20000,
+          retry: 1,
+          retryDelay: 500,
+        })
+        if (version !== this.loadVersion) return
+        this.countries = [
+          ...new Map(
+            countries
+              .filter(
+                (country) =>
+                  typeof country.name === 'string' &&
+                  country.name &&
+                  typeof country.flag === 'string' &&
+                  country.flag,
+              )
+              .map((country) => [country.name, country]),
+          ).values(),
+        ]
+        if (this.countries.length < 4) {
+          throw new Error('Not enough countries with flags were returned')
         }
-
-        this.getRandomFlag()
+        await this.getRandomFlag()
       } catch (error) {
-        console.error('Error fetching countries:', error)
+        if (version !== this.loadVersion) return
+        this.loadError = 'Could not load the quiz. Please try again.'
         this.isLoading = false
       }
+    },
+    loadFlagImage(url) {
+      return new Promise((resolve, reject) => {
+        const image = new Image()
+        const finish = (error) => {
+          clearTimeout(timer)
+          image.onload = null
+          image.onerror = null
+          this.cancelImageLoad = null
+          error ? reject(error) : resolve()
+        }
+        const timer = setTimeout(
+          () => finish(new Error('Flag image timed out')),
+          10000,
+        )
+        this.cancelImageLoad = () => finish(new Error('Flag load cancelled'))
+        image.onload = () => finish()
+        image.onerror = () => finish(new Error('Flag image failed'))
+        image.src = url
+      })
     },
     async getRandomFlag() {
+      const version = ++this.loadVersion
+      this.cancelImageLoad?.()
       this.isLoading = true
+      this.loadError = ''
       this.retryCount = 0
-
-      if (!this.countries || this.countries.length === 0) {
-        console.error('Countries array is empty or not defined')
-        this.isLoading = false
-        return
-      }
-
-      const randomIndex = Math.floor(Math.random() * this.countries.length)
-      const country = this.countries[randomIndex]
-
-      this.currentFlag = this.getCountryFlag(country)
-      this.correctAnswer = this.getCountryName(country)
-      this.options = this.getRandomOptions(this.correctAnswer)
-
-      if (this.currentFlag) {
-        const img = new Image()
-        img.onload = () => {
+      this.currentFlag = ''
+      const candidates = [...this.countries]
+      while (this.retryCount <= this.maxRetries && candidates.length) {
+        const index = Math.floor(Math.random() * candidates.length)
+        const [country] = candidates.splice(index, 1)
+        try {
+          await this.loadFlagImage(country.flag)
+          if (version !== this.loadVersion) return
+          this.currentFlag = country.flag
+          this.correctAnswer = country.name
+          this.options = this.getRandomOptions(country.name)
           this.isLoading = false
+          return
+        } catch {
+          if (version !== this.loadVersion) return
+          this.retryCount++
         }
-        img.onerror = () => {
-          this.handleImageError()
-        }
-        img.src = this.currentFlag
-      } else {
-        this.isLoading = false
       }
-    },
-    handleImageError() {
-      if (this.retryCount < this.maxRetries) {
-        this.retryCount++
-        console.log(`Retrying flag load (attempt ${this.retryCount})...`)
-        this.getRandomFlag()
-      } else {
-        console.error('Failed to load flag after maximum retries')
-        this.isLoading = false
-      }
+      this.loadError = 'Could not load a flag. Please try again.'
+      this.isLoading = false
     },
     getRandomOptions(correctAnswer) {
-      const options = [correctAnswer]
-      while (options.length < 4) {
-        const randomIndex = Math.floor(Math.random() * this.countries.length)
-        const option = this.getCountryName(this.countries[randomIndex])
-        if (!options.includes(option)) {
-          options.push(option)
-        }
+      const others = this.countries
+        .map((country) => country.name)
+        .filter((name) => name !== correctAnswer)
+      for (let i = others.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[others[i], others[j]] = [others[j], others[i]]
       }
-      return options.sort(() => Math.random() - 0.5)
+      const options = [correctAnswer, ...others.slice(0, 3)]
+      for (let i = options.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[options[i], options[j]] = [options[j], options[i]]
+      }
+      return options
     },
     async checkAnswer(option) {
       if (this.isLoading) return
