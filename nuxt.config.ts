@@ -28,13 +28,11 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     'nuxt-api-party',
     'nuxt-umami',
-    'nuxt-mapbox', // 'nuxt-particles',
     '@nuxtjs/leaflet',
     // '@nuxt/scripts',
     '@compodium/nuxt',
     '@vercel/speed-insights/nuxt',
     '@sentry/nuxt/module', // PWA should be last to wrap everything
-    'nuxt-maplibre',
     '@nuxtjs/partytown',
     '@nuxtjs/plausible',
     '@vite-pwa/nuxt',
@@ -98,11 +96,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: [
-    '~/assets/css/main.css',
-    '~/tailwind.css',
-    'maplibre-gl/dist/maplibre-gl.css',
-  ],
+  css: ['~/assets/css/main.css', '~/tailwind.css'],
 
   app: {
     head: {
@@ -143,10 +137,6 @@ export default defineNuxtConfig({
       ],
     },
   },
-  mapbox: {
-    accessToken: process.env.MAPBOX_API_KEY,
-  },
-
   umami: {
     id: process.env.UMAMI_ID,
     host: process.env.UMAMI_HOST,
