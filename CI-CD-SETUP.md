@@ -122,6 +122,20 @@ export default defineNuxtConfig({
 
 ## 6. Environment variables for your Nuxt app
 
+Create these **repository secrets** under GitHub **Settings → Secrets and variables → Actions → Secrets**:
+
+- `NUXT_PUBLIC_SUPABASE_URL`
+- `NUXT_PUBLIC_SUPABASE_KEY` (publishable or legacy anon key, never a service-role/secret key)
+- `UMAMI_ID`
+- `UMAMI_HOST` (analytics origin, without `/script.js`)
+
+The checks, E2E, and image-build jobs read these secrets. Docker receives them through BuildKit secret mounts during `npm run build`. The build stage bypasses its cache so changing a secret also updates compiled configuration. These are browser-facing configuration values; using GitHub Secrets does not make them private in the compiled app.
+
+Repository secrets are not supplied to pull requests from forks or Dependabot. Environment-only secrets are not available to these jobs, which do not select a GitHub environment.
+
+Umami configuration is compiled into the image; update the secrets and rebuild to change it. Supply the two Supabase variables in Dokploy as well for runtime configuration.
+
+
 Set runtime secrets in Dokploy's **Environment** panel (not in `.env` files committed to git). Use `NUXT_` prefix for Nuxt runtime config:
 
 ```

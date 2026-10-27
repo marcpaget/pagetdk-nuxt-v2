@@ -74,7 +74,7 @@
     "playwright": "^1.64.1",
     "playwright-core": "^1.64.1",
     "tsx": "^4.23.15",
-    "typescript": "7.0.2",
+    "typescript": "6.0.2",
     "vitest": "^5.0.5",
     "vue-tsc": "^3.3.13"
   },
@@ -119,7 +119,7 @@
   },
   "overrides": {
     "@vercel/nft": "^0.27.4",
-    "typescript": "7.0.2"
+    "typescript": "6.0.2"
   },
   "allowScripts": {
     "sharp@0.34.5": true,

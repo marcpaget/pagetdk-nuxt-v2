@@ -1,3 +1,4 @@
+# syntax=docker/dockerfile:1
 FROM node:22-bookworm-slim AS build
 
 WORKDIR /app
@@ -23,7 +24,11 @@ COPY . .
 ENV NODE_ENV=production
 ENV NITRO_HOST=0.0.0.0
 
-RUN npm run build
+RUN --mount=type=secret,id=NUXT_PUBLIC_SUPABASE_URL,env=NUXT_PUBLIC_SUPABASE_URL \
+    --mount=type=secret,id=NUXT_PUBLIC_SUPABASE_KEY,env=NUXT_PUBLIC_SUPABASE_KEY \
+    --mount=type=secret,id=UMAMI_ID,env=UMAMI_ID \
+    --mount=type=secret,id=UMAMI_HOST,env=UMAMI_HOST \
+    npm run build
 RUN npm prune --omit=dev
 RUN node -e "const Database = require('better-sqlite3'); new Database(':memory:').close()"
 
