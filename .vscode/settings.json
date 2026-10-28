@@ -1,3 +1,23 @@
 {
-    "nuxt.isNuxtApp": false
+  "editor.defaultFormatter": "biomejs.biome",
+  "editor.formatOnSave": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": "on"
+  },
+  "tailwindCSS.classAttributes": ["class", "ui"],
+  "tailwindCSS.experimental.classRegex": [
+    ["ui:\\s*{([^)]*)\\s*}", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  "editor.codeActionsOnSave": {
+    "source.action.useSortedKeys.biome": "never",
+    "source.fixAll.biome": "explicit",
+    "source.organizeImports.biome": "always",
+    "source.sortImports.biome": "always"
+  },
+  "githubPullRequests.codingAgent.uiIntegration": true,
+  "idf.pythonInstallPath": "/Users/marcpaget/miniconda3/bin/python",
+  "editor.minimap.enabled": false
 }

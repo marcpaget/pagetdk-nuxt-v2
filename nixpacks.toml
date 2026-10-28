@@ -1,0 +1,24 @@
+# Legacy fallback for source builds.
+# Preferred production deploy path is the GHCR Docker image built in GitHub Actions.
+# Keep the install command explicit so Nuxt and its build-time modules are
+# available even when the platform sets NODE_ENV=production.
+
+providers = ["node"]
+
+[phases.setup]
+nixPkgs = ["nodejs_22", "python3", "gcc", "gnumake", "pkg-config"]
+
+[phases.install]
+cmds = ["npm ci --include=dev"]
+
+[phases.build]
+cmds = ["npm run build"]
+
+[start]
+cmd = "npm run start"
+
+[variables]
+NODE_ENV = "production"
+NITRO_HOST = "0.0.0.0"
+PYTHON = "python3"
+NPM_CONFIG_PYTHON = "python3"
