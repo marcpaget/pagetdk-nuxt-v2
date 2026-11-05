@@ -207,3 +207,29 @@ node_modules
 .ionide
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,nuxtjs,macos,jetbrains
+# Local Netlify folder
+.netlify
+.vscode/settings.json
+
+
+# Sentry Config File
+.env.sentry-build-plugin
+
+.vercel
+
+#.github
+.vscode/settings.json
+.env.example
+.env*.local
+.github/copilot-instructions.md
+
+/app/generated/prisma
+
+/lib/generated/prisma
+
+/lib/generated/prisma
+
+#AI
+.agents
+.claude
+skills-lock.json
