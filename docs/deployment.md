@@ -83,15 +83,13 @@ Sæt følgende secrets **separat i hvert GitHub environment**:
 
 | Secret | Værdi |
 | --- | --- |
-| `DOKPLOY_ENV_API_URL` | `https://<dokploy-host>/api/application.deploy` |
-| `DOKPLOY_ENV_API_TOKEN` | Dokploy API-token |
-| `DOKPLOY_ENV_APPLICATION_ID` | ID for netop dette environments application |
+| `DOKPLOY_API_URL` | `https://<dokploy-host>/api/application.deploy` |
+| `DOKPLOY_API_TOKEN` | Dokploy API-token |
+| `DOKPLOY_APPLICATION_ID` | ID for netop dette environments application |
 
 API-metoden er bevaret fra den eksisterende integration i stedet for det
 valgfrie `DOKPLOY_WEBHOOK`. Den virker med direkte Auto Deploy deaktiveret.
-De nye `DOKPLOY_ENV_*` navne undgår fallback til de eksisterende
-`DOKPLOY_API_*`/`DOKPLOY_APPLICATION_ID` production-secrets på repository-niveau.
-Opret kun de nye navne i environments, aldrig som repository-secrets.
+Opret secrets separat i hvert GitHub environment, aldrig som repository-secrets.
 
 Et grønt deployment-job betyder, at Dokploy accepterede anmodningen. Følg
 selve image-pull/deployment i Dokploy og test sitet. Dokploy bruger det valgte
