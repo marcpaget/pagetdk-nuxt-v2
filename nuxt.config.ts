@@ -39,6 +39,8 @@ export default defineNuxtConfig({
     'nuxt-studio',
     '@nuxt/test-utils/module',
     '@nuxt/devtools',
+    '@nuxt/hints',
+    '@nuxt/fonts',
   ],
   plausible: {
     apiHost: 'https://plausible.deploycentral.xyz',
