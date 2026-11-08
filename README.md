@@ -74,3 +74,7 @@ bun run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 # pagetdk-nuxt-v2
+
+## Branches og deployment
+
+Se [staging/production-flowet](docs/deployment.md) for PR-regler, releases og Dokploy-opsætning.

@@ -1,3 +1,0 @@
-<template>
-<CloudinaryGallery />
-</template>

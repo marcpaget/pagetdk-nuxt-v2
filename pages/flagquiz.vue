@@ -1,3 +1,0 @@
-<template>
-    <LazyQuizLogic />
-</template>
