@@ -133,13 +133,13 @@ jobs:
     steps:
       - name: Trigger Dokploy deployment
         env:
-          DOKPLOY_API_URL: ${{ secrets.DOKPLOY_ENV_API_URL }}
-          DOKPLOY_API_TOKEN: ${{ secrets.DOKPLOY_ENV_API_TOKEN }}
-          DOKPLOY_APPLICATION_ID: ${{ secrets.DOKPLOY_ENV_APPLICATION_ID }}
+          DOKPLOY_API_URL: ${{ secrets.DOKPLOY_API_URL }}
+          DOKPLOY_API_TOKEN: ${{ secrets.DOKPLOY_API_TOKEN }}
+          DOKPLOY_APPLICATION_ID: ${{ secrets.DOKPLOY_APPLICATION_ID }}
         run: |
-          : "${DOKPLOY_API_URL:?Set DOKPLOY_ENV_API_URL in this GitHub environment}"
-          : "${DOKPLOY_API_TOKEN:?Set DOKPLOY_ENV_API_TOKEN in this GitHub environment}"
-          : "${DOKPLOY_APPLICATION_ID:?Set DOKPLOY_ENV_APPLICATION_ID in this GitHub environment}"
+          : "${DOKPLOY_API_URL:?Set DOKPLOY_API_URL in this GitHub environment}"
+          : "${DOKPLOY_API_TOKEN:?Set DOKPLOY_API_TOKEN in this GitHub environment}"
+          : "${DOKPLOY_APPLICATION_ID:?Set DOKPLOY_APPLICATION_ID in this GitHub environment}"
           payload=$(jq -n --arg id "$DOKPLOY_APPLICATION_ID" '{applicationId: $id}')
           status=$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
             --connect-timeout 10 --max-time 60 \
